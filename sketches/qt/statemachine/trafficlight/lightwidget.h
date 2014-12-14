@@ -10,7 +10,8 @@ class LightWidget : public QWidget
     Q_PROPERTY(bool on READ isOn WRITE setOn)
 public:
     LightWidget(const QColor& color, QWidget* parent=0)
-        : QWidget(parent), m_color(color), m_on(false) {}
+        : QWidget(parent), m_color(color), m_on(false)
+    {}
 
     bool isOn() const { return m_on; }
     void setOn(bool on)
@@ -25,14 +26,7 @@ public slots:
     void turnOn() { setOn(true); }
 
 protected:
-    virtual void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE
-    {
-        if(!m_on) return;
-        QPainter painter(this);
-        painter.setRenderHint(QPainter::Antialiasing);
-        painter.setBrush(m_color);
-        painter.drawEllipse(0, 0, width(), height());
-    }
+    virtual void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
 private:
     QColor m_color;
     bool m_on;

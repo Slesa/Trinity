@@ -6,7 +6,7 @@
 class TrafficLight : public QWidget
 {
 public:
-    explicit TrafficLight(QWidget *parent = 0);
+    TrafficLight(QWidget *parent = 0);
 };
 
 #endif // TRAFFICLIGHT_H

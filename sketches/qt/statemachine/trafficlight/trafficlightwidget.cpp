@@ -1,7 +1,8 @@
 #include "trafficlightwidget.h"
 #include <QVBoxLayout>
 
-TrafficLightWidget::TrafficLightWidget(QWidget *parent) : QWidget(parent)
+TrafficLightWidget::TrafficLightWidget(QWidget *parent)
+    : QWidget(parent)
 {
         QVBoxLayout* vbox = new QVBoxLayout(this);
         m_red = new LightWidget(Qt::red);
