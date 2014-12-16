@@ -39,7 +39,7 @@ TrafficLight::TrafficLight(QWidget* parent)
 
     QState* yellowGoingGreen = createLightState(widget->yellowLight(), 1000);
     yellowGoingGreen->setObjectName("yellowGoingGreen");
-    yellowGoingGreen->addTransition(redGoingYellow, SIGNAL(finished()), yellowGoingGreen);
+    redGoingYellow->addTransition(redGoingYellow, SIGNAL(finished()), yellowGoingGreen);
 
     QState* greenGoingYellow = createLightState(widget->greenLight(), 3000);
     greenGoingYellow->setObjectName("greenGoingYellow");
