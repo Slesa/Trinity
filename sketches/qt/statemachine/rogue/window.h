@@ -3,16 +3,43 @@
 
 #include <QWidget>
 
+QT_BEGIN_NAMESPACE
+class QState;
+class QStateMachine;
+class QTransition;
+QT_END_NAMESPACE
+
+#define WIDTH 35
+#define HEIGHT 20
+
 class Window : public QWidget
 {
     Q_OBJECT
+    Q_PROPERTY(QString status READ status WRITE setStatus)
+
 public:
-    explicit Window(QWidget *parent = 0);
+    enum Direction { Up, Down, Left, Right };
 
-signals:
+    Window();
 
-public slots:
+    void movePlayer(Direction direction);
+    void setStatus(const QString& status);
+    QString status() const;
 
+    QSize sizeHint() const Q_DECL_OVERRIDE;
+
+protected:
+    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+
+private:
+    void buildMachine();
+    void setupMap();
+
+    QChar map[WIDTH][HEIGHT];
+    int pX, pY;
+
+    QStateMachine* machine;
+    QString myStatus;
 };
 
 #endif // WINDOW_H

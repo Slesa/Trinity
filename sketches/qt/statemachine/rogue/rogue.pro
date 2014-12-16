@@ -12,7 +12,9 @@ TARGET = rogue
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        mainwindow.cpp
+SOURCES += main.cpp \
+    window.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += \
+    window.h \
+    movementtransition.h
