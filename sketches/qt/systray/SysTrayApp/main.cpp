@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
 {
     Q_INIT_RESOURCE(systray);
 
-    QApplication a(argc, argv);
+    QApplication app(argc, argv);
 
     if(!QSystemTrayIcon::isSystemTrayAvailable()) {
         QMessageBox::critical(0, QObject::tr("SysTray"), QObject::tr("I couldn't detect any system tray on this system."));
@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 
     QApplication::setQuitOnLastWindowClosed(false);
 
-    Window w;
-    w.show();
-    return a.exec();
+    Window window;
+    window.show();
+    return app.exec();
 }

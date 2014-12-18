@@ -26,7 +26,7 @@ Window::Window()
     iconComboBox->setCurrentIndex(1);
     trayIcon->show();
 
-    setWindowTitle("SysTray");
+    setWindowTitle(tr("SysTray"));
     resize(400, 300);
 }
 
@@ -34,7 +34,7 @@ void Window::setVisible(bool visible)
 {
     minimizeAction->setEnabled(visible);
     maximizeAction->setEnabled(!isMaximized());
-    restoreAction->setEnabled(isMaximized()|| !visible);
+    restoreAction->setEnabled(isMaximized() || !visible);
     QDialog::setVisible(visible);
 }
 
@@ -66,7 +66,7 @@ void Window::iconActivated(QSystemTrayIcon::ActivationReason reason)
     {
     case QSystemTrayIcon::Trigger:
     case QSystemTrayIcon::DoubleClick:
-        iconComboBox->setCurrentIndex((iconComboBox->currentIndex()+1)%iconComboBox->count());
+        iconComboBox->setCurrentIndex((iconComboBox->currentIndex() + 1) % iconComboBox->count());
         break;
     case QSystemTrayIcon::MiddleClick:
         showMessage();
@@ -78,6 +78,7 @@ void Window::iconActivated(QSystemTrayIcon::ActivationReason reason)
 
 void Window::showMessage()
 {
+    showIconCheckBox->setChecked(true);
     QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::MessageIcon(
                 typeComboBox->itemData(typeComboBox->currentIndex()).toInt());
     trayIcon->showMessage(titleEdit->text(), bodyEdit->toPlainText(), icon, durationSpinBox->value()*1000);
@@ -95,9 +96,9 @@ void Window::createIconGroupBox()
 
     iconLabel = new QLabel(tr("Icon:"));
     iconComboBox = new QComboBox;
-    iconComboBox->addItem(QIcon(":/images/bad.svg"), tr("Bad"));
-    iconComboBox->addItem(QIcon(":/images/heart.svg"), tr("Heart"));
-    iconComboBox->addItem(QIcon(":/images/trash.svg"), tr("Trash"));
+    iconComboBox->addItem(QIcon(":/images/bad.png"), tr("Bad"));
+    iconComboBox->addItem(QIcon(":/images/heart.png"), tr("Heart"));
+    iconComboBox->addItem(QIcon(":/images/trash.png"), tr("Trash"));
 
     showIconCheckBox = new QCheckBox(tr("Show icon"));
     showIconCheckBox->setChecked(true);
@@ -111,7 +112,7 @@ void Window::createIconGroupBox()
 }
 
 void Window::createMessageGroupBox()
- {
+{
      messageGroupBox = new QGroupBox(tr("Balloon Message"));
 
      typeLabel = new QLabel(tr("Type:"));
@@ -171,7 +172,7 @@ void Window::createMessageGroupBox()
 
 void Window::createActions()
 {
-    minimizeAction = new QAction(tr("Mi&nimize"), this)    ;
+    minimizeAction = new QAction(tr("Mi&nimize"), this);
     connect(minimizeAction, SIGNAL(triggered()), this, SLOT(hide()));
 
     maximizeAction = new QAction(tr("Ma&ximize"), this);
