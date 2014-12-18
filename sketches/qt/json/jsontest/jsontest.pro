@@ -15,9 +15,20 @@ CONFIG   -= app_bundle
 TEMPLATE = app
 
 
-SOURCES += tst_jsontest.cpp \
-    article.cpp
+SOURCES += \
+    article.cpp \
+    articletest.cpp \
+    family.cpp \
+    familytest.cpp \
+    jsonfile.cpp \
+    jsontest.cpp \
+    main.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 HEADERS += \
-    article.h
+    article.h \
+    articletest.h \
+    family.h \
+    familytest.h \
+    jsonfile.h \
+    jsontest.h

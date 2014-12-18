@@ -16,7 +16,7 @@ public:
     QString name() const { return mName;}
     void setName(const QString& name) { mName = name; }
 
-    int familiy() const { return mFamily; }
+    int family() const { return mFamily; }
     void setFamily(int family) { mFamily = family; }
 
     double price() const { return mPrice; }
