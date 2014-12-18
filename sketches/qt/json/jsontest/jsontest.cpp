@@ -18,11 +18,9 @@ void JsonTest::cleanupTestCase()
 void JsonTest::testArticlesJson()
 {
     Article article(1, "Menu One", 1, 23.10);
-    QJsonObject articleObject;
-    article.write(articleObject);
+    QJsonObject articleObject = article.write();
 
-    Article compare;
-    compare.read(articleObject);
+    Article compare = Article::read(articleObject);
     QCOMPARE(article.id(), compare.id());
     QCOMPARE(article.name(), compare.name());
     QCOMPARE(article.family(), compare.family());
