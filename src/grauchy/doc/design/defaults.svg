@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="defaults.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="200.5"
+     inkscape:cy="668.57143"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:snap-global="true"
+     inkscape:window-width="1920"
+     inkscape:window-height="1153"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2985" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="20"
+       y="32.362183"
+       id="text2993"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2995"
+         x="20"
+         y="32.362183">Colors</tspan></text>
+    <g
+       id="g3837">
+      <rect
+         y="42.362183"
+         x="20"
+         height="30"
+         width="180"
+         id="rect2997"
+         style="fill:#2b1100" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3767"
+         y="62.362183"
+         x="30"
+         style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           y="62.362183"
+           x="30"
+           id="tspan3769"
+           sodipodi:role="line">Background</tspan></text>
+    </g>
+    <g
+       id="g3842">
+      <rect
+         y="82.362183"
+         x="20"
+         height="30"
+         width="180"
+         id="rect3777"
+         style="fill:#aa4400" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3779"
+         y="102.36218"
+         x="30"
+         style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           y="102.36218"
+           x="30"
+           id="tspan3781"
+           sodipodi:role="line">MouseOver</tspan></text>
+    </g>
+    <g
+       id="g3847"
+       transform="translate(200,-80)">
+      <rect
+         y="122.36218"
+         x="20"
+         height="30"
+         width="180"
+         id="rect3783"
+         style="fill:#ff6600" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3785"
+         y="142.36218"
+         x="30"
+         style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           y="142.36218"
+           x="30"
+           id="tspan3787"
+           sodipodi:role="line">Selected</tspan></text>
+    </g>
+    <g
+       id="g3831"
+       transform="translate(200,-80)">
+      <g
+         id="g3828">
+        <rect
+           style="fill:#2b1100"
+           id="rect3808"
+           width="180"
+           height="30"
+           x="20"
+           y="162.36218" />
+      </g>
+      <text
+         sodipodi:linespacing="125%"
+         id="text3810"
+         y="182.36218"
+         x="30"
+         style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;opacity:0.5;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           y="182.36218"
+           x="30"
+           id="tspan3812"
+           sodipodi:role="line">Disabled</tspan></text>
+    </g>
+    <g
+       id="g3852"
+       transform="translate(400,-160)">
+      <rect
+         y="202.36218"
+         x="20"
+         height="30"
+         width="180"
+         id="rect3814"
+         style="fill:#ff7f2a" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3816"
+         y="222.36218"
+         x="30"
+         style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           y="222.36218"
+           x="30"
+           id="tspan3818"
+           sodipodi:role="line">Checked</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="20"
+       y="142.36218"
+       id="text3857"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3859"
+         x="20"
+         y="142.36218">Buttons</tspan></text>
+    <path
+       sodipodi:type="arc"
+       style="opacity:0.5;fill:#ffffff"
+       id="path3864"
+       sodipodi:cx="75"
+       sodipodi:cy="187.36218"
+       sodipodi:rx="35"
+       sodipodi:ry="25"
+       d="m 110,187.36218 a 35,25 0 1 1 -70,0 35,25 0 1 1 70,0 z" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#000000"
+       id="path3866"
+       sodipodi:cx="70"
+       sodipodi:cy="212.36218"
+       sodipodi:rx="40"
+       sodipodi:ry="50"
+       d="m 110,212.36218 a 40,50 0 0 1 -0.21142,5.13401"
+       sodipodi:start="0"
+       sodipodi:end="0.10286149"
+       sodipodi:open="true" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#000000"
+       id="path3868"
+       sodipodi:cx="45"
+       sodipodi:cy="202.36218"
+       sodipodi:rx="15"
+       sodipodi:ry="40"
+       d="m 60,202.36218 a 15,40 0 0 1 -0.07928,4.10721"
+       sodipodi:start="0"
+       sodipodi:end="0.10286149"
+       sodipodi:open="true" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#aa0000"
+       id="path3870"
+       sodipodi:cx="65"
+       sodipodi:cy="212.36218"
+       sodipodi:rx="35"
+       sodipodi:ry="30"
+       d="m 100,212.36218 a 35,30 0 0 1 -0.184995,3.08041"
+       sodipodi:start="0"
+       sodipodi:end="0.10286149"
+       sodipodi:open="true" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#aa0000"
+       id="path3872"
+       sodipodi:cx="210"
+       sodipodi:cy="247.36218"
+       sodipodi:rx="70"
+       sodipodi:ry="55"
+       d="m 280,247.36218 a 70,55 0 0 1 -0.36999,5.64741"
+       sodipodi:start="0"
+       sodipodi:end="0.10286149"
+       sodipodi:open="true" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#aa0000"
+       id="path3874"
+       sodipodi:cx="75"
+       sodipodi:cy="187.36218"
+       sodipodi:rx="35"
+       sodipodi:ry="25"
+       d="m 110,187.36218 a 35,25 0 0 1 -0.185,2.56701"
+       sodipodi:start="0"
+       sodipodi:end="0.10286149"
+       sodipodi:open="true" />
+  </g>
+</svg>
