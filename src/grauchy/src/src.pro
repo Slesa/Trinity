@@ -1,4 +1,6 @@
 TEMPLATE = subdirs
 SUBDIRS =  \
-          grauchy
+        common \
+        platforms \
+        grauchy
           

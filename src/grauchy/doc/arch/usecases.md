@@ -1,4 +1,7 @@
 # Use Cases
 
 ## Start program
-- User starts program, hotkey is registered
+
+	### Actors
+	
+Der Benutzer startet das Programm, der Hotkey wird registriert. 

@@ -29,17 +29,19 @@ TRANSLATIONS = \
         ../../translations/grauchy_rus.ts
 
 
-#unix:!macx {
+unix:!macx {
 #    ICON = Launchy.ico
-#    SOURCES += ../platforms/unix/platform_unix.cpp \
+        SOURCES += \
+
 #        ../platforms/unix/platform_unix_util.cpp \
 #        ../platforms/unix/platform_x11_hotkey.cpp
-#    HEADERS += ../platforms/unix/platform_unix.h \
+        HEADERS += \
+
 #        ../platforms/unix/platform_unix_util.h \
 #        ../platforms/unix/platform_x11_hotkey.h \
 #        platform_base_hotkey.h \
 #        platform_base_hottrigger.h
-#    LIBS += -lX11
+        LIBS += plaform_unix -lX11
 #    PREFIX = /usr
 #    DEFINES += SKINS_PATH=\\\"$$PREFIX/share/launchy/skins/\\\" \
 #        PLUGINS_PATH=\\\"$$PREFIX/lib/launchy/plugins/\\\" \
@@ -59,7 +61,7 @@ TRANSLATIONS = \
 #        skins \
 #        icon \
 #        desktop
-#}
+}
 
 #win32 {
 #    ICON = Launchy.ico

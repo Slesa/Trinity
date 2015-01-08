@@ -1,6 +1,10 @@
 #include "main.h"
 #include <QApplication>
 
+// Platform dependent creation of qApp
+QApplication* createApplication(int& argc, char** argv);
+
+
 int main(int argc, char *argv[])
 {
     createApplication(argc, argv);
