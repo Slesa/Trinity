@@ -113,7 +113,7 @@ win32 {
 #    QMAKE_LFLAGS_RELEASE += /DEBUG
 }
 
-#macx {
+macx {
 #    ICON = ../misc/Launchy_Icon/launchy_icon_mac.icns
 #    SOURCES += ../platforms/mac/platform_mac.cpp \
 #        ../platforms/mac/platform_mac_hotkey.cpp
@@ -126,8 +126,11 @@ win32 {
 #        CONFIG(release, debug|release):DESTDIR = ../release/
 #    }
 #    INCLUDEPATH += /opt/local/include/
-#    LIBS += -framework \
-#        Carbon
+        LIBS += -L../../lib \
+            -framework \
+            Carbon \
+                -lgrauchy.common \
+                -lgrauchy.platform.mac
 #    CONFIG(debug, debug|release):skins.path = ../debug/Launchy.app/Contents/Resources/skins/
 #    CONFIG(release, debug|release):skins.path = ../release/Launchy.app/Contents/Resources/skins/
 #    skins.files =
@@ -152,4 +155,4 @@ win32 {
 #    INSTALLS += skins \
 #        translations \
 #        dmg
-#}
+}
