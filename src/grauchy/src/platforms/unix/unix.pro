@@ -1,19 +1,21 @@
-TEMPLATE	= lib
-TARGET		= grauchy.platform.unix
-CONFIG		+= qt_warn debug_and_release staticlib
-INCLUDEPATH     += ../../common/
-#CONFIG		-= embed_manifest_dll
+TEMPLATE		= lib
+TARGET			= grauchy.platform.unix
+CONFIG			+= qt_warn debug_and_release staticlib
+INCLUDEPATH    	+= ../../common/
+#CONFIG			-= embed_manifest_dll
+QT				+= widgets
 
-SOURCES		= unix.cpp \
-	platform_unix.cpp
+SOURCES			= unix.cpp \
+                platform_unix.cpp
 
 # platform_x11_hotkey.cpp platform_base_hotkey.cpp platform_unix.cpp platform_unix_util.cpp
 
-HEADERS		= \
-	platform_unix.h
+HEADERS			= \
+                platform_unix.h
 
 # platform_base.h platform_unix.h platform_base_hotkey.h platform_base_hottrigger.h  platform_unix_util.h platform_x11_hotkey.h
 
+# LIBS			+= grauchy.common
 # LIBS += -lX11 -lXext -lXrender
 
 
@@ -26,10 +28,12 @@ HEADERS		= \
 # INSTALLS += target
 #}
 
+DESTDIR			= ../../../lib/
+
 #if(!debug_and_release|build_pass):CONFIG(debug, debug|release) {
-#     DESTDIR = ../../debug/
+#        DESTDIR = ../../../lib/
 #}
 
 #if(!debug_and_release|build_pass):CONFIG(release, debug|release) {
-#     DESTDIR = ../../release/
+#        DESTDIR = ../../../lib/
 #}

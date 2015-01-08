@@ -1,14 +1,12 @@
-unix:!macx:TARGET = grauchy
-win32:TARGET = Grauchy
-macx:TARGET = Grauchy
+TEMPLATE		= app
+unix:!macx:TARGET	= grauchy
+win32:TARGET		= Grauchy
+macx:TARGET		= Grauchy
 
-CONFIG += debug_and_release
-TEMPLATE = app
-
+CONFIG			+= debug_and_release
 QT += network widgets gui-private
 win32:QT += winextras
 unix:!mac:QT += x11extras
-
 
 INCLUDEPATH += . \
         ../common
@@ -28,6 +26,8 @@ TRANSLATIONS = \
         ../../translations/grauchy_de.ts \
         ../../translations/grauchy_rus.ts
 
+DESTDIR		 = ../../bin/
+DLLDESTDIR = ../../bin/
 
 unix:!macx {
 #    ICON = Launchy.ico
@@ -42,7 +42,8 @@ unix:!macx {
 #        platform_base_hotkey.h \
 #        platform_base_hottrigger.h
         LIBS += -L../../lib \
-                -lgrauchy.plaform.unix \
+                -lgrauchy.platform.unix \
+                -lgrauchy.common \
                 -lX11
 #    PREFIX = /usr
 #    DEFINES += SKINS_PATH=\\\"$$PREFIX/share/launchy/skins/\\\" \
