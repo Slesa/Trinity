@@ -1,3 +1,17 @@
+#ifndef PLATFORM_BASE_H
+#define PLATFORM_BASE_H
+
+#include <QApplication>
+
+class PlatformBase : public QApplication
+{
+public:
+    PlatformBase(int& argc, char** argv);
+};
+
+#if 0
+
+
 /*
 Launchy: Application Launcher
 Copyright (C) 2007-2009  Josh Karlin, Simon Capewell
@@ -17,8 +31,6 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef PLATFORM_BASE_H
-#define PLATFORM_BASE_H
 
 #include <QtGui> // OSX needs this
 #include <QApplication>
@@ -75,5 +87,7 @@ protected:
 
 QApplication* createApplication(int& argc, char** argv);
 
+
+#endif
 
 #endif

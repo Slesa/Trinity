@@ -41,7 +41,9 @@ unix:!macx {
 #        ../platforms/unix/platform_x11_hotkey.h \
 #        platform_base_hotkey.h \
 #        platform_base_hottrigger.h
-        LIBS += plaform_unix -lX11
+        LIBS += -L../../lib \
+                -lgrauchy.plaform.unix \
+                -lX11
 #    PREFIX = /usr
 #    DEFINES += SKINS_PATH=\\\"$$PREFIX/share/launchy/skins/\\\" \
 #        PLUGINS_PATH=\\\"$$PREFIX/lib/launchy/plugins/\\\" \
@@ -63,15 +65,19 @@ unix:!macx {
 #        desktop
 }
 
-#win32 {
+win32 {
 #    ICON = Launchy.ico
 #    if(!debug_and_release|build_pass):CONFIG(debug, debug|release):CONFIG += console
-#    SOURCES += ../platforms/win/platform_win.cpp \
+        SOURCES += \
+
+# 	 ../platforms/win/platform_win.cpp \
 #        ../platforms/win/platform_win_hotkey.cpp \
 #        ../platforms/win/platform_win_util.cpp \
 #        ../platforms/win/WinIconProvider.cpp \
 #        ../platforms/win/minidump.cpp
-#    HEADERS += ../platforms/win/WinIconProvider.h \
+        HEADERS += \
+
+#	 ../platforms/win/WinIconProvider.h \
 #        platform_base_hotkey.h \
 #        platform_base_hottrigger.h \
 #        ../platforms/win/platform_win.h \
@@ -80,14 +86,17 @@ unix:!macx {
 #    CONFIG += embed_manifest_exe
 #    INCLUDEPATH += c:/boost/
 #    RC_FILE = ../win/launchy.rc
-#	LIBS += shell32.lib \
-#		user32.lib \
-#		gdi32.lib \
-#		ole32.lib \
-#		comctl32.lib \
-#		advapi32.lib \
-#		userenv.lib \
-#        netapi32.lib
+        LIBS += \
+                ../../lib/grauchy.common.lib \
+                ../../lib/grauchy.platform.win.lib \
+                shell32.lib \
+                user32.lib \
+                gdi32.lib \
+                ole32.lib \
+                comctl32.lib \
+                advapi32.lib \
+                userenv.lib \
+                netapi32.lib
 #    DEFINES = VC_EXTRALEAN \
 #        WIN32 \
 #        _UNICODE \
@@ -102,7 +111,7 @@ unix:!macx {
 #    }
 #    QMAKE_CXXFLAGS_RELEASE += /Zi
 #    QMAKE_LFLAGS_RELEASE += /DEBUG
-#}
+}
 
 #macx {
 #    ICON = ../misc/Launchy_Icon/launchy_icon_mac.icns
