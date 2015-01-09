@@ -1,49 +1,50 @@
+#TEMPLATE		= lib
 TEMPLATE		= app
 unix:!macx:TARGET	= grauchy
 win32:TARGET		= Grauchy
 macx:TARGET		= Grauchy
 
 CONFIG			+= debug_and_release
-QT += network widgets gui-private
-win32:QT += winextras
-unix:!mac:QT += x11extras
+QT				+= network widgets gui-private
+win32:QT		+= winextras
+unix:!mac:QT	+= x11extras
 
-INCLUDEPATH += . \
-        ../common
+INCLUDEPATH		+= . \
+                ../common
 
-UI_DIR = .ui
-MOC_DIR = .moc
+UI_DIR			= .ui
+MOC_DIR			= .moc
 
 # RESOURCES += grauchy.qrc
 # FORMS = options.ui
 
-SOURCES = main.cpp \
-    commandlineparser.cpp
+SOURCES			= main.cpp \
+                commandlineparser.cpp
 
-HEADERS = main.h \
-    commandlineparser.h
+HEADERS			= main.h \
+                commandlineparser.h
 
-TRANSLATIONS = \
-        ../../translations/grauchy_fr.ts \
-        ../../translations/grauchy_de.ts \
-        ../../translations/grauchy_rus.ts
+TRANSLATIONS	= \
+                ../../translations/grauchy_fr.ts \
+                ../../translations/grauchy_de.ts \
+                ../../translations/grauchy_rus.ts
 
-DESTDIR		 = ../../bin/
-DLLDESTDIR = ../../bin/
+DESTDIR		 	= ../../bin/
+DLLDESTDIR		= ../../bin/
 
 unix:!macx {
 #    ICON = Launchy.ico
-        SOURCES += \
+#    SOURCES		+=
 
 #        ../platforms/unix/platform_unix_util.cpp \
 #        ../platforms/unix/platform_x11_hotkey.cpp
-        HEADERS += \
+#    HEADERS		+=
 
 #        ../platforms/unix/platform_unix_util.h \
 #        ../platforms/unix/platform_x11_hotkey.h \
 #        platform_base_hotkey.h \
 #        platform_base_hottrigger.h
-        LIBS += -L../../lib \
+    LIBS		+= -L../../lib \
                 -lgrauchy.platform.unix \
                 -lgrauchy.common \
                 -lX11
@@ -71,14 +72,14 @@ unix:!macx {
 win32 {
 #    ICON = Launchy.ico
 #    if(!debug_and_release|build_pass):CONFIG(debug, debug|release):CONFIG += console
-        SOURCES += \
+#    SOURCES +=
 
 # 	 ../platforms/win/platform_win.cpp \
 #        ../platforms/win/platform_win_hotkey.cpp \
 #        ../platforms/win/platform_win_util.cpp \
 #        ../platforms/win/WinIconProvider.cpp \
 #        ../platforms/win/minidump.cpp
-        HEADERS += \
+#    HEADERS +=
 
 #	 ../platforms/win/WinIconProvider.h \
 #        platform_base_hotkey.h \
@@ -89,7 +90,7 @@ win32 {
 #    CONFIG += embed_manifest_exe
 #    INCLUDEPATH += c:/boost/
 #    RC_FILE = ../win/launchy.rc
-        LIBS += \
+    LIBS		+= \
                 ../../lib/grauchy.common.lib \
                 ../../lib/grauchy.platform.win.lib \
                 shell32.lib \
@@ -129,9 +130,9 @@ macx {
 #        CONFIG(release, debug|release):DESTDIR = ../release/
 #    }
 #    INCLUDEPATH += /opt/local/include/
-        LIBS += -L../../lib \
-            -framework \
-            Carbon \
+    LIBS		+= -L../../lib \
+                -framework \
+                Carbon \
                 -lgrauchy.common \
                 -lgrauchy.platform.mac
 #    CONFIG(debug, debug|release):skins.path = ../debug/Launchy.app/Contents/Resources/skins/

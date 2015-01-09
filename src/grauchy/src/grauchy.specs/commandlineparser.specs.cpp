@@ -7,16 +7,17 @@ class CommandLineParserSpecs : public QObject
 
 private slots:
     void option_is_false_per_default();
+
     void rescue_is_set_with_long_arg();
     void rescue_is_set_with_short_arg();
-    /*
     void show_is_set_with_long_arg();
     void show_is_set_with_short_arg();
     void options_is_set_with_long_arg();
     void options_is_set_with_short_arg();
     void multiple_is_set_with_long_arg();
     void multiple_is_set_with_short_arg();
-    */
+    void exit_is_set_with_long_arg();
+    void exit_is_set_with_short_arg();
 };
 
 
@@ -42,7 +43,7 @@ void CommandLineParserSpecs::rescue_is_set_with_short_arg()
     bool rescue = parser.doRescue();
     QCOMPARE(rescue, true);
 }
-/*
+
 void CommandLineParserSpecs::show_is_set_with_long_arg()
 {
     CommandLineParser parser;
@@ -90,19 +91,28 @@ void CommandLineParserSpecs::multiple_is_set_with_short_arg()
     bool multiple = parser.doMultiple();
     QCOMPARE(multiple, true);
 }
-*/
+
+void CommandLineParserSpecs::exit_is_set_with_long_arg()
+{
+    CommandLineParser parser;
+    parser.parse(QStringList() << "-exit");
+    bool exit = parser.doExit();
+    QCOMPARE(exit, true);
+}
+
+void CommandLineParserSpecs::exit_is_set_with_short_arg()
+{
+    CommandLineParser parser;
+    parser.parse(QStringList() << "-x");
+    bool exit = parser.doExit();
+    QCOMPARE(exit, true);
+}
+
 
 QTEST_MAIN(CommandLineParserSpecs)
 #include "commandlineparser.specs.moc"
 
 /*
-CommandLineParser::~CommandLineParser()
-{
-    delete _rescueOption;
-    delete _showOption;
-    delete _optionsOption;
-    delete _multipleOption;
-}
 
 
 void CommandLineParser::parse(const QCoreApplication& app)

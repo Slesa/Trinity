@@ -1,31 +1,27 @@
 #include "commandlineparser.h"
 #include <QDebug>
 
+const char* CommandLineParser::argRescue = "rescue";
+const char* CommandLineParser::argShow = "show";
+const char* CommandLineParser::argOptions = "options";
+const char* CommandLineParser::argMultiple = "multiple";
+const char* CommandLineParser::argExit = "exit";
+
 CommandLineParser::CommandLineParser()
 {
     initialize();
 }
 
-CommandLineParser::~CommandLineParser()
+void CommandLineParser::process(const QCoreApplication& app)
 {
-    delete _rescueOption;
-    delete _showOption;
-    delete _optionsOption;
-    delete _multipleOption;
+    _parser.process(app);
 }
-
 
 void CommandLineParser::parse(const QStringList& params)
 {
-    qDebug() << "Params: " << params;
-    //_parser.parse(QStringList() << params << "-r" << "-rescue" << "-help");
-    _parser.parse(QStringList() << "x" << "-r");
-    //_parser.parse(params);
-
-    qDebug() << _parser.optionNames();
-    qDebug() << "Rescue? " << _parser.isSet(*_rescueOption);
-    qDebug() << "Rescue? " << _parser.isSet("rescue");
-    qDebug() << "Rescue? " << _parser.isSet("r");
+    QStringList args;
+    args << "@" << params; // Fake first argument (program name)
+    _parser.parse(args);
 }
 
 void CommandLineParser::initialize()
@@ -34,20 +30,21 @@ void CommandLineParser::initialize()
     _parser.addVersionOption();
     _parser.addHelpOption();
 
-    _rescueOption = new QCommandLineOption(QStringList() << "r" /*<< "rescue"*/, tr("Reset skin and position and show the main window."));
-    //_rescueOption = new QCommandLineOption("r", tr("Reset skin and position and show the main window."));
-    _parser.addOption(*_rescueOption);
-    _showOption = new QCommandLineOption(QStringList() << "s" << "show", tr("Show the main window"));
-    _parser.addOption(*_showOption);
-    _optionsOption = new QCommandLineOption(QStringList() << "o" << "options", tr("Show the options dialog"));
-    _parser.addOption(*_optionsOption);
-    _multipleOption = new QCommandLineOption(QStringList() << "m" << "multiple", tr("Allow multiple instances"));
-    _parser.addOption(*_multipleOption);
+    QCommandLineOption rescueOption(QStringList() << "r" << argRescue, tr("Reset skin and position and show the main window."));
+    _parser.addOption(rescueOption);
 
-//			else if (arg.compare("exit", Qt::CaseInsensitive) == 0)
-//			{
-//				command |= Exit;
-//			}
+    QCommandLineOption showOption(QStringList() << "s" << argShow, tr("Show the main window"));
+    _parser.addOption(showOption);
+
+    QCommandLineOption optionsOption(QStringList() << "o" << argOptions, tr("Show the options dialog"));
+    _parser.addOption(optionsOption);
+
+    QCommandLineOption multipleOption(QStringList() << "m" << argMultiple, tr("Allow multiple instances"));
+    _parser.addOption(multipleOption);
+
+    QCommandLineOption exitOption(QStringList() << "x" << argExit, tr("Exit a running instance"));
+    _parser.addOption(exitOption);
+
 //			else if (arg.compare("log", Qt::CaseInsensitive) == 0)
 //			{
 //                qInstallMessageHandler(fileLogMsgHandler);

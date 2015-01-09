@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
     qApp->setQuitOnLastWindowClosed(false);
     QCoreApplication::setApplicationName("Launchy");
     QCoreApplication::setOrganizationDomain("Launchy");
+    QCoreApplication::setApplicationVersion("0.0.1");
 
 //	QString locale = QLocale::system().name();
 //	QTranslator translator;
@@ -19,10 +20,9 @@ int main(int argc, char *argv[])
 //	qApp->installTranslator(&translator);
 
     CommandLineParser parser;
-    parser.parse(qApp->arguments());
+    parser.process(*qApp);
 
-//	QStringList args = qApp->arguments();
-//	CommandFlags command = None;
+//    CommandFlags command = None;
 //	bool allowMultipleInstances = false;
 
 //	for (int i = 0; i < args.size(); ++i)
@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
 //	LaunchyWidget* widget = new LaunchyWidget(command);
 //#endif
 
-//	qApp->exec();
+    qApp->exec();
 
 //	delete widget;
 //	widget = NULL;
