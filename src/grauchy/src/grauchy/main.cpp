@@ -1,5 +1,6 @@
 #include "main.h"
 #include "platform_base.h"
+#include "commandlineparser.h"
 #include <QApplication>
 
 
@@ -9,6 +10,16 @@ int main(int argc, char *argv[])
     createApplication(argc, argv);
 
     qApp->setQuitOnLastWindowClosed(false);
+    QCoreApplication::setApplicationName("Launchy");
+    QCoreApplication::setOrganizationDomain("Launchy");
+
+//	QString locale = QLocale::system().name();
+//	QTranslator translator;
+//	translator.load(QString("tr/launchy_" + locale));
+//	qApp->installTranslator(&translator);
+
+    CommandLineParser parser;
+    parser.parse(*qApp);
 
 //	QStringList args = qApp->arguments();
 //	CommandFlags command = None;
@@ -64,13 +75,6 @@ int main(int argc, char *argv[])
 //		exit(1);
 //	}
 
-//	QCoreApplication::setApplicationName("Launchy");
-//	QCoreApplication::setOrganizationDomain("Launchy");
-
-//	QString locale = QLocale::system().name();
-//	QTranslator translator;
-//	translator.load(QString("tr/launchy_" + locale));
-//	qApp->installTranslator(&translator);
 
 //	qApp->setStyleSheet("file:///:/resources/basicskin.qss");
 

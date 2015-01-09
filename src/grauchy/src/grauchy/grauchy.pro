@@ -17,9 +17,11 @@ MOC_DIR = .moc
 # RESOURCES += grauchy.qrc
 # FORMS = options.ui
 
-SOURCES = main.cpp
+SOURCES = main.cpp \
+    commandlineparser.cpp
 
-HEADERS = main.h
+HEADERS = main.h \
+    commandlineparser.h
 
 TRANSLATIONS = \
         ../../translations/grauchy_fr.ts \
