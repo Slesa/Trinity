@@ -1,4 +1,5 @@
 #include "commandlineparser.h"
+#include <QDebug>
 
 CommandLineParser::CommandLineParser()
 {
@@ -16,7 +17,15 @@ CommandLineParser::~CommandLineParser()
 
 void CommandLineParser::parse(const QStringList& params)
 {
-    _parser.parse(params);
+    qDebug() << "Params: " << params;
+    //_parser.parse(QStringList() << params << "-r" << "-rescue" << "-help");
+    _parser.parse(QStringList() << "x" << "-r");
+    //_parser.parse(params);
+
+    qDebug() << _parser.optionNames();
+    qDebug() << "Rescue? " << _parser.isSet(*_rescueOption);
+    qDebug() << "Rescue? " << _parser.isSet("rescue");
+    qDebug() << "Rescue? " << _parser.isSet("r");
 }
 
 void CommandLineParser::initialize()
@@ -25,7 +34,8 @@ void CommandLineParser::initialize()
     _parser.addVersionOption();
     _parser.addHelpOption();
 
-    _rescueOption = new QCommandLineOption(QStringList() << "r" << "rescue", tr("Reset skin and position and show the main window."));
+    _rescueOption = new QCommandLineOption(QStringList() << "r" /*<< "rescue"*/, tr("Reset skin and position and show the main window."));
+    //_rescueOption = new QCommandLineOption("r", tr("Reset skin and position and show the main window."));
     _parser.addOption(*_rescueOption);
     _showOption = new QCommandLineOption(QStringList() << "s" << "show", tr("Show the main window"));
     _parser.addOption(*_showOption);

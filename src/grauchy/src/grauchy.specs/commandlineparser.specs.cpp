@@ -8,8 +8,8 @@ class CommandLineParserSpecs : public QObject
 private slots:
     void option_is_false_per_default();
     void rescue_is_set_with_long_arg();
-    /*
     void rescue_is_set_with_short_arg();
+    /*
     void show_is_set_with_long_arg();
     void show_is_set_with_short_arg();
     void options_is_set_with_long_arg();
@@ -30,11 +30,11 @@ void CommandLineParserSpecs::option_is_false_per_default()
 void CommandLineParserSpecs::rescue_is_set_with_long_arg()
 {
     CommandLineParser parser;
-    parser.parse(QStringList() << "--rescue");
+    parser.parse(QStringList() << "-rescue");
     bool rescue = parser.doRescue();
     QCOMPARE(rescue, true);
 }
-/*
+
 void CommandLineParserSpecs::rescue_is_set_with_short_arg()
 {
     CommandLineParser parser;
@@ -42,7 +42,7 @@ void CommandLineParserSpecs::rescue_is_set_with_short_arg()
     bool rescue = parser.doRescue();
     QCOMPARE(rescue, true);
 }
-
+/*
 void CommandLineParserSpecs::show_is_set_with_long_arg()
 {
     CommandLineParser parser;

@@ -9,6 +9,8 @@ class CommandLineParser : QObject
 {
     Q_OBJECT
 public:
+    static const char* argRescue;
+public:
     CommandLineParser();
     ~CommandLineParser();
     void parse(const QStringList& params);
