@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 //	qApp->installTranslator(&translator);
 
     CommandLineParser parser;
-    parser.parse(*qApp);
+    parser.parse(qApp->arguments());
 
 //	QStringList args = qApp->arguments();
 //	CommandFlags command = None;

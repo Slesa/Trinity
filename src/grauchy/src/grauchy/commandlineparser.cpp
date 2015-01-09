@@ -14,9 +14,9 @@ CommandLineParser::~CommandLineParser()
 }
 
 
-void CommandLineParser::parse(const QCoreApplication& app)
+void CommandLineParser::parse(const QStringList& params)
 {
-    _parser.process(app);
+    _parser.parse(params);
 }
 
 void CommandLineParser::initialize()

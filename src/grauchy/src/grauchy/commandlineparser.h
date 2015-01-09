@@ -3,7 +3,7 @@
 
 #include <QCommandLineParser>
 
-class QCoreApplication;
+class QStringList;
 
 class CommandLineParser : QObject
 {
@@ -11,7 +11,7 @@ class CommandLineParser : QObject
 public:
     CommandLineParser();
     ~CommandLineParser();
-    void parse(const QCoreApplication& app);
+    void parse(const QStringList& params);
 
     bool doRescue () const { return _parser.isSet(*_rescueOption); }
     bool doShow() const { return _parser.isSet(*_showOption); }
