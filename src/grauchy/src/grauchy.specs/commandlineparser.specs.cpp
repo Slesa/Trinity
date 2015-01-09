@@ -1,24 +1,7 @@
+#include "commandlineparser.specs.h"
 #include "commandlineparser.h"
 #include <QtTest/QtTest>
 
-class CommandLineParserSpecs : public QObject
-{
-    Q_OBJECT
-
-private slots:
-    void option_is_false_per_default();
-
-    void rescue_is_set_with_long_arg();
-    void rescue_is_set_with_short_arg();
-    void show_is_set_with_long_arg();
-    void show_is_set_with_short_arg();
-    void options_is_set_with_long_arg();
-    void options_is_set_with_short_arg();
-    void multiple_is_set_with_long_arg();
-    void multiple_is_set_with_short_arg();
-    void exit_is_set_with_long_arg();
-    void exit_is_set_with_short_arg();
-};
 
 
 void CommandLineParserSpecs::option_is_false_per_default()
@@ -109,47 +92,5 @@ void CommandLineParserSpecs::exit_is_set_with_short_arg()
 }
 
 
-QTEST_MAIN(CommandLineParserSpecs)
-#include "commandlineparser.specs.moc"
+// #include "commandlineparser.specs.moc"
 
-/*
-
-
-void CommandLineParser::parse(const QCoreApplication& app)
-{
-    _parser.process(app);
-}
-
-void CommandLineParser::initialize()
-{
-    _parser.setApplicationDescription(tr("Graunchy - remember the shortcuts"));
-    _parser.addVersionOption();
-    _parser.addHelpOption();
-
-    _rescueOption = new QCommandLineOption(QStringList() << "r" << "rescue", tr("Reset skin and position and show the main window."));
-    _parser.addOption(*_rescueOption);
-    _showOption = new QCommandLineOption(QStringList() << "s" << "show", tr("Show the main window"));
-    _parser.addOption(*_showOption);
-    _optionsOption = new QCommandLineOption(QStringList() << "o" << "options", tr("Show the options dialog"));
-    _parser.addOption(*_optionsOption);
-    _multipleOption = new QCommandLineOption(QStringList() << "m" << "multiple", tr("Allow multiple instances"));
-    _parser.addOption(*_multipleOption);
-
-//			else if (arg.compare("exit", Qt::CaseInsensitive) == 0)
-//			{
-//				command |= Exit;
-//			}
-//			else if (arg.compare("log", Qt::CaseInsensitive) == 0)
-//			{
-//                qInstallMessageHandler(fileLogMsgHandler);
-//			}
-//			else if (arg.compare("profile", Qt::CaseInsensitive) == 0)
-//			{
-//				if (++i < args.length())
-//				{
-//					settings.setProfileName(args[i]);
-//				}
-//			}
-}
-
-*/

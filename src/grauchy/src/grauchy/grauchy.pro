@@ -1,7 +1,6 @@
-#TEMPLATE		= lib
 TEMPLATE		= app
 unix:!macx:TARGET	= grauchy
-win32:TARGET		= Grauchy
+win32:TARGET	= Grauchy
 macx:TARGET		= Grauchy
 
 CONFIG			+= debug_and_release
