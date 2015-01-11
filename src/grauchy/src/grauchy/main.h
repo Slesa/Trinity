@@ -3,6 +3,19 @@
 
 #include <QWidget>
 
+enum CommandFlag
+{
+    None = 0,
+    ShowView = 1,
+    ShowOptions = 2,
+    ResetPosition = 4,
+    ResetSkin = 8,
+    Exit = 32
+};
+
+Q_DECLARE_FLAGS(CommandFlags, CommandFlag)
+Q_DECLARE_OPERATORS_FOR_FLAGS(CommandFlags)
+
 class GraunchyWidget : public QWidget
 {
     Q_OBJECT
@@ -30,19 +43,6 @@ class GraunchyWidget : public QWidget
 //class QPushButton;
 //// class QNetworkRequest;
 
-//enum CommandFlag
-//{
-//	None = 0,
-//	ShowLaunchy = 1,
-//	ShowOptions = 2,
-//	ResetPosition = 4,
-//	ResetSkin = 8,
-//	Rescan = 16,
-//	Exit = 32
-//};
-
-//Q_DECLARE_FLAGS(CommandFlags, CommandFlag)
-//Q_DECLARE_OPERATORS_FOR_FLAGS(CommandFlags)
 
 //#ifdef Q_OS_WIN
 //HWND getHwnd(const QWidget* widget);

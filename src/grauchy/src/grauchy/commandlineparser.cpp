@@ -6,6 +6,7 @@ const char* CommandLineParser::argShow = "show";
 const char* CommandLineParser::argOptions = "options";
 const char* CommandLineParser::argMultiple = "multiple";
 const char* CommandLineParser::argExit = "exit";
+const char* CommandLineParser::argLog = "log";
 
 CommandLineParser::CommandLineParser()
 {
@@ -45,10 +46,9 @@ void CommandLineParser::initialize()
     QCommandLineOption exitOption(QStringList() << "x" << argExit, tr("Exit a running instance"));
     _parser.addOption(exitOption);
 
-//			else if (arg.compare("log", Qt::CaseInsensitive) == 0)
-//			{
-//                qInstallMessageHandler(fileLogMsgHandler);
-//			}
+    QCommandLineOption logOption(QStringList() << "l" << argLog, tr("Activate logging into file"));
+    _parser.addOption(logOption);
+
 //			else if (arg.compare("profile", Qt::CaseInsensitive) == 0)
 //			{
 //				if (++i < args.length())

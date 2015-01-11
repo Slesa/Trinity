@@ -91,6 +91,19 @@ void CommandLineParserSpecs::exit_is_set_with_short_arg()
     QCOMPARE(exit, true);
 }
 
+void CommandLineParserSpecs::log_is_set_with_long_arg()
+{
+    CommandLineParser parser;
+    parser.parse(QStringList() << "-log");
+    bool log = parser.doLog();
+    QCOMPARE(log, true);
+}
 
-// #include "commandlineparser.specs.moc"
+void CommandLineParserSpecs::log_is_set_with_short_arg()
+{
+    CommandLineParser parser;
+    parser.parse(QStringList() << "-l");
+    bool log = parser.doLog();
+    QCOMPARE(log, true);
+}
 

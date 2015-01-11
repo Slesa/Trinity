@@ -2,63 +2,61 @@
 #include "platform_base.h"
 #include "commandlineparser.h"
 #include <QApplication>
+#include <QFile>
+#include <QStandardPaths>
+#include <QTextStream>
+#include <QTranslator>
 
-
+void fileLogMsgHandler(QtMsgType type, const QMessageLogContext& context, const QString& msg);
 
 int main(int argc, char *argv[])
 {
     createApplication(argc, argv);
 
     qApp->setQuitOnLastWindowClosed(false);
-    QCoreApplication::setApplicationName("Launchy");
-    QCoreApplication::setOrganizationDomain("Launchy");
+    QCoreApplication::setApplicationName("Graunchy");
+    QCoreApplication::setOrganizationDomain("Graunchy");
     QCoreApplication::setApplicationVersion("0.0.1");
 
-//	QString locale = QLocale::system().name();
-//	QTranslator translator;
-//	translator.load(QString("tr/launchy_" + locale));
-//	qApp->installTranslator(&translator);
+    QString locale = QLocale::system().name();
+    QTranslator translator;
+    translator.load(QString("tr/grauchy_" + locale));
+    qApp->installTranslator(&translator);
 
     CommandLineParser parser;
     parser.process(*qApp);
 
-//    CommandFlags command = None;
-//	bool allowMultipleInstances = false;
+    bool allowMultipleInstances = parser.doMultiple();
 
-//	for (int i = 0; i < args.size(); ++i)
-//	{
-//		QString arg = args[i];
-//		if (arg.startsWith("-") || arg.startsWith("/"))
-//		{
-//			arg = arg.mid(1);
-//			if (arg.compare("rescue", Qt::CaseInsensitive) == 0)
-//			{
-//				command = ResetSkin | ResetPosition | ShowLaunchy;
-//			}
-//			else if (arg.compare("show", Qt::CaseInsensitive) == 0)
-//			{
-//				command |= ShowLaunchy;
-//			}
-//			else if (arg.compare("options", Qt::CaseInsensitive) == 0)
-//			{
-//				command |= ShowOptions;
-//			}
-//			else if (arg.compare("multiple", Qt::CaseInsensitive) == 0)
-//			{
-//				allowMultipleInstances = true;
-//			}
-//			else if (arg.compare("rescan", Qt::CaseInsensitive) == 0)
-//			{
-//				command |= Rescan;
-//			}
-//			else if (arg.compare("exit", Qt::CaseInsensitive) == 0)
-//			{
-//				command |= Exit;
-//			}
-//			else if (arg.compare("log", Qt::CaseInsensitive) == 0)
-//			{
-//                qInstallMessageHandler(fileLogMsgHandler);
-//			}
+    CommandFlags command = None;
+
+    if(parser.doLog())
+    {
+        qInstallMessageHandler(fileLogMsgHandler);
+    }
+
+    if(parser.doRescue())
+    {
+        command = ResetSkin | ResetPosition | ShowView;
+    } else
+    if(parser.doShow())
+    {
+        command |= ShowView;
+    } else
+    if(parser.doOptions())
+    {
+        command |= ShowOptions;
+    }
+    if(parser.doExit())
+    {
+        command |= Exit;
+    }
+//    if (!allowMultipleInstances && platform->isAlreadyRunning())
+//    {
+//        platform->sendInstanceCommand(command);
+//        exit(1);
+//    }
+
 //			else if (arg.compare("profile", Qt::CaseInsensitive) == 0)
 //			{
 //				if (++i < args.length())
@@ -66,14 +64,7 @@ int main(int argc, char *argv[])
 //					settings.setProfileName(args[i]);
 //				}
 //			}
-//		}
-//	}
 
-//	if (!allowMultipleInstances && platform->isAlreadyRunning())
-//	{
-//		platform->sendInstanceCommand(command);
-//		exit(1);
-//	}
 
 
 //	qApp->setStyleSheet("file:///:/resources/basicskin.qss");
@@ -91,6 +82,41 @@ int main(int argc, char *argv[])
 
 //	delete platform;
 //	platform = NULL;
+}
+
+void fileLogMsgHandler(QtMsgType type, const QMessageLogContext& context, const QString& msg)
+{
+    static QTextStream* st = NULL;
+    if(st==NULL)
+    {
+        QString fileName = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + "/graunchy.log";
+        QFile fh(fileName);
+        if(!fh.open(QIODevice::WriteOnly | QIODevice::Text))
+            return;
+        st = new QTextStream(&fh);
+    }
+
+    switch (type)
+    {
+    case QtDebugMsg:
+        *st << "Debug: " << msg << "(" << context.file << ":" << context.line << ", " << context.function << ")";
+//            fprintf(file, "Debug: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        break;
+    case QtWarningMsg:
+        *st << "Warning: " << msg << "(" << context.file << ":" << context.line << ", " << context.function << ")";
+//            fprintf(file, "Warning: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        break;
+    case QtCriticalMsg:
+        *st << "Critical: " << msg << "(" << context.file << ":" << context.line << ", " << context.function << ")";
+//            fprintf(file, "Critical: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        break;
+    case QtFatalMsg:
+        *st << "Fatal: " << msg << "(" << context.file << ":" << context.line << ", " << context.function << ")";
+//            fprintf(file, "Fatal: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        abort();
+        break;
+//        fflush(file);
+    }
 }
 
 

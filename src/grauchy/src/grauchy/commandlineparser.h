@@ -15,6 +15,7 @@ public:
     static const char* argOptions;
     static const char* argMultiple;
     static const char* argExit;
+    static const char* argLog;
 public:
     CommandLineParser();
 
@@ -26,6 +27,7 @@ public:
     bool doOptions() const { return _parser.isSet(argOptions); }
     bool doMultiple() const { return _parser.isSet(argMultiple); }
     bool doExit() const { return _parser.isSet(argExit); }
+    bool doLog() const { return _parser.isSet(argLog); }
 private:
     void initialize();
 private:

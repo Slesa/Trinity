@@ -20,6 +20,8 @@ private slots:
     void multiple_is_set_with_short_arg();
     void exit_is_set_with_long_arg();
     void exit_is_set_with_short_arg();
+    void log_is_set_with_long_arg();
+    void log_is_set_with_short_arg();
 };
 
 #endif
