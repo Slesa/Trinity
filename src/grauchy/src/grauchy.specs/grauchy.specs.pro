@@ -8,10 +8,14 @@ INCLUDEPATH		+= ../grauchy
 
 HEADERS 		= \
                 commandlineparser.specs.h \
-                ../grauchy/commandlineparser.h
+                singleapplication.specs.h \
+                ../grauchy/commandlineparser.h \
+                ../grauchy/singleapplication.h
 
 SOURCES 		= main.cpp \
                 commandlineparser.specs.cpp \
-                ../grauchy/commandlineparser.cpp
+                singleapplication.specs.cpp \
+                ../grauchy/commandlineparser.cpp \
+                ../grauchy/singleapplication.cpp
 
 DESTDIR 		= ../../specs/

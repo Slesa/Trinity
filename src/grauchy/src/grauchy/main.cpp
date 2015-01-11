@@ -1,11 +1,15 @@
 #include "main.h"
 #include "platform_base.h"
 #include "commandlineparser.h"
+#include "singleapplication.h"
 #include <QApplication>
 #include <QFile>
 #include <QStandardPaths>
 #include <QTextStream>
 #include <QTranslator>
+#include <QDebug>
+
+static SingleApplication* _singleApplication;
 
 void fileLogMsgHandler(QtMsgType type, const QMessageLogContext& context, const QString& msg);
 
@@ -49,13 +53,23 @@ int main(int argc, char *argv[])
     }
     if(parser.doExit())
     {
+        /*
+        _singleApplication = SingleApplication::instance();
+        if(_singleApplication->isRunning())
+            _singleApplication->release();
+        */
         command |= Exit;
     }
-//    if (!allowMultipleInstances && platform->isAlreadyRunning())
-//    {
-//        platform->sendInstanceCommand(command);
-//        exit(1);
-//    }
+    if (!allowMultipleInstances)
+    {
+        _singleApplication = SingleApplication::instance();
+        if(!_singleApplication->start())
+        {
+            qDebug() << "Already running";
+//        	platform->sendInstanceCommand(command);
+            exit(1);
+        }
+    }
 
 //			else if (arg.compare("profile", Qt::CaseInsensitive) == 0)
 //			{
@@ -77,6 +91,10 @@ int main(int argc, char *argv[])
 
     qApp->exec();
 
+    if(_singleApplication!=NULL)
+    {
+        _singleApplication->release();
+    }
 //	delete widget;
 //	widget = NULL;
 

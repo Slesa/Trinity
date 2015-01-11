@@ -18,10 +18,12 @@ MOC_DIR			= .moc
 # FORMS = options.ui
 
 SOURCES			= main.cpp \
-                commandlineparser.cpp
+                commandlineparser.cpp \
+                singleapplication.cpp
 
 HEADERS			= main.h \
-                commandlineparser.h
+                commandlineparser.h \
+                singleapplication.h
 
 TRANSLATIONS	= \
                 ../../translations/grauchy_fr.ts \
