@@ -1,5 +1,5 @@
 TEMPLATE = subdirs
 
 win32:SUBDIRS = win
-unix:!macx:SUBDIRS = unix
+linux:SUBDIRS = unix
 macx:SUBDIRS = mac
