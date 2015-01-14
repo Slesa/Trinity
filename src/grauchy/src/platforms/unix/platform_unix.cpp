@@ -1,4 +1,6 @@
 #include "platform_unix.h"
+#include <globalshortcutmanager.h>
+#include <QDebug>
 
 PlatformUnix::PlatformUnix(int& argc, char** argv) 
     : PlatformBase(argc, argv)
@@ -6,6 +8,14 @@ PlatformUnix::PlatformUnix(int& argc, char** argv)
 
 } 
 
+bool PlatformUnix::setHotkey(const QKeySequence& key, QObject* receiver, const char* slot)
+{
+    GlobalShortcutManager::disconnect(_currentHotkey, receiver, slot);
+    GlobalShortcutManager::connect(key, receiver, slot);
+    _currentHotkey = key;
+    qDebug() << key << GlobalShortcutManager::isConnected(key);
+    return GlobalShortcutManager::isConnected(key);
+}
 
 #if 0
 #include <QtGui>

@@ -16,9 +16,11 @@ public:
     PlatformBase(int& argc, char** argv);
     virtual ~PlatformBase();
 
+    // Set hotkey
+    virtual QKeySequence getHotkey() const = 0;
+    virtual bool setHotkey(const QKeySequence& key, QObject* receiver, const char* slot) = 0;
 protected:
     QFileIconProvider* _icons;
-    QKeySequence hotkey;
 };
 
 #endif
@@ -51,12 +53,8 @@ public:
 	virtual void setPreferredIconSize(int size) = 0;
 
 	virtual QList<Directory> getDefaultCatalogDirectories() = 0;
-	virtual bool isAlreadyRunning() const = 0;
 	virtual void sendInstanceCommand(int command) { Q_UNUSED(command); }
 
-	// Set hotkey
-	virtual QKeySequence getHotkey() const = 0;
-	virtual bool setHotkey(const QKeySequence& key, QObject* receiver, const char* slot) = 0;
 
 	// Need to alter an indexed item?  e.g. .desktop files
 	virtual void alterItem(CatItem*) { }

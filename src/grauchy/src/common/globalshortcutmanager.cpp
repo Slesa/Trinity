@@ -1,12 +1,3 @@
-#include "globalshortcutmanager.h"
-#include <QCoreApplication>
-
-GlobalShortcutManager::GlobalShortcutManager()
-: QObject(QCoreApplication::instance())
-{
-}
-
-#if 0
 /*
  * globalshortcutmanager.cpp - Class managing global shortcuts
  * Copyright (C) 2006  Maciej Niedzielski
@@ -26,32 +17,40 @@ GlobalShortcutManager::GlobalShortcutManager()
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */
-
-
-#include "platform_base_hotkey.h"
-#include "platform_base_hottrigger.h"
+#include "globalshortcutmanager.h"
+#include "keytrigger.h"
 #include <QCoreApplication>
+#include <QMutex>
 
-
-/**
- * \brief Constructs new GlobalShortcutManager.
- */
+GlobalShortcutManager* GlobalShortcutManager::_instance;
 
 GlobalShortcutManager::~GlobalShortcutManager()
 {
-        clear();
+    clear();
 }
 
-GlobalShortcutManager* GlobalShortcutManager::instance_;
-
-/**
- * \brief Returns the instance of GlobalShortcutManager.
- */
 GlobalShortcutManager* GlobalShortcutManager::instance()
 {
-        if (!instance_)
-                instance_ = new GlobalShortcutManager();
-        return instance_;
+    static QMutex mutex;
+    if (!_instance)
+    {
+        mutex.lock();
+        _instance = new GlobalShortcutManager();
+        mutex.unlock();
+    }
+    return _instance;
+}
+
+void GlobalShortcutManager::connect(const QKeySequence& key, QObject* receiver, const char* slot)
+{
+    KeyTrigger* t = instance()->_triggers[key];
+    if( !t )
+    {
+        t = new KeyTrigger(key);
+        instance()->_triggers.insert(key, t);
+    }
+
+    QObject::connect(t, SIGNAL(activated()), receiver, slot);
 }
 
 /**
@@ -60,24 +59,12 @@ GlobalShortcutManager* GlobalShortcutManager::instance()
  * \param receiver, object which should receive the notification
  * \param slot, the SLOT() of the \a receiver which should be triggerd if the \a key is activated
  */
-void GlobalShortcutManager::connect(const QKeySequence& key, QObject* receiver, const char* slot)
-{
-        KeyTrigger* t = instance()->triggers_[key];
-        if (!t) {
-                t = new KeyTrigger(key);
-                instance()->triggers_.insert(key, t);
-        }
-
-        QObject::connect(t, SIGNAL(activated()), receiver, slot);
-		
-}
-
 bool GlobalShortcutManager::isConnected(const QKeySequence& key)
 {
-	KeyTrigger* t = instance()->triggers_[key];
-	if (!t)
-		return false;
-	return t->isConnected();
+    KeyTrigger* t = instance()->_triggers[key];
+    if (!t)
+        return false;
+    return t->isConnected();
 }
 
 /**
@@ -88,24 +75,35 @@ bool GlobalShortcutManager::isConnected(const QKeySequence& key)
  */
 void GlobalShortcutManager::disconnect(const QKeySequence& key, QObject* receiver, const char* slot)
 {
-        KeyTrigger* t = instance()->triggers_[key];
-        if (!t) {
-                return;
-        }
+    KeyTrigger* t = instance()->_triggers[key];
+    if( !t )  return;
 
-        QObject::disconnect(t, SIGNAL(activated()), receiver, slot);
-
-	delete instance()->triggers_.take(key);
-	//        if (!t->isUsed()) {
-        //        delete instance()->triggers_.take(key);
-        //}
+    QObject::disconnect(t, SIGNAL(activated()), receiver, slot);
+    delete instance()->_triggers.take(key);
 }
 
 void GlobalShortcutManager::clear()
 {
-        foreach (KeyTrigger* t, instance()->triggers_)
-                delete t;
-        instance()->triggers_.clear();
+    foreach (KeyTrigger* t, instance()->_triggers)
+        delete t;
+    instance()->_triggers.clear();
 }
+
+GlobalShortcutManager::GlobalShortcutManager()
+: QObject(QCoreApplication::instance())
+{
+}
+
+#if 0
+
+
+#include "platform_base_hotkey.h"
+#include "platform_base_hottrigger.h"
+#include <QCoreApplication>
+
+
+
+
+
 #endif
 
