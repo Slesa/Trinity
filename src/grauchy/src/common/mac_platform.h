@@ -1,14 +1,14 @@
-#ifndef PLATFORM_MAC
-#define PLATFORM_MAC
+#ifndef MAC_PLATFORM_H
+#define MAC_PLATFORM_H
 
 #include "platform_base.h"
 
-class PlatformMac :  public PlatformBase
+class MacPlatform :  public PlatformBase
 {
     Q_OBJECT
 
 public:
-    PlatformMac(int & argc, char** argv);
+    MacPlatform(int & argc, char** argv);
     virtual QKeySequence getHotkey() const
     {
         return oldKey;

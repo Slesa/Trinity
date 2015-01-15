@@ -1,14 +1,14 @@
-#ifndef PLATFORM_UNIX
-#define PLATFORM_UNIX
+#ifndef X11_PLATFORM_H
+#define X11_PLATFORM_H
 
 #include "platform_base.h"
 
-class PlatformUnix :  public PlatformBase
+class X11Platform :  public PlatformBase
 {
     Q_OBJECT
 
 public:
-    PlatformUnix(int & argc, char** argv);
+    X11Platform(int & argc, char** argv);
 
     QKeySequence getHotkey() const
     {

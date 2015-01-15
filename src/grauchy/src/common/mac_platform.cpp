@@ -1,13 +1,13 @@
-#include "platform_mac.h"
+#include "mac_platform.h"
 #include "globalshortcutmanager.h"
 #include <QDebug>
 
-PlatformMac::PlatformMac(int& argc, char** argv) 
+MacPlatform::MacPlatform(int& argc, char** argv)
     : PlatformBase(argc, argv)
 {
 } 
 
-bool PlatformMac::setHotkey(const QKeySequence & key, QObject* receiver, const char* slot)
+bool MacPlatform::setHotkey(const QKeySequence & key, QObject* receiver, const char* slot)
 {
     GlobalShortcutManager::disconnect(oldKey, receiver, slot);
     GlobalShortcutManager::connect(key, receiver, slot);

@@ -1,14 +1,14 @@
-#include "platform_unix.h"
+#include "x11_platform.h"
 #include <globalshortcutmanager.h>
 #include <QDebug>
 
-PlatformUnix::PlatformUnix(int& argc, char** argv) 
+X11Platform::X11Platform(int& argc, char** argv)
     : PlatformBase(argc, argv)
 {
 
 } 
 
-bool PlatformUnix::setHotkey(const QKeySequence& key, QObject* receiver, const char* slot)
+bool X11Platform::setHotkey(const QKeySequence& key, QObject* receiver, const char* slot)
 {
     GlobalShortcutManager::disconnect(_currentHotkey, receiver, slot);
     GlobalShortcutManager::connect(key, receiver, slot);

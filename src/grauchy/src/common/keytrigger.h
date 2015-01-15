@@ -21,6 +21,7 @@
 #define KEYTRIGGER_H
 
 #include "globalshortcutmanager.h"
+#include <auto_ptr.h>
 
 class GlobalShortcutManager::KeyTrigger : public QObject
 {

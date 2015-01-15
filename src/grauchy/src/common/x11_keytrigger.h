@@ -1,4 +1,6 @@
-#pragma once
+#ifndef X11KEYTRIGGER_H
+#define X11KEYTRIGGER_H
+
 
 #include "globalshortcutmanager.h"
 #include "keytrigger.h"
@@ -250,3 +252,4 @@ public:
         }
 };
 
+#endif // X11KEYTRIGGER_H
