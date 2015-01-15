@@ -20,6 +20,8 @@
 #ifndef KEYTRIGGER_H
 #define KEYTRIGGER_H
 
+#include "globalshortcutmanager.h"
+
 class GlobalShortcutManager::KeyTrigger : public QObject
 {
     Q_OBJECT
@@ -52,6 +54,7 @@ private:
       * Platform-specific helper
       */
     class Impl;
+    std::auto_ptr<Impl> d;
     //QSharedPointer<Impl> d;
 };
 

@@ -4,7 +4,7 @@ CONFIG			+= qt_warn debug_and_release staticlib
 QT				+= widgets
 
 HEADERS 		= \
-				keytrigger.h \
+                keytrigger.h \
                 platform_base.h \
                 globalshortcutmanager.h
 

@@ -9,7 +9,14 @@ class PlatformMac :  public PlatformBase
 
 public:
     PlatformMac(int & argc, char** argv);
+    virtual QKeySequence getHotkey() const
+    {
+        return oldKey;
+    }
+    virtual bool setHotkey(const QKeySequence& newHotkey, QObject* receiver, const char* slot);
 
+private:
+    QKeySequence oldKey;
 };
 
 #endif
