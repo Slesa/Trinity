@@ -18,7 +18,7 @@
  *
  */
 #include "mac_keytrigger.h"
-#include "keytrigger.h"
+#include "globalshortcuttrigger.h"
 
 MacKeyTriggerManager* MacKeyTriggerManager::instance_   = NULL;
 EventHandlerUPP MacKeyTriggerManager::hot_key_function_ = NULL;

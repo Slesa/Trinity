@@ -3,7 +3,7 @@
 
 
 #include "globalshortcutmanager.h"
-#include "keytrigger.h"
+#include "globalshortcuttrigger.h"
 
 #include <QWidget>
 #include <QX11Info>

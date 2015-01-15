@@ -56,7 +56,6 @@ private:
       */
     class Impl;
     std::auto_ptr<Impl> d;
-    //QSharedPointer<Impl> d;
 };
 
 #endif // KEYTRIGGER_H

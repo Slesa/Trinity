@@ -7,9 +7,9 @@ linux:QT    	+= x11extras
 mac:QT			+= macextras
 
 HEADERS 		= \
-                keytrigger.h \
                 platform_base.h \
-                globalshortcutmanager.h
+                globalshortcutmanager.h \
+                globalshortcuttrigger.h
 linux:HEADERS	+= \
 				x11_platform.h \
 				x11_keytrigger.h

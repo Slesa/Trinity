@@ -18,7 +18,7 @@
  *
  */
 #include "globalshortcutmanager.h"
-#include "keytrigger.h"
+#include "globalshortcuttrigger.h"
 #include <QCoreApplication>
 #include <QMutex>
 
