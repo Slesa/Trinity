@@ -19,10 +19,12 @@ MOC_DIR			= .moc
 
 SOURCES			= main.cpp \
                 commandlineparser.cpp \
+                grauchywidget.cpp \
                 singleapplication.cpp
 
-HEADERS			= main.h \
+HEADERS			= \
                 commandlineparser.h \
+                grauchywidget.h \
                 singleapplication.h
 
 TRANSLATIONS	= \

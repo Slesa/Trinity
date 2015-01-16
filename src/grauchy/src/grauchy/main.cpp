@@ -1,4 +1,4 @@
-#include "main.h"
+#include "grauchywidget.h"
 #include "platform_base.h"
 #include "commandlineparser.h"
 #include "singleapplication.h"
