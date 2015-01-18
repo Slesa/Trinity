@@ -22,7 +22,7 @@ class GrauchyWidget : public QWidget
 	Q_OBJECT
 
 public:
-	GrauchyWidget();
+    GrauchyWidget(CommandFlags command);
 };
 
 #endif // GRAUCHYWIDGET_H

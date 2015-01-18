@@ -18,11 +18,8 @@
  *
  */
 #include "mac_keytrigger.h"
+#include "mac_keytriggermanager.h"
 #include "globalshortcuttrigger.h"
-
-MacKeyTriggerManager* MacKeyTriggerManager::instance_   = NULL;
-EventHandlerUPP MacKeyTriggerManager::hot_key_function_ = NULL;
-MacKeyTriggerManager::Ascii2KeyCodeTable MacKeyTriggerManager::key_codes_;
 
 class GlobalShortcutManager::KeyTrigger::Impl : public MacKeyTrigger
 {
@@ -176,7 +173,7 @@ int GlobalShortcutManager::KeyTrigger::Impl::nextId = 1;
 
 GlobalShortcutManager::KeyTrigger::KeyTrigger(const QKeySequence& key)
 {
-        d.reset(new Impl(this, key));
+    d.reset(new Impl(this, key));
 }
 
 GlobalShortcutManager::KeyTrigger::~KeyTrigger()

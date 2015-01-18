@@ -83,11 +83,11 @@ int main(int argc, char *argv[])
 
 //	qApp->setStyleSheet("file:///:/resources/basicskin.qss");
 
-//#ifdef Q_OS_WIN
-//	LaunchyWidget* widget = createLaunchyWidget(command);
-//#else
-//	LaunchyWidget* widget = new LaunchyWidget(command);
-//#endif
+#ifdef Q_OS_WIN
+    GrauchyWidget* widget = createLaunchyWidget(command);
+#else
+    GrauchyWidget* widget = new GrauchyWidget(command);
+#endif
 
     int result = qApp->exec();
 
@@ -95,8 +95,9 @@ int main(int argc, char *argv[])
     {
         _singleApplication->release();
     }
-//	delete widget;
-//	widget = NULL;
+
+    delete widget;
+    widget = NULL;
 
 //	delete platform;
 //	platform = NULL;

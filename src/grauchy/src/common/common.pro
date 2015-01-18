@@ -10,27 +10,31 @@ HEADERS 		= \
                 platform_base.h \
                 globalshortcutmanager.h \
                 globalshortcuttrigger.h
-linux:HEADERS	+= \
-				x11_platform.h \
-				x11_keytrigger.h
-win32:HEADERS	+= \
-                win_platform.h
-mac:HEADERS		+= \
-                mac_platform.h \
-                mac_keytrigger.h
-
 SOURCES 		= \
                 platform_base.cpp \
                 globalshortcutmanager.cpp
+
+linux:HEADERS	+= \
+				x11_platform.h \
+				x11_keytrigger.h
 linux:SOURCES	+= x11.cpp \
-				x11_platform.cpp \
-				x11_keytrigger.cpp
+                x11_platform.cpp \
+                x11_keytrigger.cpp
+
+win32:HEADERS	+= \
+                win_platform.h
 win32:SOURCES	+= win.cpp \
                 win_platform.cpp \
                 win_keytrigger.cpp
+
+mac:HEADERS		+= \
+                mac_platform.h \
+                mac_keytrigger.h \
+                mac_keytriggermanager.h
 mac:SOURCES		+= mac.cpp \
                 mac_platform.cpp \
-                mac_keytrigger.cpp
+                mac_keytrigger.cpp \
+                mac_keytriggermanager.cpp
 
 DESTDIR 		= ../../lib/
 

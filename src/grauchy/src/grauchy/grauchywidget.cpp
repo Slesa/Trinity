@@ -1,6 +1,6 @@
 #include "grauchywidget.h"
 
-GrauchyWidget::GrauchyWidget()
+GrauchyWidget::GrauchyWidget(CommandFlags command)
 {
 
 }
