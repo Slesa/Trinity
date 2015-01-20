@@ -24,7 +24,11 @@
 
 #ifdef Q_OS_MAC
 #include <memory>
-#else
+#endif
+#ifdef Q_OS_WIN32
+#include <memory>
+#endif
+#ifdef Q_OS_LINUX
 #include <auto_ptr.h>
 #endif
 
