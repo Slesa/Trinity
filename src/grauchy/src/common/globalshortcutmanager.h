@@ -1,17 +1,3 @@
-#ifndef PLATFORM_BASE_HOTKEY
-#define PLATFORM_BASE_HOTKEY
-
-#include <QObject>
-
-class GlobalShortcutManager : public QObject
-{
-public:
-        GlobalShortcutManager();
-};
-
-#endif
-
-#if 0
 /*
  * globalshortcutmanager.h - Class managing global shortcuts
  * Copyright (C) 2006  Maciej Niedzielski
@@ -31,13 +17,43 @@ public:
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */
+#ifndef PLATFORM_BASE_HOTKEY
+#define PLATFORM_BASE_HOTKEY
+
+#include <QKeySequence>
+#include <QMap>
+#include <QObject>
+
+
+class GlobalShortcutManager : public QObject
+{
+    class KeyTrigger;
+public:
+    ~GlobalShortcutManager();
+    static GlobalShortcutManager* instance();
+    static void connect(const QKeySequence& key, QObject* receiver, const char* slot);
+    static void disconnect(const QKeySequence& key, QObject* receiver, const char* slot);
+    static bool isConnected(const QKeySequence& key);
+
+
+private:
+    GlobalShortcutManager();
+    static void clear();
+
+private:
+    static GlobalShortcutManager* _instance;
+    QMap<QKeySequence, KeyTrigger*> _triggers;
+};
+
+#endif
+
+#if 0
 
 #ifndef GLOBALSHORTCUTMANAGER_H
 #define GLOBALSHORTCUTMANAGER_H
 
 #include <QObject>
 #include <QKeySequence>
-#include <QMap>
 
 
 class QObject;
@@ -46,18 +62,8 @@ class KeyTrigger;
 class GlobalShortcutManager : public QObject
 {
 public:
-        static GlobalShortcutManager* instance();
-        static void connect(const QKeySequence& key, QObject* receiver, const char* slot);
-        static void disconnect(const QKeySequence& key, QObject* receiver, const char* slot);
-		static bool isConnected(const QKeySequence& key);
-		static void clear();
         GlobalShortcutManager();
-        ~GlobalShortcutManager();
-private:
 
-        static GlobalShortcutManager* instance_;
-        class KeyTrigger;
-        QMap<QKeySequence, KeyTrigger*> triggers_;
 };
 
 #endif

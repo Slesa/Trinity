@@ -60,7 +60,7 @@ SingleApplication::SingleApplication()
 
 SingleApplication::~SingleApplication()
 {
-//    release();
+    release();
 }
 
 QString SingleApplication::applicationKey()

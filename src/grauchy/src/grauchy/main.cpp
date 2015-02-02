@@ -1,7 +1,8 @@
-#include "main.h"
+#include "grauchywidget.h"
 #include "platform_base.h"
 #include "commandlineparser.h"
 #include "singleapplication.h"
+#include "globals.h"
 #include <QApplication>
 #include <QFile>
 #include <QStandardPaths>
@@ -20,7 +21,7 @@ int main(int argc, char *argv[])
     qApp->setQuitOnLastWindowClosed(false);
     QCoreApplication::setApplicationName("Graunchy");
     QCoreApplication::setOrganizationDomain("Graunchy");
-    QCoreApplication::setApplicationVersion("0.0.1");
+    QCoreApplication::setApplicationVersion(GRAUCHY_VERSION_STRING);
 
     QString locale = QLocale::system().name();
     QTranslator translator;
@@ -83,11 +84,11 @@ int main(int argc, char *argv[])
 
 //	qApp->setStyleSheet("file:///:/resources/basicskin.qss");
 
-//#ifdef Q_OS_WIN
-//	LaunchyWidget* widget = createLaunchyWidget(command);
-//#else
-//	LaunchyWidget* widget = new LaunchyWidget(command);
-//#endif
+#ifdef Q_OS_WIN
+    GrauchyWidget* widget = createLaunchyWidget(command);
+#else
+    GrauchyWidget* widget = new GrauchyWidget(command);
+#endif
 
     int result = qApp->exec();
 
@@ -95,8 +96,9 @@ int main(int argc, char *argv[])
     {
         _singleApplication->release();
     }
-//	delete widget;
-//	widget = NULL;
+
+    delete widget;
+    widget = NULL;
 
 //	delete platform;
 //	platform = NULL;

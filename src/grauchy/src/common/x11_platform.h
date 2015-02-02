@@ -1,15 +1,23 @@
-#ifndef PLATFORM_UNIX
-#define PLATFORM_UNIX
+#ifndef X11_PLATFORM_H
+#define X11_PLATFORM_H
 
 #include "platform_base.h"
 
-class PlatformUnix :  public PlatformBase
+class X11Platform :  public PlatformBase
 {
     Q_OBJECT
 
 public:
-    PlatformUnix(int & argc, char** argv);
+    X11Platform(int & argc, char** argv);
 
+    QKeySequence getHotkey() const
+    {
+        return _currentHotkey;
+    }
+    bool setHotkey(const QKeySequence& key, QObject* receiver, const char* slot);
+
+private:
+    QKeySequence _currentHotkey;
 };
 
 #endif
@@ -39,7 +47,6 @@ class PlatformUnix :  public PlatformBase
         return false;
     }
 
-    QKeySequence oldKey;
  public:
     ~PlatformUnix();
     
@@ -51,18 +58,9 @@ class PlatformUnix :  public PlatformBase
     bool setHotkey(const QKeySequence& key, QObject* receiver, const char* slot)
     {
 
-	GlobalShortcutManager::disconnect(oldKey, receiver, slot);
-	GlobalShortcutManager::connect(key, receiver, slot);
-	oldKey = key;
-        qDebug() << key << GlobalShortcutManager::isConnected(key);
-	return GlobalShortcutManager::isConnected(key);
     }
     
 
-    QKeySequence getHotkey() const
-    {
-        return oldKey;
-    }
 
     QString GetSettingsDirectory() { 
 	return "";

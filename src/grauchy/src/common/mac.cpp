@@ -1,7 +1,7 @@
-#include "platform_win.h"
+#include "mac_platform.h"
 #include <QApplication>
 
 QApplication* createApplication(int& argc, char** argv)
 {
-	return new PlatformWin(argc, argv);
+    return new MacPlatform(argc, argv);
 }

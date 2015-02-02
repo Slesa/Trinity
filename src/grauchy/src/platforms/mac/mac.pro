@@ -4,11 +4,14 @@ CONFIG			+= qt_warn debug_and_release staticlib
 INCLUDEPATH     += ../../common/
 #CONFIG			-= embed_manifest_dll
 QT				+= widgets
+mac:QT			+= macextras
 
 SOURCES			= mac.cpp \
+                mac_keytrigger.cpp \
                 platform_mac.cpp
 
 HEADERS			= \
+				mac_keytrigger.h \
                 platform_mac.h
                 
 

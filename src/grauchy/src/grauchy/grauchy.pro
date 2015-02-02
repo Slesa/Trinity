@@ -19,10 +19,12 @@ MOC_DIR			= .moc
 
 SOURCES			= main.cpp \
                 commandlineparser.cpp \
+                grauchywidget.cpp \
                 singleapplication.cpp
 
-HEADERS			= main.h \
+HEADERS			= \
                 commandlineparser.h \
+                grauchywidget.h \
                 singleapplication.h
 
 TRANSLATIONS	= \
@@ -46,7 +48,6 @@ linux {
 #        platform_base_hotkey.h \
 #        platform_base_hottrigger.h
     LIBS		+= -L../../lib \
-                -lgrauchy.platform.unix \
                 -lgrauchy.common \
                 -lX11
 #    PREFIX = /usr
@@ -93,7 +94,6 @@ win32 {
 #    RC_FILE = ../win/launchy.rc
     LIBS		+= \
                 ../../lib/grauchy.common.lib \
-                ../../lib/grauchy.platform.win.lib \
                 shell32.lib \
                 user32.lib \
                 gdi32.lib \
@@ -134,8 +134,7 @@ macx {
     LIBS		+= -L../../lib \
                 -framework \
                 Carbon \
-                -lgrauchy.common \
-                -lgrauchy.platform.mac
+                -lgrauchy.common
 #    CONFIG(debug, debug|release):skins.path = ../debug/Launchy.app/Contents/Resources/skins/
 #    CONFIG(release, debug|release):skins.path = ../release/Launchy.app/Contents/Resources/skins/
 #    skins.files =
