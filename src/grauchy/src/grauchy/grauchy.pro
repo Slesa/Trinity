@@ -20,12 +20,16 @@ MOC_DIR			= .moc
 SOURCES			= main.cpp \
                 commandlineparser.cpp \
                 grauchywidget.cpp \
-                singleapplication.cpp
+                singleapplication.cpp \
+    mainview.cpp \
+    optionsdialog.cpp
 
 HEADERS			= \
                 commandlineparser.h \
                 grauchywidget.h \
-                singleapplication.h
+                singleapplication.h \
+    mainview.h \
+    optionsdialog.h
 
 TRANSLATIONS	= \
                 ../../translations/grauchy_fr.ts \
@@ -160,3 +164,7 @@ macx {
 #        translations \
 #        dmg
 }
+
+FORMS += \
+    mainview.ui \
+    optionsdialog.ui

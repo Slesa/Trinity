@@ -1,8 +1,9 @@
-#include "grauchywidget.h"
-#include "platform_base.h"
-#include "commandlineparser.h"
-#include "singleapplication.h"
-#include "globals.h"
+#include "mainview.h"
+//#include "grauchywidget.h"
+//#include "platform_base.h"
+//#include "commandlineparser.h"
+//#include "singleapplication.h"
+//#include "globals.h"
 #include <QApplication>
 #include <QFile>
 #include <QStandardPaths>
@@ -10,15 +11,29 @@
 #include <QTranslator>
 #include <QDebug>
 
-static SingleApplication* _singleApplication;
+//static SingleApplication* _singleApplication;
 
 void fileLogMsgHandler(QtMsgType type, const QMessageLogContext& context, const QString& msg);
 
 int main(int argc, char *argv[])
 {
+    QApplication* app = new QApplication(argc, argv);
+
+    QCoreApplication::setApplicationName("Graunchy");
+    QCoreApplication::setOrganizationDomain("Graunchy");
+//    QCoreApplication::setApplicationVersion(GRAUCHY_VERSION_STRING);
+
+    MainView* view = new MainView();
+    view->show();
+    return qApp->exec();
+}
+
+#ifdef NEVER
+int main(int argc, char *argv[])
+{
     createApplication(argc, argv);
 
-    qApp->setQuitOnLastWindowClosed(false);
+//    qApp->setQuitOnLastWindowClosed(false);
     QCoreApplication::setApplicationName("Graunchy");
     QCoreApplication::setOrganizationDomain("Graunchy");
     QCoreApplication::setApplicationVersion(GRAUCHY_VERSION_STRING);
@@ -83,12 +98,15 @@ int main(int argc, char *argv[])
 
 
 //	qApp->setStyleSheet("file:///:/resources/basicskin.qss");
-
+/*
 #ifdef Q_OS_WIN
     GrauchyWidget* widget = createLaunchyWidget(command);
 #else
     GrauchyWidget* widget = new GrauchyWidget(command);
 #endif
+ */
+    MainView* view = new MainView();
+    view->show();
 
     int result = qApp->exec();
 
@@ -97,14 +115,16 @@ int main(int argc, char *argv[])
         _singleApplication->release();
     }
 
-    delete widget;
-    widget = NULL;
+    delete view;
+    view = NULL;
 
 //	delete platform;
 //	platform = NULL;
 
     return result;
 }
+#endif
+
 
 void fileLogMsgHandler(QtMsgType type, const QMessageLogContext& context, const QString& msg)
 {

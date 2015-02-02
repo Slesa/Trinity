@@ -33,6 +33,7 @@ bool SingleApplication::isRunning()
 
 bool SingleApplication::start()
 {
+    return true;
     if(!_appLock.create(1))
     {
         return false;
