@@ -2,5 +2,12 @@
     <qresource prefix="/" >
         <file>resources/grauchy128.png</file>
         <file>resources/grauchy24.png</file>
+        <file>resources/package.png</file>
+        <file>resources/settings.png</file>
+        <file>resources/button_ok.png</file>
+        <file>resources/button_cancel.png</file>
+        <file>resources/edit_add.png</file>
+        <file>resources/edit_remove.png</file>
+        <file>resources/edit_view.png</file>
     </qresource>
 </RCC>

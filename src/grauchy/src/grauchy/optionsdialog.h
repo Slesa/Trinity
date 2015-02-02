@@ -7,6 +7,10 @@ namespace Ui {
 class OptionsDialog;
 }
 
+class QListWidgetItem;
+class OptionsPage;
+
+
 class OptionsDialog : public QDialog
 {
     Q_OBJECT
@@ -14,6 +18,13 @@ class OptionsDialog : public QDialog
 public:
     explicit OptionsDialog(QWidget *parent = 0);
     ~OptionsDialog();
+
+public slots:
+    void changePage(QListWidgetItem*,QListWidgetItem*);
+
+private:
+    void createPages();
+    QListWidgetItem* createItem(OptionsPage* page);
 
 private:
     Ui::OptionsDialog *ui;

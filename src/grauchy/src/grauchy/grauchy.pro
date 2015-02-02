@@ -14,22 +14,35 @@ INCLUDEPATH		+= . \
 UI_DIR			= .ui
 MOC_DIR			= .moc
 
-# RESOURCES += grauchy.qrc
-# FORMS = options.ui
+RESOURCES		+= grauchy.qrc
+FORMS			+= \
+                mainview.ui \
+                optionsdialog.ui \
+                settingspage.ui \
+    packagespage.ui \
+    packagedialog.ui
 
 SOURCES			= main.cpp \
                 commandlineparser.cpp \
                 grauchywidget.cpp \
                 singleapplication.cpp \
-    mainview.cpp \
-    optionsdialog.cpp
+                mainview.cpp \
+                optionsdialog.cpp \
+                optionspage.cpp \
+                settingspage.cpp \
+    packagespage.cpp \
+    packagedialog.cpp
 
 HEADERS			= \
                 commandlineparser.h \
                 grauchywidget.h \
                 singleapplication.h \
-    mainview.h \
-    optionsdialog.h
+                mainview.h \
+                optionsdialog.h \
+                optionspage.h \
+                settingspage.h \
+    packagespage.h \
+    packagedialog.h
 
 TRANSLATIONS	= \
                 ../../translations/grauchy_fr.ts \
@@ -165,6 +178,3 @@ macx {
 #        dmg
 }
 
-FORMS += \
-    mainview.ui \
-    optionsdialog.ui
