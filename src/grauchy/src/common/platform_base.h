@@ -5,8 +5,6 @@
 #include <QApplication>
 #include <QKeySequence>
 
-class QFileIconProvider;
-
 // Platform dependent creation of qApp
 QApplication* createApplication(int& argc, char** argv);
 
@@ -19,8 +17,6 @@ public:
     // Set hotkey
     virtual QKeySequence getHotkey() const = 0;
     virtual bool setHotkey(const QKeySequence& key, QObject* receiver, const char* slot) = 0;
-protected:
-    QFileIconProvider* _icons;
 };
 
 #endif

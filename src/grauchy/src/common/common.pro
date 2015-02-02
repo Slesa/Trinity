@@ -9,10 +9,12 @@ mac:QT			+= macextras
 HEADERS 		= \
                 platform_base.h \
                 globalshortcutmanager.h \
-                globalshortcuttrigger.h
+                globalshortcuttrigger.h \
+    globals.h
 SOURCES 		= \
                 platform_base.cpp \
-                globalshortcutmanager.cpp
+                globalshortcutmanager.cpp \
+    globals.cpp
 
 linux:HEADERS	+= \
 				x11_platform.h \

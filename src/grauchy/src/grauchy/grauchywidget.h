@@ -23,6 +23,10 @@ class GrauchyWidget : public QWidget
 
 public:
     GrauchyWidget(CommandFlags command);
+    ~GrauchyWidget();
+
+private:
+    void initialize();
 };
 
 #endif // GRAUCHYWIDGET_H

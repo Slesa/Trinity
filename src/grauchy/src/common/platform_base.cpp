@@ -1,17 +1,13 @@
 #include "platform_base.h"
+#include "globals.h"
 #include <QFileIconProvider>
 
 PlatformBase::PlatformBase(int& argc, char** argv)
 : QApplication(argc, argv)
 {
-    // @@@ platform = this;
+    g_platform = this;
 }
 
 PlatformBase::~PlatformBase()
 {
-    if (_icons)
-    {
-        delete _icons;
-        _icons = NULL;
-    }
 }

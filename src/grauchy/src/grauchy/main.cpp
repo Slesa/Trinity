@@ -2,6 +2,7 @@
 #include "platform_base.h"
 #include "commandlineparser.h"
 #include "singleapplication.h"
+#include "globals.h"
 #include <QApplication>
 #include <QFile>
 #include <QStandardPaths>
@@ -20,7 +21,7 @@ int main(int argc, char *argv[])
     qApp->setQuitOnLastWindowClosed(false);
     QCoreApplication::setApplicationName("Graunchy");
     QCoreApplication::setOrganizationDomain("Graunchy");
-    QCoreApplication::setApplicationVersion("0.0.1");
+    QCoreApplication::setApplicationVersion(GRAUCHY_VERSION_STRING);
 
     QString locale = QLocale::system().name();
     QTranslator translator;
