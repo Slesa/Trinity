@@ -34,6 +34,16 @@ Hotkey* HotkeyDialog::getData()
     return hotkey;
 }
 
+void HotkeyDialog::setData(Hotkey* hotkey)
+{
+    ui->textDescription->setText(hotkey->getDescription());
+    SystemFlags systems = hotkey->getSystems();
+    ui->checkLinux->setChecked(systems&SystemLinux);
+    ui->checkWindows->setChecked(systems&SystemWindows);
+    ui->checkMac->setChecked(systems&SystemMac);
+    ui->lineTags->setText(hotkey->getTags().join(','));
+}
+
 void HotkeyDialog::done(int r)
 {
     QDialog::done(r);

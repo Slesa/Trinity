@@ -22,12 +22,16 @@ protected:
 
 private slots:
     void onAddHotkey();
+    void onEditHotkey();
     void onTakeHotkey(HotkeyDialog* dlg);
     void onHotkeyClosed(QDialog* dlg);
 
 private:
+    void openDialog(QDialog* dlg);
+
+private:
     Ui::PackageDialog *ui;
-    QList<QDialog*> _hotkeyDialogs;
+    QList<QDialog*> _openDialogs;
 };
 
 #endif // PACKAGEDIALOG_H

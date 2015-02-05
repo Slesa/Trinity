@@ -17,6 +17,7 @@ public:
     explicit HotkeyDialog(QWidget *parent = 0);
     ~HotkeyDialog();
     Hotkey* getData();
+    void setData(Hotkey* hotkey);
 
 signals:
     void closeMe(QDialog* dlg);

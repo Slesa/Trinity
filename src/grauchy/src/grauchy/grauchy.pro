@@ -117,7 +117,7 @@ win32 {
 #    INCLUDEPATH += c:/boost/
 #    RC_FILE = ../win/launchy.rc
     LIBS		+= \
-                ../../lib/grauchy.common.lib \
+                ../../../lib/data.lib \
                 shell32.lib \
                 user32.lib \
                 gdi32.lib \

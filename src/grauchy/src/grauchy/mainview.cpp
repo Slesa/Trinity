@@ -5,9 +5,9 @@
 
 // http://www.bogotobogo.com/Qt/Qt5_QListView_QStringListModel_ModelView_MVC.php
 
-MainView::MainView(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::MainView)
+MainView::MainView(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::MainView)
 {
     ui->setupUi(this);
 
