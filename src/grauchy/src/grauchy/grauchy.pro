@@ -8,8 +8,7 @@ QT				+= network widgets gui-private
 win32:QT		+= winextras
 linux:QT    	+= x11extras
 
-INCLUDEPATH		+= . \
-                ../common
+INCLUDEPATH		+= ../
 
 UI_DIR			= .ui
 MOC_DIR			= .moc
@@ -20,7 +19,9 @@ FORMS			+= \
                 optionsdialog.ui \
                 settingspage.ui \
     packagespage.ui \
-    packagedialog.ui
+    packagedialog.ui \
+    hotkeydialog.ui \
+    keystrokedialog.ui
 
 SOURCES			= main.cpp \
                 commandlineparser.cpp \
@@ -31,7 +32,9 @@ SOURCES			= main.cpp \
                 optionspage.cpp \
                 settingspage.cpp \
     packagespage.cpp \
-    packagedialog.cpp
+    packagedialog.cpp \
+    hotkeydialog.cpp \
+    keystrokedialog.cpp
 
 HEADERS			= \
                 commandlineparser.h \
@@ -42,7 +45,9 @@ HEADERS			= \
                 optionspage.h \
                 settingspage.h \
     packagespage.h \
-    packagedialog.h
+    packagedialog.h \
+    hotkeydialog.h \
+    keystrokedialog.h
 
 TRANSLATIONS	= \
                 ../../translations/grauchy_fr.ts \
@@ -51,6 +56,7 @@ TRANSLATIONS	= \
 
 DESTDIR		 	= ../../bin/
 DLLDESTDIR		= ../../bin/
+#LIBS			+= data
 
 linux {
 #    ICON = Launchy.ico
@@ -64,7 +70,8 @@ linux {
 #        ../platforms/unix/platform_x11_hotkey.h \
 #        platform_base_hotkey.h \
 #        platform_base_hottrigger.h
-    LIBS		+= -L../../lib \
+    LIBS		+= -L../../../lib \
+                -ldata \
                 -lgrauchy.common \
                 -lX11
 #    PREFIX = /usr

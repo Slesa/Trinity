@@ -38,7 +38,7 @@ mac:SOURCES		+= mac.cpp \
                 mac_keytrigger.cpp \
                 mac_keytriggermanager.cpp
 
-DESTDIR 		= ../../lib/
+DESTDIR 		= $${PWD}../../../bin/lib/
 
 #if(!debug_and_release|build_pass):CONFIG(debug, debug|release) {
 #        DESTDIR = ../../lib/

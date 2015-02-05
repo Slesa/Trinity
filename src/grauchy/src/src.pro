@@ -1,6 +1,7 @@
-TEMPLATE = subdirs
-SUBDIRS =  \
-        common \
-        grauchy.specs \
-        grauchy
+TEMPLATE 	= subdirs
+CONFIG		+= ordered
+SUBDIRS 	=  data \
+	        common \
+    	    grauchy.specs \
+        	grauchy
           
