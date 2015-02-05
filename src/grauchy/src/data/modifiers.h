@@ -8,10 +8,10 @@
  */
 enum Modifiers
 {
-    Shift,
-    Control,
-    Alt,
-    Meta
+    Shift = 1,
+    Control = 2,
+    Alt = 4,
+    Meta = 8
 };
 
 Q_DECLARE_FLAGS(ModifierFlags, Modifiers)

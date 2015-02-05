@@ -38,4 +38,6 @@ private:
     QList<KeyStroke> _keyStrokes;
 };
 
+Q_DECLARE_METATYPE(Hotkey)
+
 #endif // HOTKEY_H

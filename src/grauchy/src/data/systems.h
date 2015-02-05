@@ -8,9 +8,9 @@
  */
 enum SystemFlag
 {
-    SystemWindows,
-    SystemLinux,
-    SystemMac
+    SystemWindows = 1,
+    SystemLinux = 2,
+    SystemMac = 4
 };
 
 Q_DECLARE_FLAGS(SystemFlags, SystemFlag)

@@ -59,7 +59,7 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QListWidget" name="listHotkeys"/>
+       <widget class="QListView" name="listHotkeys"/>
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout">

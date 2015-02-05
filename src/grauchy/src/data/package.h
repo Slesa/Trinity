@@ -15,7 +15,7 @@ public:
     QString getName() { return _name; }
     void setName(const QString& name) { _name = name; }
 
-    QList<Hotkey> getHotkeys() { return _hotkeys; }
+    QList<Hotkey> getHotkeys() const { return _hotkeys; }
 
 private:
     QString _name;

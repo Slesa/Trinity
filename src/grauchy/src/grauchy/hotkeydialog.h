@@ -1,13 +1,12 @@
 #ifndef HOTKEYDIALOG_H
 #define HOTKEYDIALOG_H
 
+#include "data/hotkey.h"
 #include <QDialog>
 
 namespace Ui {
 class HotkeyDialog;
 }
-
-class Hotkey;
 
 class HotkeyDialog : public QDialog
 {
@@ -16,8 +15,9 @@ class HotkeyDialog : public QDialog
 public:
     explicit HotkeyDialog(QWidget *parent = 0);
     ~HotkeyDialog();
-    Hotkey* getData();
-    void setData(Hotkey* hotkey);
+
+    Hotkey getData();
+    void setData(const Hotkey& hotkey);
 
 signals:
     void closeMe(QDialog* dlg);

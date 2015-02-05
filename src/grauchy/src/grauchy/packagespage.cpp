@@ -29,8 +29,12 @@ QString PackagesPage::getTitle()
 
 void PackagesPage::onAdd()
 {
-    PackageDialog* dlg = new PackageDialog(this);
-    dlg->exec();
+    Package package;
+    PackageDialog* dlg = new PackageDialog(package, this);
+    if(dlg->exec()==QDialog::Accepted)
+    {
+
+    }
 }
 
 void PackagesPage::onEdit()
@@ -42,3 +46,4 @@ void PackagesPage::onRemove()
 {
 
 }
+
