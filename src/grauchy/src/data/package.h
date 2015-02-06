@@ -15,10 +15,14 @@ public:
     QString getName() { return _name; }
     void setName(const QString& name) { _name = name; }
 
+    QString getDescription() { return _description; }
+    void setDescription(const QString& description) { _description = description; }
+
     QList<Hotkey> getHotkeys() const { return _hotkeys; }
 
 private:
     QString _name;
+    QString _description;
     QList<Hotkey> _hotkeys;
 };
 
