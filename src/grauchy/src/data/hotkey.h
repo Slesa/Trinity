@@ -1,6 +1,7 @@
 #ifndef HOTKEY_H
 #define HOTKEY_H
 
+#include "entity.h"
 #include "systems.h"
 #include "modifiers.h"
 #include "keystroke.h"
@@ -10,7 +11,7 @@
 /*
  * A hotkey combines a list of keystrokes with a description and a few tags to allow a better search result.
  */
-class Hotkey
+class Hotkey : public Entity
 {
 public:
     Hotkey();

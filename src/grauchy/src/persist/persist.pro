@@ -6,16 +6,19 @@ win32:DEFINES	+= UNICODE _UNICODE
 QT       		+= sql
 QT       		-= gui
 
+INCLUDEPATH		+= ../
 
 HEADERS 		+= persist.h \
     packagetable.h \
     tableinitializer.h \
-    sqlexception.h
+    sqlexception.h \
+    hotkeytable.h
 
 SOURCES 		+= persist.cpp \
     packagetable.cpp \
     tableinitializer.cpp \
-    sqlexception.cpp
+    sqlexception.cpp \
+    hotkeytable.cpp
 
 DESTDIR 		= $${PWD}../../../bin/lib/
 

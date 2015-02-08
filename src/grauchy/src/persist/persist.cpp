@@ -10,6 +10,7 @@ Persist::Persist()
 
 QSqlError Persist::initDb()
 {
+    QSqlDatabase::removeDatabase("QSQLITE");
     _db = QSqlDatabase::addDatabase("QSQLITE");
     _db.setDatabaseName(_testing ? DatabaseTest : DatabaseName);
 

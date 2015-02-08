@@ -16,6 +16,7 @@ SOURCES 		= main.cpp \
 
 LIBS			+= \
                 -L$${PWD}/../../bin/lib \
-                -lpersist
+                -lpersist \
+                -ldata
 
 DESTDIR 		= $${PWD}/../../../bin/specs/

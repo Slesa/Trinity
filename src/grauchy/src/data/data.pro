@@ -8,12 +8,14 @@ HEADERS 		= \
                 hotkey.h \
     modifiers.h \
     systems.h \
-    keystroke.h
+    keystroke.h \
+    entity.h
 
 SOURCES 		= \
                 package.cpp \
                 hotkey.cpp \
-    keystroke.cpp
+    keystroke.cpp \
+    entity.cpp
 
 DESTDIR 		= $${PWD}../../../bin/lib/
 

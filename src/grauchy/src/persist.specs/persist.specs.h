@@ -3,27 +3,22 @@
 
 #include <QObject>
 
+class Persist;
+
 class PersistSpecs : public QObject
 {
     Q_OBJECT
 
 private slots:
+    void initTestCase();
+    void cleanupTestCase();
     void test_database_reports_no_error();
     void test_database_can_add_package();
-/*
-    void rescue_is_set_with_long_arg();
-    void rescue_is_set_with_short_arg();
-    void show_is_set_with_long_arg();
-    void show_is_set_with_short_arg();
-    void options_is_set_with_long_arg();
-    void options_is_set_with_short_arg();
-    void multiple_is_set_with_long_arg();
-    void multiple_is_set_with_short_arg();
-    void exit_is_set_with_long_arg();
-    void exit_is_set_with_short_arg();
-    void log_is_set_with_long_arg();
-    void log_is_set_with_short_arg();
-    */
+    void test_database_can_find_inserted_element();
+    void test_database_can_find_inserted_package();
+    void test_database_can_find_inserted_hotkey();
+private:
+    Persist* _persist;
 };
 
 #endif

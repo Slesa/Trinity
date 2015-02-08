@@ -2,12 +2,13 @@
 #define PACKAGE_H
 
 #include "hotkey.h"
+#include "entity.h"
 #include <QString>
 
 /*
  * A package consist of a name and the list of its hotkeys, e.g. "VI" and all known shortcuts for it.
  */
-class Package
+class Package : public Entity
 {
 public:
     Package();

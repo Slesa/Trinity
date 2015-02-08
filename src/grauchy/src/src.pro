@@ -5,4 +5,3 @@ SUBDIRS 	=  data \
             persist \
             persist.specs \
             grauchy
-

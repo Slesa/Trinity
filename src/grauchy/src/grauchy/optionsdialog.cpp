@@ -31,13 +31,13 @@ void OptionsDialog::changePage(QListWidgetItem* current, QListWidgetItem* previo
 
 void OptionsDialog::createPages()
 {
-    OptionsPage* settingsPage = new SettingsPage(this);
-    createItem(settingsPage);
-    ui->stackedPages->addWidget(settingsPage);
-
     PackagesPage* packagesPage = new PackagesPage(this);
     createItem(packagesPage);
     ui->stackedPages->addWidget(packagesPage);
+
+    OptionsPage* settingsPage = new SettingsPage(this);
+    createItem(settingsPage);
+    ui->stackedPages->addWidget(settingsPage);
 }
 
 QListWidgetItem* OptionsDialog::createItem(OptionsPage* page)

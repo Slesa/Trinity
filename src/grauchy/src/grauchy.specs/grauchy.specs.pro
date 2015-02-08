@@ -18,4 +18,4 @@ SOURCES 		= main.cpp \
                 ../grauchy/commandlineparser.cpp \
                 ../grauchy/singleapplication.cpp
 
-DESTDIR 		= $${PWD}../../../bin/specs/
+DESTDIR 		= $${PWD}../../bin/specs/

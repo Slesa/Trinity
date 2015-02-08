@@ -2,10 +2,15 @@
 #define PACKAGESPAGE_H
 
 #include "optionspage.h"
+#include <QModelIndex>
 
 namespace Ui {
 class PackagesPage;
 }
+
+class Persist;
+class QSqlRelationalTableModel;
+class QSqlError;
 
 class PackagesPage : public OptionsPage
 {
@@ -23,8 +28,15 @@ private slots:
     void onEdit();
     void onRemove();
 
+    void onCurrentRowChanged(QModelIndex);
 private:
-    Ui::PackagesPage *ui;
+    void createModel();
+    void showError(const QSqlError& error);
+
+private:
+    Persist* _persist;
+    Ui::PackagesPage* _ui;
+    QSqlRelationalTableModel* _model;
 };
 
 #endif // PACKAGESPAGE_H

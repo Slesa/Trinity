@@ -4,7 +4,7 @@ win32:TARGET	= Grauchy
 macx:TARGET		= Grauchy
 
 CONFIG			+= debug_and_release
-QT				+= network widgets gui-private
+QT				+= sql network widgets gui-private
 win32:QT		+= winextras
 linux:QT    	+= x11extras
 
@@ -56,8 +56,10 @@ TRANSLATIONS	= \
                 ../../translations/grauchy_de.ts \
                 ../../translations/grauchy_rus.ts
 
-DESTDIR		 	= ../../bin/
-DLLDESTDIR		= ../../bin/
+DESTDIR			= $${PWD}/../../bin
+LIBS			+= -L$${PWD}/../../bin/lib \
+                -ldata \
+                -lpersist
 #LIBS			+= data
 
 linux {
@@ -72,9 +74,7 @@ linux {
 #        ../platforms/unix/platform_x11_hotkey.h \
 #        platform_base_hotkey.h \
 #        platform_base_hottrigger.h
-    LIBS		+= -L$${PWD}/../../bin/lib \
-                -ldata \
-#                -lgrauchy.common \
+    LIBS		+= \
                 -lX11
 #    PREFIX = /usr
 #    DEFINES += SKINS_PATH=\\\"$$PREFIX/share/launchy/skins/\\\" \
@@ -119,7 +119,6 @@ win32 {
 #    INCLUDEPATH += c:/boost/
 #    RC_FILE = ../win/launchy.rc
     LIBS		+= \
-                ../../../lib/data.lib \
                 shell32.lib \
                 user32.lib \
                 gdi32.lib \
@@ -157,10 +156,9 @@ macx {
 #        CONFIG(release, debug|release):DESTDIR = ../release/
 #    }
 #    INCLUDEPATH += /opt/local/include/
-    LIBS		+= -L../../lib \
+    LIBS		+= \
                 -framework \
-                Carbon \
-                -lgrauchy.common
+                Carbon
 #    CONFIG(debug, debug|release):skins.path = ../debug/Launchy.app/Contents/Resources/skins/
 #    CONFIG(release, debug|release):skins.path = ../release/Launchy.app/Contents/Resources/skins/
 #    skins.files =
