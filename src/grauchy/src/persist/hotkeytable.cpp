@@ -6,6 +6,7 @@
 
 const char* HotkeyTable::tableName = "hotkeys";
 const char* HotkeyTable::fieldId = "id";
+const char* HotkeyTable::fieldPackage = "package";
 const char* HotkeyTable::fieldDescr = "descr";
 const char* HotkeyTable::fieldSystems = "systems";
 
@@ -17,16 +18,18 @@ HotkeyTable::HotkeyTable()
 QSqlQuery HotkeyTable::prepareInsertion()
 {
     QSqlQuery q;
-    if (!q.prepare(QString("insert into %1(%2, %3) values(?, ?)")
+    if (!q.prepare(QString("insert into %1(%2, %3, %4) values(?, ?, ?)")
                    .arg(tableName)
+                   .arg(fieldPackage)
                    .arg(fieldDescr)
                    .arg(fieldSystems)))
         throw new SqlException(q.lastError());
     return q;
 }
 
-QVariant HotkeyTable::addHotkey(QSqlQuery& q, const QString& descr, int systems)
+QVariant HotkeyTable::addHotkey(QSqlQuery& q, int package, const QString& descr, int systems)
 {
+    q.addBindValue(package);
     q.addBindValue(descr);
     q.addBindValue(systems);
     q.exec();
@@ -43,11 +46,15 @@ Hotkey HotkeyTable::getById(int id)
 
     hotkey.setId(id);
 
-    int descrIdx = query.record().indexOf("descr");
+    int packageIdx = query.record().indexOf(fieldPackage);
+    int package = query.value(packageIdx).toInt();
+    hotkey.setPackage(package);
+
+    int descrIdx = query.record().indexOf(fieldDescr);
     QString descr = query.value(descrIdx).toString();
     hotkey.setDescription(descr);
 
-    int systemsIdx = query.record().indexOf("systems");
+    int systemsIdx = query.record().indexOf(fieldSystems);
     int systems = query.value(systemsIdx).toInt();
     hotkey.setSystems((SystemFlags)systems);
 
@@ -88,9 +95,10 @@ QString HotkeyInitializer::getTableName()
 QSqlError HotkeyInitializer::createTable()
 {
     QSqlQuery q;
-    if (!q.exec(QString("create table %1(%2 integer primary key, %3 varchar, %4 varchar)")
+    if (!q.exec(QString("create table %1(%2 integer primary key, %3 integer, %4 varchar, %5 varchar)")
                 .arg(HotkeyTable::tableName)
                 .arg(HotkeyTable::fieldId)
+                .arg(HotkeyTable::fieldPackage)
                 .arg(HotkeyTable::fieldDescr)
                 .arg(HotkeyTable::fieldSystems)))
         return q.lastError();

@@ -6,11 +6,11 @@ class Entity
 public:
     Entity();
 
-    int getId() { return m_Id; }
-    void setId(int id) { m_Id = id; }
+    int getId() { return _Id; }
+    void setId(int id) { _Id = id; }
 
 private:
-    int m_Id;
+    int _Id;
 };
 
 #endif // ENTITY_H

@@ -1,10 +1,8 @@
 #include "packagespage.h"
 #include "ui_packagespage.h"
 #include "packagedialog.h"
-#include "persist/persist.h"
 #include "persist/packagetable.h"
 #include <QtSql>
-#include <QMessageBox>
 
 PackagesPage::PackagesPage(QWidget *parent) :
     OptionsPage(parent),
@@ -12,21 +10,18 @@ PackagesPage::PackagesPage(QWidget *parent) :
 {
     _ui->setupUi(this);
 
-    _persist = new Persist;
-    _persist->initDb();
-
     createModel();
 
-    connect(_ui->buttonAdd, SIGNAL(clicked()), SLOT(onAdd()));
-    connect(_ui->buttonEdit, SIGNAL(clicked()), SLOT(onEdit()));
-    connect(_ui->buttonRemove, SIGNAL(clicked()), SLOT(onRemove()));
+    connect(_ui->_listPackages, SIGNAL(doubleClicked(QModelIndex)), SLOT(onPackageEdit(QModelindex)));
+    connect(_ui->_buttonAdd, SIGNAL(clicked()), SLOT(onAdd()));
+    connect(_ui->_buttonEdit, SIGNAL(clicked()), SLOT(onEdit()));
+    connect(_ui->_buttonRemove, SIGNAL(clicked()), SLOT(onRemove()));
 }
 
 PackagesPage::~PackagesPage()
 {
     delete _ui;
     delete _model;
-    delete _persist;
 }
 
 QIcon PackagesPage::getIcon()
@@ -59,15 +54,20 @@ void PackagesPage::onRemove()
 
 }
 
+void PackagesPage::onPackageEdit(QModelIndex index)
+{
+
+}
+
 void PackagesPage::onCurrentRowChanged(QModelIndex index)
 {
-    _ui->buttonEdit->setEnabled(index.isValid());
-    _ui->buttonRemove->setEnabled(index.isValid());
+    _ui->_buttonEdit->setEnabled(index.isValid());
+    _ui->_buttonRemove->setEnabled(index.isValid());
 }
 
 void PackagesPage::createModel()
 {
-    _model = new QSqlRelationalTableModel(_ui->listPackages);
+    _model = new QSqlRelationalTableModel(_ui->_listPackages);
     _model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     _model->setTable(PackageTable::tableName);
 
@@ -80,31 +80,14 @@ void PackagesPage::createModel()
 
     if(!_model->select())
     {
-        showError(_model->lastError());
         return;
     }
-    if(!_model->rowCount())
-    {
-        PackageTable packageTable;
 
-        QSqlQuery query = packageTable.prepareInsertion();
-        packageTable.addPackage(query, "Zsh", "The glorious shell");
-        packageTable.addPackage(query, "Vi", "The best editor");
+    _ui->_listPackages->setModel(_model);
+    _ui->_listPackages->setColumnHidden(0, true);
+    _ui->_listPackages->resizeColumnToContents(2);
 
-       _model->select();
-    }
+    connect(_ui->_listPackages->selectionModel(), SIGNAL(currentRowChanged(QModelIndex,QModelIndex)), SLOT(onCurrentRowChanged(QModelIndex)));
 
-    _ui->listPackages->setModel(_model);
-    _ui->listPackages->setColumnHidden(0, true);
-    _ui->listPackages->resizeColumnToContents(2);
-
-    connect(_ui->listPackages->selectionModel(), SIGNAL(currentRowChanged(QModelIndex,QModelIndex)), SLOT(onCurrentRowChanged(QModelIndex)));
-
-    _ui->listPackages->setCurrentIndex(_model->index(0,0));
-}
-
-void PackagesPage::showError(const QSqlError& error)
-{
-    QMessageBox::critical(this, tr("Unable to initialize database"),
-                          tr("Error initializing datase: ")+error.text());
+    _ui->_listPackages->setCurrentIndex(_model->index(0,0));
 }

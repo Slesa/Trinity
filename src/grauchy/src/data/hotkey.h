@@ -14,7 +14,14 @@
 class Hotkey : public Entity
 {
 public:
+    static const int AllSystems = 31;
+
+public:
     Hotkey();
+
+    // The package this hotkey belongs to
+    int getPackage() { return _package; }
+    void setPackage(int package) { _package = package; }
 
     // A short descitpion of the hotkey
     QString getDescription() const { return _description; }
@@ -33,6 +40,7 @@ public:
     void setKeyStrokes(const QList<KeyStroke> keyStrokes) { _keyStrokes = keyStrokes; }
 
 private:
+    int _package;
     QString _description;
     QStringList _tags;
     SystemFlags _systems;

@@ -15,7 +15,10 @@
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
-    <widget class="QTableView" name="listPackages">
+    <widget class="QTableView" name="_listPackages">
+     <property name="editTriggers">
+      <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::EditKeyPressed</set>
+     </property>
      <property name="selectionMode">
       <enum>QAbstractItemView::SingleSelection</enum>
      </property>
@@ -27,7 +30,7 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QPushButton" name="buttonAdd">
+      <widget class="QPushButton" name="_buttonAdd">
        <property name="text">
         <string>&amp;Add</string>
        </property>
@@ -38,7 +41,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="buttonEdit">
+      <widget class="QPushButton" name="_buttonEdit">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -52,7 +55,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="buttonRemove">
+      <widget class="QPushButton" name="_buttonRemove">
        <property name="enabled">
         <bool>false</bool>
        </property>

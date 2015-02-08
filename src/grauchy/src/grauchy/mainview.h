@@ -7,6 +7,10 @@ namespace Ui {
 class MainView;
 }
 
+class Persist;
+class QSqlRelationalTableModel;
+class QSqlError;
+
 class MainView : public QWidget
 {
     Q_OBJECT
@@ -20,7 +24,13 @@ private slots:
     void onQuit();
 
 private:
-    Ui::MainView *ui;
+    void createModel();
+    void showError(const QSqlError& error);
+
+private:
+    Ui::MainView* _ui;
+    Persist* _persist;
+    QSqlRelationalTableModel* _model;
 };
 
 #endif // MAINVIEW_H

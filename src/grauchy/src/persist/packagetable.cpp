@@ -43,11 +43,11 @@ Package PackageTable::getById(int id)
 
     package.setId(id);
 
-    int nameIdx = query.record().indexOf("name");
+    int nameIdx = query.record().indexOf(fieldName);
     QString name = query.value(nameIdx).toString();
     package.setName(name);
 
-    int descrIdx = query.record().indexOf("descr");
+    int descrIdx = query.record().indexOf(fieldDescr);
     QString descr = query.value(descrIdx).toString();
     package.setDescription(descr);
 

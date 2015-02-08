@@ -32,8 +32,24 @@
      <height>25</height>
     </rect>
    </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;F10&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Change the settings and known packages of this application.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
    <property name="text">
     <string>Options</string>
+   </property>
+   <property name="icon">
+    <iconset resource="grauchy.qrc">
+     <normaloff>:/resources/options.png</normaloff>:/resources/options.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>16</width>
+     <height>16</height>
+    </size>
+   </property>
+   <property name="shortcut">
+    <string>F10</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="_lineInput">
@@ -68,11 +84,23 @@
      <height>25</height>
     </rect>
    </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Ctrl+Q&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Hide the application window. Keep in mind, that it keeps in background. If you really want to quit, use the command of the system tray menu.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
    <property name="text">
     <string>Quit</string>
    </property>
+   <property name="icon">
+    <iconset resource="grauchy.qrc">
+     <normaloff>:/resources/quit.png</normaloff>:/resources/quit.png</iconset>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="grauchy.qrc"/>
+ </resources>
  <connections/>
 </ui>
