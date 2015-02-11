@@ -11,6 +11,7 @@ PackageDialog::PackageDialog(QSqlRelationalTableModel* model, QWidget *parent)
   : QDialog(parent)
   , _ui(new Ui::PackageDialog)
   , _model(model)
+  , _editIndex(-1)
 {
     _ui->setupUi(this);
 
@@ -28,8 +29,10 @@ PackageDialog::~PackageDialog()
 
 void PackageDialog::setData(QModelIndex index)
 {
-    _editIndex = index;
-    QSqlRecord record = _model->record(_editIndex.row());
+    QSqlRecord record = _model->record(index.row());
+
+    int idIndex = _model->fieldIndex(PackageTable::fieldId);
+    _editIndex = record.value(idIndex).toInt();
 
     int idName = _model->fieldIndex(PackageTable::fieldName);
     QString name = record.value(idName).toString();
@@ -112,9 +115,9 @@ void PackageDialog::accept()
     QString descr = _ui->textDescr->toPlainText();
 
     PackageTable packages;
-    if(_editIndex.isValid())
+    if(_editIndex>=0)
     {
-        packages.updatePackage(_editIndex.row(), name, descr);
+        packages.updatePackage(_editIndex, name, descr);
     }
     else
     {
