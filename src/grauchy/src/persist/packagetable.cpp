@@ -3,6 +3,7 @@
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QVariant>
+#include <QDebug>
 
 const char* PackageTable::tableName = "packages";
 const char* PackageTable::fieldId = "id";
@@ -23,6 +24,22 @@ QSqlQuery PackageTable::prepareInsertion()
                    .arg(fieldDescr)))
         throw new SqlException(q.lastError());
     return q;
+}
+
+bool PackageTable::updatePackage(int id, const QString& name, const QString& descr)
+{
+    QSqlQuery q;
+    QString cmd = QString("update %1 set %2='%3', %4='%5' where id=%6")
+                   .arg(tableName)
+                   .arg(fieldName)
+                   .arg(name)
+                   .arg(fieldDescr)
+                   .arg(descr)
+                   .arg(id);
+    bool ok = q.exec(cmd);
+    if(!ok)
+        qDebug() << "Unable to update " << name << ": " << q.lastError();
+    return ok;
 }
 
 QVariant PackageTable::addPackage(QSqlQuery& q, const QString& name, const QString& descr)

@@ -2,23 +2,44 @@
 #include "ui_packagedialog.h"
 #include "hotkeydialog.h"
 #include "hotkeymodel.h"
+#include "persist/packagetable.h"
 #include "data/hotkey.h"
+#include <QSqlRelationalTableModel>
+#include <QSqlRecord>
 
-PackageDialog::PackageDialog(const Package& package, QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::PackageDialog)
+PackageDialog::PackageDialog(QSqlRelationalTableModel* model, QWidget *parent)
+  : QDialog(parent)
+  , _ui(new Ui::PackageDialog)
+  , _model(model)
 {
-    ui->setupUi(this);
+    _ui->setupUi(this);
 
-    connect(ui->buttonAdd, SIGNAL(clicked()), SLOT(onAddHotkey()));
-    connect(ui->buttonEdit, SIGNAL(clicked()), SLOT(onEditHotkey()));
+    connect(_ui->buttonAdd, SIGNAL(clicked()), SLOT(onAddHotkey()));
+    connect(_ui->buttonEdit, SIGNAL(clicked()), SLOT(onEditHotkey()));
 //    connect(ui->listHotkeys, SIGNAL(itemDoubleClicked(QListWidgetItem*)), SLOT(onEditHotkey(QListWidgetItem*)));
-    ui->listHotkeys->setModel(new HotkeyModel(package.getHotkeys()));
+//    _ui->listHotkeys->setModel(new HotkeyModel(package.getHotkeys()));
+//    ui->buttonBox->button(QDialogButtonBox::Ok)->setIcon(QIcon(""));
 }
 
 PackageDialog::~PackageDialog()
 {
-    delete ui;
+    delete _ui;
+}
+
+void PackageDialog::setData(QModelIndex index)
+{
+    _editIndex = index;
+    QSqlRecord record = _model->record(_editIndex.row());
+
+    int idName = _model->fieldIndex(PackageTable::fieldName);
+    QString name = record.value(idName).toString();
+    _ui->lineName->setText(name);
+
+    int idDescr = _model->fieldIndex(PackageTable::fieldDescr);
+    QString descr = record.value(idDescr).toString();
+    _ui->textDescr->setPlainText(descr);
+
+    this->setWindowTitle(tr("Edit package '%1'").arg(name));
 }
 
 void PackageDialog::onAddHotkey()
@@ -87,6 +108,21 @@ void PackageDialog::done(int r)
 
 void PackageDialog::accept()
 {
-    emit takeData(this);
+    QString name = _ui->lineName->text();
+    QString descr = _ui->textDescr->toPlainText();
+
+    PackageTable packages;
+    if(_editIndex.isValid())
+    {
+        packages.updatePackage(_editIndex.row(), name, descr);
+    }
+    else
+    {
+        QSqlQuery query = packages.prepareInsertion();
+        packages.addPackage(query, name, descr);
+    }
+
+    _model->submit();
+
     QDialog::accept();
 }

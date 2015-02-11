@@ -12,10 +12,10 @@ PackagesPage::PackagesPage(QWidget *parent) :
 
     createModel();
 
-    connect(_ui->_listPackages, SIGNAL(doubleClicked(QModelIndex)), SLOT(onPackageEdit(QModelindex)));
-    connect(_ui->_buttonAdd, SIGNAL(clicked()), SLOT(onAdd()));
-    connect(_ui->_buttonEdit, SIGNAL(clicked()), SLOT(onEdit()));
-    connect(_ui->_buttonRemove, SIGNAL(clicked()), SLOT(onRemove()));
+    connect(_ui->_listPackages, SIGNAL(doubleClicked(QModelIndex)), SLOT(onEditPackage(QModelIndex)));
+    connect(_ui->_buttonAdd, SIGNAL(clicked()), SLOT(onPackageAdd()));
+    connect(_ui->_buttonEdit, SIGNAL(clicked()), SLOT(onPackageEdit()));
+    connect(_ui->_buttonRemove, SIGNAL(clicked()), SLOT(onPackageRemove()));
 }
 
 PackagesPage::~PackagesPage()
@@ -34,29 +34,34 @@ QString PackagesPage::getTitle()
     return tr("Packages");
 }
 
-void PackagesPage::onAdd()
+void PackagesPage::onPackageAdd()
 {
-    Package package;
-    PackageDialog* dlg = new PackageDialog(package, this);
-    if(dlg->exec()==QDialog::Accepted)
-    {
+    PackageDialog* dlg = new PackageDialog(_model, this);
+    if(dlg->exec()!=QDialog::Accepted) return;
 
-    }
+    _model->select();
+    _ui->_listPackages->scrollToBottom();
 }
 
-void PackagesPage::onEdit()
+void PackagesPage::onPackageEdit()
+{
+    QModelIndex index = _ui->_listPackages->currentIndex();
+    onEditPackage(index);
+}
+
+void PackagesPage::onPackageRemove()
 {
 
 }
 
-void PackagesPage::onRemove()
+void PackagesPage::onEditPackage(QModelIndex index)
 {
+    PackageDialog* dlg = new PackageDialog(_model, this);
+    dlg->setData(index);
+    if(dlg->exec()!=QDialog::Accepted) return;
 
-}
-
-void PackagesPage::onPackageEdit(QModelIndex index)
-{
-
+    _model->select();
+    _ui->_listPackages->scrollToBottom();
 }
 
 void PackagesPage::onCurrentRowChanged(QModelIndex index)
@@ -70,6 +75,9 @@ void PackagesPage::createModel()
     _model = new QSqlRelationalTableModel(_ui->_listPackages);
     _model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     _model->setTable(PackageTable::tableName);
+
+    connect(_model, SIGNAL(rowsInserted(QModelIndex,int,int)), SLOT(updateHeader(QModelIndex, int, int)));
+    connect(_model, SIGNAL(rowsRemoved(QModelIndex, int, int)), SLOT(updateHeader(QModelIndex, int, int)));
 
     int idIndex = _model->fieldIndex(PackageTable::fieldId);
     _model->setHeaderData(idIndex, Qt::Horizontal, tr("Id"));
@@ -85,9 +93,14 @@ void PackagesPage::createModel()
 
     _ui->_listPackages->setModel(_model);
     _ui->_listPackages->setColumnHidden(0, true);
-    _ui->_listPackages->resizeColumnToContents(2);
+    _ui->_listPackages->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
 
     connect(_ui->_listPackages->selectionModel(), SIGNAL(currentRowChanged(QModelIndex,QModelIndex)), SLOT(onCurrentRowChanged(QModelIndex)));
 
     _ui->_listPackages->setCurrentIndex(_model->index(0,0));
+}
+
+void PackagesPage::updateHeader(QModelIndex, int, int)
+{
+    _ui->_listPackages->resizeColumnToContents(1);
 }

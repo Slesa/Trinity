@@ -18,6 +18,7 @@ public:
 
     QSqlQuery prepareInsertion();
     QVariant addPackage(QSqlQuery& q, const QString& name, const QString& descr);
+    bool updatePackage(int id, const QString& name, const QString& descr);
 
     Package getById(int id);
     QSqlQuery findById(int id);

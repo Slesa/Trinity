@@ -58,8 +58,8 @@ TRANSLATIONS	= \
 
 DESTDIR			= $${PWD}/../../bin
 LIBS			+= -L$${PWD}/../../bin/lib \
-                -ldata \
-                -lpersist
+                -lpersist \
+                -ldata
 #LIBS			+= data
 
 linux {

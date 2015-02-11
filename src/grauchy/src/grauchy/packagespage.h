@@ -22,13 +22,14 @@ public:
     QString getTitle();
 
 private slots:
-    void onAdd();
-    void onEdit();
-    void onRemove();
-    void onPackageEdit(QModelIndex index);
+    void onPackageAdd();
+    void onPackageEdit();
+    void onPackageRemove();
+    void onEditPackage(QModelIndex index);
 
     void onCurrentRowChanged(QModelIndex);
 
+    void updateHeader(QModelIndex, int, int);
 private:
     void createModel();
 
