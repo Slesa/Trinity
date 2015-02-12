@@ -1,7 +1,7 @@
 #ifndef OPTIONSDIALOG_H
 #define OPTIONSDIALOG_H
 
-#include <QDialog>
+#include "floatingdialog.h"
 
 namespace Ui {
 class OptionsDialog;
@@ -11,7 +11,7 @@ class QListWidgetItem;
 class OptionsPage;
 
 
-class OptionsDialog : public QDialog
+class OptionsDialog : public FloatingDialog
 {
     Q_OBJECT
 

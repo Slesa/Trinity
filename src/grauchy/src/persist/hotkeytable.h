@@ -7,6 +7,7 @@
 
 class HotkeyTable
 {
+public:
     static const char* tableName;
     static const char* fieldId;
     static const char* fieldPackage;

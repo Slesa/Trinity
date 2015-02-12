@@ -50,6 +50,25 @@ QVariant PackageTable::addPackage(QSqlQuery& q, const QString& name, const QStri
     return q.lastInsertId();
 }
 
+Package PackageTable::getFromModel(QSqlRelationalTableModel* model, int row)
+{
+    Package package;
+    QSqlRecord record = model->record(row);
+
+    int idIndex = model->fieldIndex(PackageTable::fieldId);
+    package.setId(record.value(idIndex).toInt());
+
+    int idName = model->fieldIndex(PackageTable::fieldName);
+    QString name = record.value(idName).toString();
+    package.setName(name);
+
+    int idDescr = model->fieldIndex(PackageTable::fieldDescr);
+    QString descr = record.value(idDescr).toString();
+    package.setDescription(descr);
+
+    return package;
+}
+
 Package PackageTable::getById(int id)
 {
     Package package;

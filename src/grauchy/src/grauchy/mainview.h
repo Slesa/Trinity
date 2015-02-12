@@ -8,6 +8,7 @@ class MainView;
 }
 
 class Persist;
+class OptionsDialog;
 class QSqlRelationalTableModel;
 class QSqlError;
 
@@ -22,8 +23,10 @@ public:
 private slots:
     void onOptions();
     void onQuit();
+    void closeOptions();
 
 private:
+    void updateData();
     void createModel();
     void showError(const QSqlError& error);
 
@@ -31,6 +34,7 @@ private:
     Ui::MainView* _ui;
     Persist* _persist;
     QSqlRelationalTableModel* _model;
+    OptionsDialog* _optionsDlg;
 };
 
 #endif // MAINVIEW_H

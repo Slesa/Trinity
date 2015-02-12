@@ -12,6 +12,7 @@
 MainView::MainView(QWidget *parent)
     : QWidget(parent)
     , _ui(new Ui::MainView)
+    , _optionsDlg(NULL)
 {
     _ui->setupUi(this);
 
@@ -25,6 +26,7 @@ MainView::MainView(QWidget *parent)
 
 MainView::~MainView()
 {
+    if(_optionsDlg) delete _optionsDlg;
     delete _model;
     delete _persist;
     delete _ui;
@@ -32,13 +34,29 @@ MainView::~MainView()
 
 void MainView::onOptions()
 {
-    OptionsDialog* dlg = new OptionsDialog(this);
-    dlg->show();
+    if(_optionsDlg==NULL)
+    {
+        _optionsDlg = new OptionsDialog(this);
+        connect(_optionsDlg, SIGNAL(closeMe(QDialog*)), SLOT(closeOptions()));
+    }
+    _optionsDlg->show();
 }
 
 void MainView::onQuit()
 {
     qApp->quit();
+}
+
+void MainView::updateData()
+{
+    _model->select();
+    _ui->_comboPackages->setCurrentIndex(0);
+}
+
+void MainView::closeOptions()
+{
+    _optionsDlg = NULL;
+    updateData();
 }
 
 void MainView::createModel()
@@ -71,8 +89,6 @@ void MainView::createModel()
         hotkeyTable.addHotkey(query, zshIdx, "Goto end of line", Hotkey::AllSystems);
         hotkeyTable.addHotkey(query, viIdx, "Goto start of line", Hotkey::AllSystems);
         hotkeyTable.addHotkey(query, viIdx, "Goto end of line", Hotkey::AllSystems);
-
-       _model->select();
     }
 
     _ui->_comboPackages->setModel(_model);
@@ -82,7 +98,7 @@ void MainView::createModel()
 
 //    connect(_ui->listPackages->selectionModel(), SIGNAL(currentRowChanged(QModelIndex,QModelIndex)), SLOT(onCurrentRowChanged(QModelIndex)));
 
-    _ui->_comboPackages->setCurrentIndex(0);
+    updateData();
 }
 
 void MainView::showError(const QSqlError& error)

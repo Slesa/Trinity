@@ -1,11 +1,14 @@
 #include "hotkeydialog.h"
 #include "ui_hotkeydialog.h"
 #include "keystrokedialog.h"
+#include "floatingdialog.h"
 #include "data/systems.h"
+#include <QSqlRelationalTableModel>
 
-HotkeyDialog::HotkeyDialog(QWidget *parent)
-  : QDialog(parent)
+HotkeyDialog::HotkeyDialog(QSqlRelationalTableModel* hotkeyModel, QWidget *parent)
+  : FloatingDialog(parent)
   , ui(new Ui::HotkeyDialog)
+  , _hotkeyModel(hotkeyModel)
 {
     ui->setupUi(this);
     connect(ui->buttonStrokes, SIGNAL(clicked()), SLOT(onKeyStrokes()));
@@ -52,12 +55,6 @@ void HotkeyDialog::onKeyStrokes()
         ui->lineStrokes->setText(strokes);
     }
     delete dlg;
-}
-
-void HotkeyDialog::done(int r)
-{
-    QDialog::done(r);
-    emit closeMe(this);
 }
 
 void HotkeyDialog::accept()

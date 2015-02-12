@@ -4,6 +4,7 @@
 #include "tableinitializer.h"
 #include "data/package.h"
 #include <QSqlQuery>
+#include <QSqlRelationalTableModel>
 
 class PackageTable
 {
@@ -20,6 +21,7 @@ public:
     QVariant addPackage(QSqlQuery& q, const QString& name, const QString& descr);
     bool updatePackage(int id, const QString& name, const QString& descr);
 
+    static Package getFromModel(QSqlRelationalTableModel* model, int row);
     Package getById(int id);
     QSqlQuery findById(int id);
 

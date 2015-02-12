@@ -98,7 +98,7 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QListView" name="listHotkeys"/>
+       <widget class="QTableView" name="_listHotkeys"/>
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout">
@@ -164,10 +164,9 @@
     </widget>
    </item>
   </layout>
-  <zorder>groupGeneral</zorder>
   <zorder>groupHotkeys</zorder>
   <zorder>buttonBox</zorder>
-  <zorder></zorder>
+  <zorder>groupGeneral</zorder>
  </widget>
  <resources>
   <include location="grauchy.qrc"/>

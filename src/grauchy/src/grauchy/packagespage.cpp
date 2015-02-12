@@ -1,8 +1,10 @@
 #include "packagespage.h"
 #include "ui_packagespage.h"
 #include "packagedialog.h"
+#include "resources.h"
 #include "persist/packagetable.h"
 #include <QtSql>
+#include <QMessageBox>
 
 PackagesPage::PackagesPage(QWidget *parent) :
     OptionsPage(parent),
@@ -12,7 +14,7 @@ PackagesPage::PackagesPage(QWidget *parent) :
 
     createModel();
 
-    connect(_ui->_listPackages, SIGNAL(doubleClicked(QModelIndex)), SLOT(onEditPackage(QModelIndex)));
+    connect(_ui->_listPackages, SIGNAL(activated(QModelIndex)), SLOT(onEditPackage(QModelIndex)));
     connect(_ui->_buttonAdd, SIGNAL(clicked()), SLOT(onPackageAdd()));
     connect(_ui->_buttonEdit, SIGNAL(clicked()), SLOT(onPackageEdit()));
     connect(_ui->_buttonRemove, SIGNAL(clicked()), SLOT(onPackageRemove()));
@@ -26,7 +28,7 @@ PackagesPage::~PackagesPage()
 
 QIcon PackagesPage::getIcon()
 {
-    return QIcon(":/resources/package.png");
+    return Resources::iconPackage();
 }
 
 QString PackagesPage::getTitle()
@@ -51,7 +53,22 @@ void PackagesPage::onPackageEdit()
 
 void PackagesPage::onPackageRemove()
 {
+    QModelIndex index = _ui->_listPackages->currentIndex();
+    Package package = PackageTable::getFromModel(_model, index.row());
 
+    QMessageBox msg(this);
+    msg.setWindowTitle(tr("Remove package?"));
+    msg.setInformativeText(tr("Are you sure to delete package '%1'\nwith description %2?").arg(package.getName()).arg(package.getDescription()));
+    msg.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
+    msg.setDefaultButton(QMessageBox::No);
+    msg.setIcon(QMessageBox::Warning);
+    int button = msg.exec();
+    if(button!=QMessageBox::Yes) return;
+
+    bool ok = _model->removeRow(index.row());
+    if(!ok)
+        QMessageBox::critical(this, tr("Error"), tr("Could not remove package:\n %1").arg(_model->lastError().text()));
+    _model->submitAll();
 }
 
 void PackagesPage::onEditPackage(QModelIndex index)

@@ -5,7 +5,7 @@
 #include "packagespage.h"
 
 OptionsDialog::OptionsDialog(QWidget *parent) :
-    QDialog(parent),
+    FloatingDialog(parent),
     ui(new Ui::OptionsDialog)
 {
     ui->setupUi(this);

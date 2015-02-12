@@ -31,6 +31,9 @@
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QPushButton" name="_buttonAdd">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Ins&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Add a new package to grauchy&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string>&amp;Add</string>
        </property>
@@ -44,6 +47,9 @@
       <widget class="QPushButton" name="_buttonEdit">
        <property name="enabled">
         <bool>false</bool>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Ret&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Edit current package and its hotkeys&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="text">
         <string>&amp;Edit</string>
@@ -59,12 +65,18 @@
        <property name="enabled">
         <bool>false</bool>
        </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Del&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Remove current package and all its hotkeys&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string>&amp;Remove</string>
        </property>
        <property name="icon">
         <iconset resource="grauchy.qrc">
          <normaloff>:/resources/edit_remove.png</normaloff>:/resources/edit_remove.png</iconset>
+       </property>
+       <property name="shortcut">
+        <string>Del</string>
        </property>
       </widget>
      </item>

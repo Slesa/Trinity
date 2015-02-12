@@ -2,7 +2,7 @@
 #define PACKAGEDIALOG_H
 
 #include "data/package.h"
-#include <QDialog>
+#include "floatingdialog.h"
 #include <QModelIndex>
 
 namespace Ui {
@@ -12,7 +12,7 @@ class PackageDialog;
 class HotkeyDialog;
 class QSqlRelationalTableModel;
 
-class PackageDialog : public QDialog
+class PackageDialog : public FloatingDialog
 {
     Q_OBJECT
 
@@ -21,8 +21,6 @@ public:
     ~PackageDialog();
 
     void setData(QModelIndex index);
-signals:
-    void closeMe(QDialog* dlg);
 
 protected:
     virtual void accept();
@@ -35,13 +33,17 @@ private slots:
     void onTakeHotkey(HotkeyDialog* dlg);
     void onHotkeyClosed(QDialog* dlg);
 
+    void updateHeader(QModelIndex, int, int);
+
 private:
     void openDialog(QDialog* dlg);
+    void createHotkeyModel();
 
 private:
     Ui::PackageDialog* _ui;
     QList<QDialog*> _openDialogs;
     QSqlRelationalTableModel* _model;
+    QSqlRelationalTableModel* _hotkeyModel;
     int _editIndex;
 };
 

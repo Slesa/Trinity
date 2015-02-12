@@ -3,12 +3,13 @@
 #include "hotkeydialog.h"
 #include "hotkeymodel.h"
 #include "persist/packagetable.h"
+#include "persist/hotkeytable.h"
 #include "data/hotkey.h"
 #include <QSqlRelationalTableModel>
 #include <QSqlRecord>
 
 PackageDialog::PackageDialog(QSqlRelationalTableModel* model, QWidget *parent)
-  : QDialog(parent)
+  : FloatingDialog(parent)
   , _ui(new Ui::PackageDialog)
   , _model(model)
   , _editIndex(-1)
@@ -20,6 +21,7 @@ PackageDialog::PackageDialog(QSqlRelationalTableModel* model, QWidget *parent)
 //    connect(ui->listHotkeys, SIGNAL(itemDoubleClicked(QListWidgetItem*)), SLOT(onEditHotkey(QListWidgetItem*)));
 //    _ui->listHotkeys->setModel(new HotkeyModel(package.getHotkeys()));
 //    ui->buttonBox->button(QDialogButtonBox::Ok)->setIcon(QIcon(""));
+    createHotkeyModel();
 }
 
 PackageDialog::~PackageDialog()
@@ -29,25 +31,19 @@ PackageDialog::~PackageDialog()
 
 void PackageDialog::setData(QModelIndex index)
 {
-    QSqlRecord record = _model->record(index.row());
+    Package package;
+    package = PackageTable::getFromModel(_model, index.row());
 
-    int idIndex = _model->fieldIndex(PackageTable::fieldId);
-    _editIndex = record.value(idIndex).toInt();
+    _editIndex = package.getId();
+    _ui->lineName->setText(package.getName());
+    _ui->textDescr->setPlainText(package.getDescription());
 
-    int idName = _model->fieldIndex(PackageTable::fieldName);
-    QString name = record.value(idName).toString();
-    _ui->lineName->setText(name);
-
-    int idDescr = _model->fieldIndex(PackageTable::fieldDescr);
-    QString descr = record.value(idDescr).toString();
-    _ui->textDescr->setPlainText(descr);
-
-    this->setWindowTitle(tr("Edit package '%1'").arg(name));
+    this->setWindowTitle(tr("Edit package '%1'").arg(package.getName()));
 }
 
 void PackageDialog::onAddHotkey()
 {
-    HotkeyDialog* dlg = new HotkeyDialog(this);
+    HotkeyDialog* dlg = new HotkeyDialog(_hotkeyModel, this);
     connect(dlg, SIGNAL(takeData(HotkeyDialog*)), SLOT(onTakeHotkey(HotkeyDialog*)));
     openDialog(dlg);
 }
@@ -66,7 +62,7 @@ void PackageDialog::onEditHotkey(QListWidgetItem* item)
 {
     HotkeyDialog* dlg = new HotkeyDialog(this);
 
-    Hotkey hotkey = item->data(Qt::UserRole+1).value<Hotkey>();
+    Hotkey hotkey = item->data(Qt::UserRole+1).valueHotkey>();
     dlg->setData(hotkey);
 
     connect(dlg, SIGNAL(takeData(HotkeyDialog*)), SLOT(onTakeHotkey(HotkeyDialog*)));
@@ -105,8 +101,7 @@ void PackageDialog::done(int r)
     {
         delete dlg;
     }
-    QDialog::done(r);
-    emit closeMe(this);
+    FloatingDialog::done(r);
 }
 
 void PackageDialog::accept()
@@ -129,3 +124,39 @@ void PackageDialog::accept()
 
     QDialog::accept();
 }
+
+void PackageDialog::createHotkeyModel()
+{
+    _hotkeyModel = new QSqlRelationalTableModel(_ui->_listHotkeys);
+    _hotkeyModel->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    _hotkeyModel->setTable(HotkeyTable::tableName);
+
+    connect(_hotkeyModel, SIGNAL(rowsInserted(QModelIndex,int,int)), SLOT(updateHeader(QModelIndex, int, int)));
+    connect(_hotkeyModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), SLOT(updateHeader(QModelIndex, int, int)));
+
+    int idIndex = _hotkeyModel->fieldIndex(HotkeyTable::fieldId);
+    _hotkeyModel->setHeaderData(idIndex, Qt::Horizontal, tr("Id"));
+//    int idName = _model->fieldIndex(PackageTable::fieldName);
+//    _model->setHeaderData(idName, Qt::Horizontal, tr("Name"));
+//    int idDescr = _model->fieldIndex(PackageTable::fieldDescr);
+//    _hotkeyModel->setHeaderData(idDescr, Qt::Horizontal, tr("Description"));
+
+    if(!_hotkeyModel->select())
+    {
+        return;
+    }
+
+    _ui->_listHotkeys->setModel(_hotkeyModel);
+    _ui->_listHotkeys->setColumnHidden(0, true);
+    _ui->_listHotkeys->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
+
+//    connect(_ui->_listPackages->selectionModel(), SIGNAL(currentRowChanged(QModelIndex,QModelIndex)), SLOT(onCurrentRowChanged(QModelIndex)));
+
+    _ui->_listHotkeys->setCurrentIndex(_model->index(0,0));
+}
+
+void PackageDialog::updateHeader(QModelIndex, int, int)
+{
+    _ui->_listHotkeys->resizeColumnToContents(1);
+}
+
