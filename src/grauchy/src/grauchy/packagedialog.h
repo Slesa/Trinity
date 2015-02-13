@@ -24,19 +24,22 @@ public:
 
 protected:
     virtual void accept();
-    virtual void done(int r);
+//    virtual void done(int r);
 
 private slots:
-    void onAddHotkey();
-    void onEditHotkey();
-//    void onEditHotkey(QListWidgetItem* item);
-    void onTakeHotkey(HotkeyDialog* dlg);
-    void onHotkeyClosed(QDialog* dlg);
+    void onHotkeyAdd();
+    void onHotkeyEdit();
+    void onHotkeyEdit(QModelIndex index);
+    void onHotkeyRemove();
 
+//    void onTakeHotkey(HotkeyDialog* dlg);
+//    void onHotkeyClosed(QDialog* dlg);
+
+    void onCurrentRowChanged(QModelIndex index);
     void updateHeader(QModelIndex, int, int);
 
 private:
-    void openDialog(QDialog* dlg);
+//    void openDialog(QDialog* dlg);
     void createHotkeyModel();
 
 private:

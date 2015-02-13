@@ -1,8 +1,10 @@
 #include "hotkeytable.h"
 #include "sqlexception.h"
+#include <QSqlRelationalTableModel>
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QVariant>
+#include <QDebug>
 
 const char* HotkeyTable::tableName = "hotkeys";
 const char* HotkeyTable::fieldId = "id";
@@ -34,6 +36,42 @@ QVariant HotkeyTable::addHotkey(QSqlQuery& q, int package, const QString& descr,
     q.addBindValue(systems);
     q.exec();
     return q.lastInsertId();
+}
+
+bool HotkeyTable::updateHotkey(int id, const QString& descr, int systems)
+{
+    QSqlQuery q;
+    QString cmd = QString("update %1 set %2='%3', %4='%5' where id=%8")
+                   .arg(tableName)
+                   .arg(fieldDescr)
+                   .arg(descr)
+                   .arg(fieldSystems)
+                   .arg(systems)
+                   .arg(id);
+    bool ok = q.exec(cmd);
+    if(!ok)
+        qDebug() << "Unable to update " << id << ": " << q.lastError();
+    return ok;
+}
+
+Hotkey HotkeyTable::getFromModel(QSqlRelationalTableModel* model, int row)
+{
+    Hotkey hotkey;
+    QSqlRecord record = model->record(row);
+
+    int idIndex = model->fieldIndex(HotkeyTable::fieldId);
+    hotkey.setId(record.value(idIndex).toInt());
+
+    int packageIdx = model->fieldIndex(HotkeyTable::fieldPackage);
+    hotkey.setPackage(record.value(packageIdx).toInt());
+
+    int descrIdx = model->fieldIndex(HotkeyTable::fieldDescr);
+    hotkey.setDescription(record.value(descrIdx).toString());
+
+    int systemsIdx = model->fieldIndex(fieldSystems);
+    hotkey.setSystems((SystemFlags)record.value(systemsIdx).toInt());
+
+    return hotkey;
 }
 
 Hotkey HotkeyTable::getById(int id)

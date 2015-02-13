@@ -26,6 +26,14 @@ QSqlQuery PackageTable::prepareInsertion()
     return q;
 }
 
+QVariant PackageTable::addPackage(QSqlQuery& q, const QString& name, const QString& descr)
+{
+    q.addBindValue(name);
+    q.addBindValue(descr);
+    q.exec();
+    return q.lastInsertId();
+}
+
 bool PackageTable::updatePackage(int id, const QString& name, const QString& descr)
 {
     QSqlQuery q;
@@ -40,14 +48,6 @@ bool PackageTable::updatePackage(int id, const QString& name, const QString& des
     if(!ok)
         qDebug() << "Unable to update " << name << ": " << q.lastError();
     return ok;
-}
-
-QVariant PackageTable::addPackage(QSqlQuery& q, const QString& name, const QString& descr)
-{
-    q.addBindValue(name);
-    q.addBindValue(descr);
-    q.exec();
-    return q.lastInsertId();
 }
 
 Package PackageTable::getFromModel(QSqlRelationalTableModel* model, int row)

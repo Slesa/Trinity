@@ -39,16 +39,30 @@ QString PackagesPage::getTitle()
 void PackagesPage::onPackageAdd()
 {
     PackageDialog* dlg = new PackageDialog(_model, this);
-    if(dlg->exec()!=QDialog::Accepted) return;
-
-    _model->select();
-    _ui->_listPackages->scrollToBottom();
+    if(dlg->exec()==QDialog::Accepted)
+    {
+        _model->select();
+        _ui->_listPackages->scrollToBottom();
+    }
+    delete dlg;
 }
 
 void PackagesPage::onPackageEdit()
 {
     QModelIndex index = _ui->_listPackages->currentIndex();
     onEditPackage(index);
+}
+
+void PackagesPage::onEditPackage(QModelIndex index)
+{
+    PackageDialog* dlg = new PackageDialog(_model, this);
+    dlg->setData(index);
+    if(dlg->exec()==QDialog::Accepted)
+    {
+        _model->select();
+        _ui->_listPackages->scrollToBottom();
+    }
+    delete dlg;
 }
 
 void PackagesPage::onPackageRemove()
@@ -69,16 +83,6 @@ void PackagesPage::onPackageRemove()
     if(!ok)
         QMessageBox::critical(this, tr("Error"), tr("Could not remove package:\n %1").arg(_model->lastError().text()));
     _model->submitAll();
-}
-
-void PackagesPage::onEditPackage(QModelIndex index)
-{
-    PackageDialog* dlg = new PackageDialog(_model, this);
-    dlg->setData(index);
-    if(dlg->exec()!=QDialog::Accepted) return;
-
-    _model->select();
-    _ui->_listPackages->scrollToBottom();
 }
 
 void PackagesPage::onCurrentRowChanged(QModelIndex index)

@@ -16,10 +16,11 @@ PackageDialog::PackageDialog(QSqlRelationalTableModel* model, QWidget *parent)
 {
     _ui->setupUi(this);
 
-    connect(_ui->buttonAdd, SIGNAL(clicked()), SLOT(onAddHotkey()));
-    connect(_ui->buttonEdit, SIGNAL(clicked()), SLOT(onEditHotkey()));
-//    connect(ui->listHotkeys, SIGNAL(itemDoubleClicked(QListWidgetItem*)), SLOT(onEditHotkey(QListWidgetItem*)));
-//    _ui->listHotkeys->setModel(new HotkeyModel(package.getHotkeys()));
+    connect(_ui->_listHotkeys, SIGNAL(activated(QModelIndex)), SLOT(onHotkeyEdit(QModelIndex)));
+    connect(_ui->buttonAdd, SIGNAL(clicked()), SLOT(onHotkeyAdd()));
+    connect(_ui->buttonEdit, SIGNAL(clicked()), SLOT(onHotkeyEdit()));
+    connect(_ui->buttonRemove, SIGNAL(clicked()), SLOT(onHotkeyRemove()));
+
 //    ui->buttonBox->button(QDialogButtonBox::Ok)->setIcon(QIcon(""));
     createHotkeyModel();
 }
@@ -37,18 +38,41 @@ void PackageDialog::setData(QModelIndex index)
     _editIndex = package.getId();
     _ui->lineName->setText(package.getName());
     _ui->textDescr->setPlainText(package.getDescription());
+    _ui->buttonAdd->setEnabled(true);
 
     this->setWindowTitle(tr("Edit package '%1'").arg(package.getName()));
 }
 
-void PackageDialog::onAddHotkey()
+void PackageDialog::onHotkeyAdd()
 {
-    HotkeyDialog* dlg = new HotkeyDialog(_hotkeyModel, this);
-    connect(dlg, SIGNAL(takeData(HotkeyDialog*)), SLOT(onTakeHotkey(HotkeyDialog*)));
-    openDialog(dlg);
+    HotkeyDialog* dlg = new HotkeyDialog(-1, _hotkeyModel, this); // We do not have the package id yet
+    if(dlg->exec()==QDialog::Accepted)
+    {
+        _hotkeyModel->select();
+        _ui->_listHotkeys->scrollToBottom();
+    }
+    delete dlg;
 }
 
-void PackageDialog::onEditHotkey()
+void PackageDialog::onHotkeyEdit()
+{
+    QModelIndex index = _ui->_listHotkeys->currentIndex();
+    onHotkeyEdit(index);
+}
+
+void PackageDialog::onHotkeyEdit(QModelIndex index)
+{
+    HotkeyDialog* dlg = new HotkeyDialog(_editIndex, _hotkeyModel, this);
+    dlg->setData(index);
+    if(dlg->exec()==QDialog::Accepted)
+    {
+        _hotkeyModel->select();
+        _ui->_listHotkeys->scrollToBottom();
+    }
+    delete dlg;
+}
+
+void PackageDialog::onHotkeyRemove()
 {
 /*    QListWidgetItem* item = ui->listHotkeys->currentItem();
     if(!item) return;
@@ -70,16 +94,15 @@ void PackageDialog::onEditHotkey(QListWidgetItem* item)
 }
     */
 
+    /*
 void PackageDialog::onTakeHotkey(HotkeyDialog* dlg)
 {
-    /*
     Hotkey hotkey = dlg->getData();
     QVariant varHotkey;
     varHotkey.setValue(hotkey);
     QListWidgetItem* item = new QListWidgetItem(ui->listHotkeys);
     item->setData(Qt::UserRole+1, varHotkey);
     item->setText(hotkey.getDescription());
-*/
 }
 
 void PackageDialog::onHotkeyClosed(QDialog* dlg)
@@ -103,7 +126,7 @@ void PackageDialog::done(int r)
     }
     FloatingDialog::done(r);
 }
-
+*/
 void PackageDialog::accept()
 {
     QString name = _ui->lineName->text();
@@ -125,6 +148,12 @@ void PackageDialog::accept()
     QDialog::accept();
 }
 
+void PackageDialog::onCurrentRowChanged(QModelIndex index)
+{
+    _ui->buttonEdit->setEnabled(index.isValid());
+    _ui->buttonRemove->setEnabled(index.isValid());
+}
+
 void PackageDialog::createHotkeyModel()
 {
     _hotkeyModel = new QSqlRelationalTableModel(_ui->_listHotkeys);
@@ -136,10 +165,10 @@ void PackageDialog::createHotkeyModel()
 
     int idIndex = _hotkeyModel->fieldIndex(HotkeyTable::fieldId);
     _hotkeyModel->setHeaderData(idIndex, Qt::Horizontal, tr("Id"));
-//    int idName = _model->fieldIndex(PackageTable::fieldName);
-//    _model->setHeaderData(idName, Qt::Horizontal, tr("Name"));
-//    int idDescr = _model->fieldIndex(PackageTable::fieldDescr);
-//    _hotkeyModel->setHeaderData(idDescr, Qt::Horizontal, tr("Description"));
+    int idSystems = _model->fieldIndex(HotkeyTable::fieldSystems);
+    _hotkeyModel->setHeaderData(idSystems, Qt::Horizontal, tr("Systems"));
+    int idDescr = _model->fieldIndex(HotkeyTable::fieldDescr);
+    _hotkeyModel->setHeaderData(idDescr, Qt::Horizontal, tr("Description"));
 
     if(!_hotkeyModel->select())
     {
@@ -150,7 +179,7 @@ void PackageDialog::createHotkeyModel()
     _ui->_listHotkeys->setColumnHidden(0, true);
     _ui->_listHotkeys->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
 
-//    connect(_ui->_listPackages->selectionModel(), SIGNAL(currentRowChanged(QModelIndex,QModelIndex)), SLOT(onCurrentRowChanged(QModelIndex)));
+    connect(_ui->_listHotkeys->selectionModel(), SIGNAL(currentRowChanged(QModelIndex,QModelIndex)), SLOT(onCurrentRowChanged(QModelIndex)));
 
     _ui->_listHotkeys->setCurrentIndex(_model->index(0,0));
 }

@@ -17,11 +17,10 @@ class HotkeyDialog : public FloatingDialog
     Q_OBJECT
 
 public:
-    HotkeyDialog(QSqlRelationalTableModel* hotkeyModel, QWidget *parent = 0);
+    HotkeyDialog(int package, QSqlRelationalTableModel* hotkeyModel, QWidget *parent = 0);
     ~HotkeyDialog();
 
-    Hotkey getData();
-    void setData(const Hotkey& hotkey);
+    void setData(QModelIndex index);
 
 signals:
     void takeData(HotkeyDialog* dlg);
@@ -35,6 +34,8 @@ private slots:
 private:
     Ui::HotkeyDialog *ui;
     QSqlRelationalTableModel* _hotkeyModel;
+    int _package;
+    int _editIndex;
 };
 
 #endif // HOTKEYDIALOG_H

@@ -5,6 +5,8 @@
 #include "data/hotkey.h"
 #include <QSqlQuery>
 
+class QSqlRelationalTableModel;
+
 class HotkeyTable
 {
 public:
@@ -19,7 +21,9 @@ public:
 
     QSqlQuery prepareInsertion();
     QVariant addHotkey(QSqlQuery& q, int package, const QString& descr, int systems);
+    bool updateHotkey(int id, const QString& descr, int systems);
 
+    static Hotkey getFromModel(QSqlRelationalTableModel* model, int row);
     Hotkey getById(int id);
     QSqlQuery findById(int id);
 
