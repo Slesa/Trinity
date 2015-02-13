@@ -7,6 +7,7 @@
 #include "data/hotkey.h"
 #include <QSqlRelationalTableModel>
 #include <QSqlRecord>
+#include <QDebug>
 
 PackageDialog::PackageDialog(QSqlRelationalTableModel* model, QWidget *parent)
   : FloatingDialog(parent)
@@ -39,6 +40,10 @@ void PackageDialog::setData(QModelIndex index)
     _ui->lineName->setText(package.getName());
     _ui->textDescr->setPlainText(package.getDescription());
     _ui->buttonAdd->setEnabled(true);
+    _ui->linePackage->setText(package.getName());
+
+    _hotkeyModel->setFilter(QString("%1=%2").arg(HotkeyTable::fieldPackage).arg(_editIndex));
+    _hotkeyModel->select();
 
     this->setWindowTitle(tr("Edit package '%1'").arg(package.getName()));
 }
@@ -165,18 +170,22 @@ void PackageDialog::createHotkeyModel()
 
     int idIndex = _hotkeyModel->fieldIndex(HotkeyTable::fieldId);
     _hotkeyModel->setHeaderData(idIndex, Qt::Horizontal, tr("Id"));
-    int idSystems = _model->fieldIndex(HotkeyTable::fieldSystems);
+    int idSystems = _hotkeyModel->fieldIndex(HotkeyTable::fieldSystems);
     _hotkeyModel->setHeaderData(idSystems, Qt::Horizontal, tr("Systems"));
-    int idDescr = _model->fieldIndex(HotkeyTable::fieldDescr);
+    int idDescr = _hotkeyModel->fieldIndex(HotkeyTable::fieldDescr);
     _hotkeyModel->setHeaderData(idDescr, Qt::Horizontal, tr("Description"));
+    int idPackage = _hotkeyModel->fieldIndex(HotkeyTable::fieldPackage);
+    _hotkeyModel->setRelation(idPackage, QSqlRelation(PackageTable::tableName, PackageTable::fieldId, PackageTable::fieldName));
 
     if(!_hotkeyModel->select())
     {
+        qDebug() << "Could not select hotkeys";
         return;
     }
 
     _ui->_listHotkeys->setModel(_hotkeyModel);
-    _ui->_listHotkeys->setColumnHidden(0, true);
+    _ui->_listHotkeys->setColumnHidden(idIndex, true);
+    _ui->_listHotkeys->setColumnHidden(idPackage, true);
     _ui->_listHotkeys->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
 
     connect(_ui->_listHotkeys->selectionModel(), SIGNAL(currentRowChanged(QModelIndex,QModelIndex)), SLOT(onCurrentRowChanged(QModelIndex)));
