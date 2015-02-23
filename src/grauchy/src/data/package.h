@@ -19,12 +19,9 @@ public:
     QString getDescription() { return _description; }
     void setDescription(const QString& description) { _description = description; }
 
-    QList<Hotkey> getHotkeys() const { return _hotkeys; }
-
 private:
     QString _name;
     QString _description;
-    QList<Hotkey> _hotkeys;
 };
 
 #endif // PACKAGE_H

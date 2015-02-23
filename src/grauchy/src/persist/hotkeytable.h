@@ -14,14 +14,13 @@ public:
     static const char* fieldId;
     static const char* fieldPackage;
     static const char* fieldDescr;
-    static const char* fieldSystems;
 
 public:
     HotkeyTable();
 
     QSqlQuery prepareInsertion();
-    QVariant addHotkey(QSqlQuery& q, int package, const QString& descr, int systems);
-    bool updateHotkey(int id, const QString& descr, int systems);
+    QVariant addHotkey(QSqlQuery& q, int package, const QString& descr);
+    bool updateHotkey(int id, const QString& descr);
 
     static Hotkey getFromModel(QSqlRelationalTableModel* model, int row);
     Hotkey getById(int id);

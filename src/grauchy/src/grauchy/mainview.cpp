@@ -4,6 +4,7 @@
 #include "persist/persist.h"
 #include "persist/packagetable.h"
 #include "persist/hotkeytable.h"
+#include "persist/keystroketable.h"
 #include <QApplication>
 #include <QMessageBox>
 
@@ -18,7 +19,7 @@ MainView::MainView(QWidget *parent)
 
     _persist = new Persist;
     _persist->initDb();
-    createModel();
+    createModels();
 
     connect(_ui->_pushQuit, SIGNAL(clicked()), SLOT(onQuit()));
     connect(_ui->_pushOptions, SIGNAL(clicked()), SLOT(onOptions()));
@@ -27,7 +28,8 @@ MainView::MainView(QWidget *parent)
 MainView::~MainView()
 {
     if(_optionsDlg) delete _optionsDlg;
-    delete _model;
+    delete _searchModel;
+    delete _packageModel;
     delete _persist;
     delete _ui;
 }
@@ -49,7 +51,7 @@ void MainView::onQuit()
 
 void MainView::updateData()
 {
-    _model->select();
+    _packageModel->select();
     _ui->_comboPackages->setCurrentIndex(0);
 }
 
@@ -59,10 +61,22 @@ void MainView::closeOptions()
     updateData();
 }
 
-void MainView::createModel()
+void MainView::createModels()
 {
-    _model = new QSqlRelationalTableModel(_ui->_comboPackages);
-    _model->setTable(PackageTable::tableName);
+    createPackageModel();
+    createSearchModel();
+}
+
+void MainView::createSearchModel()
+{
+    _searchModel = new QSqlRelationalTableModel(_ui->_listResult);
+
+}
+
+void MainView::createPackageModel()
+{
+    _packageModel = new QSqlRelationalTableModel(_ui->_comboPackages);
+    _packageModel->setTable(PackageTable::tableName);
 /*
     int idIndex = _model->fieldIndex(PackageTable::fieldId);
     _model->setHeaderData(idIndex, Qt::Horizontal, tr("Id"));
@@ -71,27 +85,17 @@ void MainView::createModel()
     int idDescr = _model->fieldIndex(PackageTable::fieldDescr);
     _model->setHeaderData(idDescr, Qt::Horizontal, tr("Description"));
 */
-    if(!_model->select())
+    if(!_packageModel->select())
     {
-        showError(_model->lastError());
+        showError(_packageModel->lastError());
         return;
     }
-    if(!_model->rowCount())
+    if(!_packageModel->rowCount())
     {
-        PackageTable packageTable;
-        QSqlQuery query = packageTable.prepareInsertion();
-        int zshIdx = packageTable.addPackage(query, "Zsh", "The glorious shell").toInt();
-        int viIdx = packageTable.addPackage(query, "Vi", "The best editor").toInt();
-
-        HotkeyTable hotkeyTable;
-        query = hotkeyTable.prepareInsertion();
-        hotkeyTable.addHotkey(query, zshIdx, "Goto start of line", Hotkey::AllSystems);
-        hotkeyTable.addHotkey(query, zshIdx, "Goto end of line", Hotkey::AllSystems);
-        hotkeyTable.addHotkey(query, viIdx, "Goto start of line", Hotkey::AllSystems);
-        hotkeyTable.addHotkey(query, viIdx, "Goto end of line", Hotkey::AllSystems);
+        createDemoData();
     }
 
-    _ui->_comboPackages->setModel(_model);
+    _ui->_comboPackages->setModel(_packageModel);
     _ui->_comboPackages->setModelColumn(1);
 //    _ui->listPackages->setColumnHidden(0, true);
 //    _ui->listPackages->resizeColumnToContents(2);
@@ -99,6 +103,28 @@ void MainView::createModel()
 //    connect(_ui->listPackages->selectionModel(), SIGNAL(currentRowChanged(QModelIndex,QModelIndex)), SLOT(onCurrentRowChanged(QModelIndex)));
 
     updateData();
+}
+
+void MainView::createDemoData()
+{
+    PackageTable packageTable;
+    QSqlQuery query = packageTable.prepareInsertion();
+    int rsIdx = packageTable.addPackage(query, "Resharper", "Visual Studio Extension").toInt();
+    int vsIdx = packageTable.addPackage(query, "Visual Studio", "Visual Studio").toInt();
+    int zshIdx = packageTable.addPackage(query, "Zsh", "The glorious shell").toInt();
+    int viIdx = packageTable.addPackage(query, "Vi", "The best editor").toInt();
+
+    HotkeyTable hotkeyTable;
+    query = hotkeyTable.prepareInsertion();
+    int zshStartLine = hotkeyTable.addHotkey(query, zshIdx, "Goto start of line").toInt();
+    int zshEndLine = hotkeyTable.addHotkey(query, zshIdx, "Goto end of line").toInt();
+    hotkeyTable.addHotkey(query, viIdx, "Goto start of line").toInt();
+    hotkeyTable.addHotkey(query, viIdx, "Goto end of line").toInt();
+
+    KeyStrokeTable keyStrokeTable;
+    query = keyStrokeTable.prepareInsertion();
+    keyStrokeTable.addKeyStroke(query, zshStartLine, "Ctrl+A", 0);
+    keyStrokeTable.addKeyStroke(query, zshEndLine, "Ctrl+A", 0);
 }
 
 void MainView::showError(const QSqlError& error)

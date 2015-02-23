@@ -62,7 +62,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QListView" name="_listResult">
+  <widget class="QTableView" name="_listResult">
    <property name="geometry">
     <rect>
      <x>40</x>

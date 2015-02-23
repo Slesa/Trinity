@@ -1,26 +1,32 @@
 #ifndef KEYSTROKE_H
 #define KEYSTROKE_H
 
-#include "modifiers.h"
-#include <QChar>
+#include "entity.h"
+#include "systems.h"
+#include <QString>
 
 /*
  * A keystoke collects one character with the additionally pressed modifier keys
  */
-class KeyStroke
+class KeyStroke : public Entity
 {
 public:
     KeyStroke();
 
-    QChar getKey() { return _key; }
-    void setKey(const QChar& key) { _key = key; }
+    int getHotkey() const { return _hotkey; }
+    void setHotkey(int hotkey) { _hotkey = hotkey; }
 
-    ModifierFlags getModifiers() { return _modifiers; }
-    void setModifiers(ModifierFlags modifiers) { _modifiers = modifiers; }
+    QString getSequence() { return _sequence; }
+    void setSequence(const QString& sequence) { _sequence = sequence; }
+
+    // On which operating system this hotkey is available on?
+    int getSystem() const { return _system; }
+    void setSystem(int system) { _system = (SystemFlag)system; }
 
 private:
-    QChar _key;
-    ModifierFlags _modifiers;
+    int _hotkey;
+    QString _sequence;
+    SystemFlag _system;
 };
 
 #endif // KEYSTROKE_H

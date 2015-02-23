@@ -45,8 +45,6 @@ QVariant HotkeyModel::data(const QModelIndex& index, int role) const
     switch(index.column()) {
     case 1:
         return hotkey.getDescription();
-    case 2:
-        return hotkey.getTags();
     }
 }
 

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>501</width>
-    <height>316</height>
+    <height>355</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,37 +20,13 @@
       <bool>false</bool>
      </property>
      <property name="title">
-      <string/>
+      <string>General</string>
      </property>
      <property name="flat">
       <bool>false</bool>
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">
-       <widget class="QLabel" name="labelStrokes">
-        <property name="text">
-         <string>&amp;Key strokes:</string>
-        </property>
-        <property name="buddy">
-         <cstring>lineStrokes</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QLineEdit" name="lineStrokes"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="buttonStrokes">
-          <property name="text">
-           <string>...</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="1" column="0">
        <widget class="QLabel" name="labelDescription">
         <property name="text">
          <string>&amp;Description:</string>
@@ -63,76 +39,93 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
+      <item row="0" column="1">
        <widget class="QTextEdit" name="textDescription"/>
       </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="labelTags">
+      <item row="1" column="0">
+       <widget class="QLabel" name="labelPackage">
         <property name="text">
-         <string>&amp;Tags:</string>
+         <string>Package:</string>
         </property>
         <property name="buddy">
-         <cstring>lineTags</cstring>
+         <cstring>linePackage</cstring>
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="lineTags">
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="linePackage">
         <property name="toolTip">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter a list of &lt;span style=&quot; font-weight:600;&quot;&gt;tag&lt;/span&gt; words, separated by comma.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="0" colspan="2">
-       <widget class="QGroupBox" name="groupSystem">
-        <property name="title">
-         <string>Available for</string>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupSequences">
+     <property name="title">
+      <string>Sequence on...</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="labelWinSequence">
+        <property name="text">
+         <string>&amp;Windows:</string>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
-          <widget class="QCheckBox" name="checkWindows">
-           <property name="text">
-            <string>&amp;Windows</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="checkLinux">
-           <property name="text">
-            <string>&amp;Linux</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="checkMac">
-           <property name="text">
-            <string>&amp;Mac OS</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>209</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
+        <property name="buddy">
+         <cstring>lineWinSequence</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="lineWinSequence"/>
+      </item>
+      <item row="0" column="2">
+       <widget class="QPushButton" name="buttonWinSequence">
+        <property name="text">
+         <string>...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="LinSequence">
+        <property name="text">
+         <string>&amp;Linux:</string>
+        </property>
+        <property name="buddy">
+         <cstring>lineLinSequence</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="lineLinSequence"/>
+      </item>
+      <item row="1" column="2">
+       <widget class="QPushButton" name="buttonLinSequence">
+        <property name="text">
+         <string>...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="labelMacSequence">
+        <property name="text">
+         <string>&amp;Mac OS:</string>
+        </property>
+        <property name="buddy">
+         <cstring>lineMacSequence</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="lineMacSequence"/>
+      </item>
+      <item row="2" column="2">
+       <widget class="QPushButton" name="buttonMacSequence">
+        <property name="text">
+         <string>...</string>
+        </property>
        </widget>
       </item>
      </layout>

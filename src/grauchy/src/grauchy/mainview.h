@@ -27,13 +27,17 @@ private slots:
 
 private:
     void updateData();
-    void createModel();
+    void createModels();
+    void createPackageModel();
+    void createSearchModel();
+    void createDemoData();
     void showError(const QSqlError& error);
 
 private:
     Ui::MainView* _ui;
     Persist* _persist;
-    QSqlRelationalTableModel* _model;
+    QSqlRelationalTableModel* _packageModel;
+    QSqlRelationalTableModel* _searchModel;
     OptionsDialog* _optionsDlg;
 };
 

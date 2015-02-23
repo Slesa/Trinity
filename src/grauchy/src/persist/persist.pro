@@ -12,13 +12,15 @@ HEADERS 		+= persist.h \
     packagetable.h \
     tableinitializer.h \
     sqlexception.h \
-    hotkeytable.h
+    hotkeytable.h \
+    keystroketable.h
 
 SOURCES 		+= persist.cpp \
     packagetable.cpp \
     tableinitializer.cpp \
     sqlexception.cpp \
-    hotkeytable.cpp
+    hotkeytable.cpp \
+    keystroketable.cpp
 
 DESTDIR 		= $${PWD}../../../bin/lib/
 

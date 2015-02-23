@@ -10,7 +10,6 @@ const char* HotkeyTable::tableName = "hotkeys";
 const char* HotkeyTable::fieldId = "id";
 const char* HotkeyTable::fieldPackage = "package";
 const char* HotkeyTable::fieldDescr = "descr";
-const char* HotkeyTable::fieldSystems = "systems";
 
 
 HotkeyTable::HotkeyTable()
@@ -20,34 +19,31 @@ HotkeyTable::HotkeyTable()
 QSqlQuery HotkeyTable::prepareInsertion()
 {
     QSqlQuery q;
-    if (!q.prepare(QString("insert into %1(%2, %3, %4) values(?, ?, ?)")
+    if (!q.prepare(QString("insert into %1(%2, %3) values(?, ?)")
                    .arg(tableName)
                    .arg(fieldPackage)
-                   .arg(fieldDescr)
-                   .arg(fieldSystems)))
+                   .arg(fieldDescr)))
         throw new SqlException(q.lastError());
     return q;
 }
 
-QVariant HotkeyTable::addHotkey(QSqlQuery& q, int package, const QString& descr, int systems)
+QVariant HotkeyTable::addHotkey(QSqlQuery& q, int package, const QString& descr)
 {
     q.addBindValue(package);
     q.addBindValue(descr);
-    q.addBindValue(systems);
     q.exec();
     return q.lastInsertId();
 }
 
-bool HotkeyTable::updateHotkey(int id, const QString& descr, int systems)
+bool HotkeyTable::updateHotkey(int id, const QString& descr)
 {
     QSqlQuery q;
-    QString cmd = QString("update %1 set %2='%3', %4='%5' where id=%8")
-                   .arg(tableName)
-                   .arg(fieldDescr)
-                   .arg(descr)
-                   .arg(fieldSystems)
-                   .arg(systems)
-                   .arg(id);
+    QString cmd = QString("update %1 set %2='%3' where %4=%5")
+            .arg(tableName)
+            .arg(fieldDescr)
+            .arg(descr)
+            .arg(fieldId)
+            .arg(id);
     bool ok = q.exec(cmd);
     if(!ok)
         qDebug() << "Unable to update " << id << ": " << q.lastError();
@@ -67,9 +63,6 @@ Hotkey HotkeyTable::getFromModel(QSqlRelationalTableModel* model, int row)
 
     int descrIdx = model->fieldIndex(HotkeyTable::fieldDescr);
     hotkey.setDescription(record.value(descrIdx).toString());
-
-    int systemsIdx = model->fieldIndex(fieldSystems);
-    hotkey.setSystems((SystemFlags)record.value(systemsIdx).toInt());
 
     return hotkey;
 }
@@ -91,10 +84,6 @@ Hotkey HotkeyTable::getById(int id)
     int descrIdx = query.record().indexOf(fieldDescr);
     QString descr = query.value(descrIdx).toString();
     hotkey.setDescription(descr);
-
-    int systemsIdx = query.record().indexOf(fieldSystems);
-    int systems = query.value(systemsIdx).toInt();
-    hotkey.setSystems((SystemFlags)systems);
 
     return hotkey;
 }
@@ -133,12 +122,11 @@ QString HotkeyInitializer::getTableName()
 QSqlError HotkeyInitializer::createTable()
 {
     QSqlQuery q;
-    if (!q.exec(QString("create table %1(%2 integer primary key, %3 integer, %4 varchar, %5 varchar)")
+    if (!q.exec(QString("create table %1(%2 integer primary key, %3 integer, %4 varchar)")
                 .arg(HotkeyTable::tableName)
                 .arg(HotkeyTable::fieldId)
                 .arg(HotkeyTable::fieldPackage)
-                .arg(HotkeyTable::fieldDescr)
-                .arg(HotkeyTable::fieldSystems)))
+                .arg(HotkeyTable::fieldDescr)))
         return q.lastError();
     return QSqlError();
 }

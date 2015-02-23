@@ -11,6 +11,7 @@ class HotkeyDialog;
 }
 
 class QSqlRelationalTableModel;
+class QLineEdit;
 
 class HotkeyDialog : public FloatingDialog
 {
@@ -20,7 +21,7 @@ public:
     HotkeyDialog(int package, QSqlRelationalTableModel* hotkeyModel, QWidget *parent = 0);
     ~HotkeyDialog();
 
-    void setData(QModelIndex index);
+    void setData(QModelIndex index, const QString& packageName);
 
 signals:
     void takeData(HotkeyDialog* dlg);
@@ -29,10 +30,14 @@ protected:
     virtual void accept();
 
 private slots:
-    void onKeyStrokes();
+    void onWinSequence();
+    void onLinSequence();
+    void onMacSequence();
+private:
+    void onSequence(QLineEdit*);
 
 private:
-    Ui::HotkeyDialog *ui;
+    Ui::HotkeyDialog* _ui;
     QSqlRelationalTableModel* _hotkeyModel;
     int _package;
     int _editIndex;

@@ -2,5 +2,4 @@
 
 KeyStroke::KeyStroke()
 {
-
 }

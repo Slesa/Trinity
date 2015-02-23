@@ -40,7 +40,6 @@ void PackageDialog::setData(QModelIndex index)
     _ui->lineName->setText(package.getName());
     _ui->textDescr->setPlainText(package.getDescription());
     _ui->buttonAdd->setEnabled(true);
-    _ui->linePackage->setText(package.getName());
 
     _hotkeyModel->setFilter(QString("%1=%2").arg(HotkeyTable::fieldPackage).arg(_editIndex));
     _hotkeyModel->select();
@@ -68,7 +67,7 @@ void PackageDialog::onHotkeyEdit()
 void PackageDialog::onHotkeyEdit(QModelIndex index)
 {
     HotkeyDialog* dlg = new HotkeyDialog(_editIndex, _hotkeyModel, this);
-    dlg->setData(index);
+    dlg->setData(index, _ui->lineName->text());
     if(dlg->exec()==QDialog::Accepted)
     {
         _hotkeyModel->select();
@@ -170,8 +169,6 @@ void PackageDialog::createHotkeyModel()
 
     int idIndex = _hotkeyModel->fieldIndex(HotkeyTable::fieldId);
     _hotkeyModel->setHeaderData(idIndex, Qt::Horizontal, tr("Id"));
-    int idSystems = _hotkeyModel->fieldIndex(HotkeyTable::fieldSystems);
-    _hotkeyModel->setHeaderData(idSystems, Qt::Horizontal, tr("Systems"));
     int idDescr = _hotkeyModel->fieldIndex(HotkeyTable::fieldDescr);
     _hotkeyModel->setHeaderData(idDescr, Qt::Horizontal, tr("Description"));
     int idPackage = _hotkeyModel->fieldIndex(HotkeyTable::fieldPackage);

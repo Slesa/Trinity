@@ -78,12 +78,11 @@ void PersistSpecs::test_database_can_find_inserted_hotkey()
 
     HotkeyTable hotkeys;
     QSqlQuery q = hotkeys.prepareInsertion();
-    QVariant e = hotkeys.addHotkey(q, 2, "Mein Erstes", SystemWindows);
+    QVariant e = hotkeys.addHotkey(q, 2, "Mein Erstes");
     int id = e.toInt();
 
     Hotkey hotkey = hotkeys.getById(id);
     QCOMPARE(hotkey.getId(), id);
     QCOMPARE(hotkey.getPackage(), 2);
     QCOMPARE(hotkey.getDescription(), QString::fromLocal8Bit("Mein Erstes"));
-    QCOMPARE(hotkey.getSystems(), SystemWindows);
 }
