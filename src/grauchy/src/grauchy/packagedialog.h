@@ -38,7 +38,9 @@ private slots:
     void onCurrentRowChanged(QModelIndex index);
     void updateHeader(QModelIndex, int, int);
 
+    void gotChanges();
 private:
+    void noChanges();
 //    void openDialog(QDialog* dlg);
     void createHotkeyModel();
 

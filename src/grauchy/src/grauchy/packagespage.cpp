@@ -43,6 +43,7 @@ void PackagesPage::onPackageAdd()
     {
         _model->select();
         _ui->_listPackages->scrollToBottom();
+        updateHeader();
     }
     delete dlg;
 }
@@ -61,6 +62,7 @@ void PackagesPage::onEditPackage(QModelIndex index)
     {
         _model->select();
         _ui->_listPackages->scrollToBottom();
+        updateHeader();
     }
     delete dlg;
 }
@@ -71,8 +73,9 @@ void PackagesPage::onPackageRemove()
     Package package = PackageTable::getFromModel(_model, index.row());
 
     QMessageBox msg(this);
+    msg.setWindowIcon(getIcon());
     msg.setWindowTitle(tr("Remove package?"));
-    msg.setInformativeText(tr("Are you sure to delete package '%1'\nwith description %2?").arg(package.getName()).arg(package.getDescription()));
+    msg.setInformativeText(tr("Are you sure to delete package\n'%1'\nwith description\n'%2'?").arg(package.getName()).arg(package.getDescription()));
     msg.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
     msg.setDefaultButton(QMessageBox::No);
     msg.setIcon(QMessageBox::Warning);
@@ -80,9 +83,12 @@ void PackagesPage::onPackageRemove()
     if(button!=QMessageBox::Yes) return;
 
     bool ok = _model->removeRow(index.row());
-    if(!ok)
+    if(!ok) {
         QMessageBox::critical(this, tr("Error"), tr("Could not remove package:\n %1").arg(_model->lastError().text()));
+        return;
+    }
     _model->submitAll();
+    onCurrentRowChanged(QModelIndex());
 }
 
 void PackagesPage::onCurrentRowChanged(QModelIndex index)
@@ -91,14 +97,12 @@ void PackagesPage::onCurrentRowChanged(QModelIndex index)
     _ui->_buttonRemove->setEnabled(index.isValid());
 }
 
+
 void PackagesPage::createModel()
 {
     _model = new QSqlRelationalTableModel(_ui->_listPackages);
     _model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     _model->setTable(PackageTable::tableName);
-
-    connect(_model, SIGNAL(rowsInserted(QModelIndex,int,int)), SLOT(updateHeader(QModelIndex, int, int)));
-    connect(_model, SIGNAL(rowsRemoved(QModelIndex, int, int)), SLOT(updateHeader(QModelIndex, int, int)));
 
     int idIndex = _model->fieldIndex(PackageTable::fieldId);
     _model->setHeaderData(idIndex, Qt::Horizontal, tr("Id"));
@@ -121,7 +125,7 @@ void PackagesPage::createModel()
     _ui->_listPackages->setCurrentIndex(_model->index(0,0));
 }
 
-void PackagesPage::updateHeader(QModelIndex, int, int)
+void PackagesPage::updateHeader()
 {
     _ui->_listPackages->resizeColumnToContents(1);
 }

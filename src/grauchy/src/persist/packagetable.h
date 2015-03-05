@@ -22,8 +22,8 @@ public:
     bool updatePackage(int id, const QString& name, const QString& descr);
 
     static Package getFromModel(QSqlRelationalTableModel* model, int row);
-    Package getById(int id);
-    QSqlQuery findById(int id);
+    static Package getById(int id);
+    static QSqlQuery findById(int id);
 
 private:
     friend class PackageInitializer;

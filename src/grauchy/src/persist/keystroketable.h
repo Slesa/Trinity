@@ -24,6 +24,8 @@ public:
     bool updateKeyStroke(int id, const QString& sequence, int system);
 
     static KeyStroke getFromModel(QSqlRelationalTableModel* model, int row);
+    KeyStroke getByHotkey(int hotkey, int system);
+    QSqlQuery findByHotkey(int hotkey, int system);
     KeyStroke getById(int id);
     QSqlQuery findById(int id);
 

@@ -12,6 +12,8 @@ class HotkeyDialog;
 
 class QSqlRelationalTableModel;
 class QLineEdit;
+class QString;
+class KeyStrokeTable;
 
 class HotkeyDialog : public FloatingDialog
 {
@@ -21,7 +23,7 @@ public:
     HotkeyDialog(int package, QSqlRelationalTableModel* hotkeyModel, QWidget *parent = 0);
     ~HotkeyDialog();
 
-    void setData(QModelIndex index, const QString& packageName);
+    void setData(QModelIndex index);
 
 signals:
     void takeData(HotkeyDialog* dlg);
@@ -30,15 +32,18 @@ protected:
     virtual void accept();
 
 private slots:
+    void onAllSequence();
     void onWinSequence();
     void onLinSequence();
     void onMacSequence();
 private:
     void onSequence(QLineEdit*);
+    void createKeyStrokeModel();
 
 private:
     Ui::HotkeyDialog* _ui;
     QSqlRelationalTableModel* _hotkeyModel;
+    QSqlRelationalTableModel* _keyStrokeModel;
     int _package;
     int _editIndex;
 };

@@ -118,13 +118,19 @@ void MainView::createDemoData()
     query = hotkeyTable.prepareInsertion();
     int zshStartLine = hotkeyTable.addHotkey(query, zshIdx, "Goto start of line").toInt();
     int zshEndLine = hotkeyTable.addHotkey(query, zshIdx, "Goto end of line").toInt();
-    hotkeyTable.addHotkey(query, viIdx, "Goto start of line").toInt();
-    hotkeyTable.addHotkey(query, viIdx, "Goto end of line").toInt();
+    int viStartLine = hotkeyTable.addHotkey(query, viIdx, "Goto start of line").toInt();
+    int viEndLine = hotkeyTable.addHotkey(query, viIdx, "Goto end of line").toInt();
+    int viStartDoc = hotkeyTable.addHotkey(query, viIdx, "Goto start of document").toInt();
+    int viEndDoc = hotkeyTable.addHotkey(query, viIdx, "Goto end of document").toInt();
 
     KeyStrokeTable keyStrokeTable;
     query = keyStrokeTable.prepareInsertion();
-    keyStrokeTable.addKeyStroke(query, zshStartLine, "Ctrl+A", 0);
-    keyStrokeTable.addKeyStroke(query, zshEndLine, "Ctrl+A", 0);
+    keyStrokeTable.addKeyStroke(query, zshStartLine, "Ctrl+a", SystemAll);
+    keyStrokeTable.addKeyStroke(query, zshEndLine, "Ctrl+e", SystemAll);
+    keyStrokeTable.addKeyStroke(query, viStartLine, "^", SystemAll);
+    keyStrokeTable.addKeyStroke(query, viEndLine, "$", SystemAll);
+    keyStrokeTable.addKeyStroke(query, viStartDoc, "gg", SystemAll);
+    keyStrokeTable.addKeyStroke(query, viEndDoc, "G", SystemAll);
 }
 
 void MainView::showError(const QSqlError& error)

@@ -8,13 +8,12 @@
  */
 enum SystemFlag
 {
+    SystemAll = 0,
     SystemWindows = 1,
     SystemLinux = 2,
-    SystemMac = 4
+    SystemMac = 3,
 };
 
-Q_DECLARE_FLAGS(SystemFlags, SystemFlag)
-Q_DECLARE_OPERATORS_FOR_FLAGS(SystemFlags)
 
 #endif // OPERATINGSYSTEMS
 

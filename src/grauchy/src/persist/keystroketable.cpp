@@ -74,6 +74,38 @@ KeyStroke KeyStrokeTable::getFromModel(QSqlRelationalTableModel* model, int row)
     return keyStroke;
 }
 
+KeyStroke KeyStrokeTable::getByHotkey(int hotkey, int system)
+{
+    KeyStroke keyStroke;
+
+    QSqlQuery query = findByHotkey(hotkey, system);
+    if(!query.next())
+        return keyStroke;
+
+    int idIdx = query.record().indexOf(fieldId);
+    int id = query.value(idIdx).toInt();
+    keyStroke.setId(id);
+    keyStroke.setSystem(system);
+
+    int sequenceIdx = query.record().indexOf(fieldSequence);
+    QString sequence = query.value(sequenceIdx).toString();
+    keyStroke.setSequence(sequence);
+
+    return keyStroke;
+}
+
+QSqlQuery KeyStrokeTable::findByHotkey(int hotkey, int system)
+{
+    QSqlQuery query(QString("SELECT * FROM %1 WHERE %2=%3 AND %4=%5")
+                    .arg(tableName)
+                    .arg(fieldHotkey)
+                    .arg(hotkey)
+                    .arg(fieldSystem)
+                    .arg(system));
+    return query;
+
+}
+
 KeyStroke KeyStrokeTable::getById(int id)
 {
     KeyStroke keyStroke;

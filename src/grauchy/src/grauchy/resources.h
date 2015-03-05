@@ -7,6 +7,7 @@ class Resources
 {
 public:
     static QIcon iconPackage();
+    static QIcon iconHotkey();
 };
 
 #endif // RESOURCES_H

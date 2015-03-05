@@ -2,11 +2,13 @@
 #include "ui_packagedialog.h"
 #include "hotkeydialog.h"
 #include "hotkeymodel.h"
+#include "resources.h"
 #include "persist/packagetable.h"
 #include "persist/hotkeytable.h"
 #include "data/hotkey.h"
 #include <QSqlRelationalTableModel>
 #include <QSqlRecord>
+#include <QMessageBox>
 #include <QDebug>
 
 PackageDialog::PackageDialog(QSqlRelationalTableModel* model, QWidget *parent)
@@ -21,9 +23,8 @@ PackageDialog::PackageDialog(QSqlRelationalTableModel* model, QWidget *parent)
     connect(_ui->buttonAdd, SIGNAL(clicked()), SLOT(onHotkeyAdd()));
     connect(_ui->buttonEdit, SIGNAL(clicked()), SLOT(onHotkeyEdit()));
     connect(_ui->buttonRemove, SIGNAL(clicked()), SLOT(onHotkeyRemove()));
-
-//    ui->buttonBox->button(QDialogButtonBox::Ok)->setIcon(QIcon(""));
-    createHotkeyModel();
+    connect(_ui->lineName, SIGNAL(textChanged(QString)), SLOT(gotChanges()));
+    connect(_ui->textDescr, SIGNAL(textChanged()), SLOT(gotChanges()));
 }
 
 PackageDialog::~PackageDialog()
@@ -33,6 +34,8 @@ PackageDialog::~PackageDialog()
 
 void PackageDialog::setData(QModelIndex index)
 {
+    createHotkeyModel();
+
     Package package;
     package = PackageTable::getFromModel(_model, index.row());
 
@@ -45,11 +48,12 @@ void PackageDialog::setData(QModelIndex index)
     _hotkeyModel->select();
 
     this->setWindowTitle(tr("Edit package '%1'").arg(package.getName()));
+    noChanges();
 }
 
 void PackageDialog::onHotkeyAdd()
 {
-    HotkeyDialog* dlg = new HotkeyDialog(-1, _hotkeyModel, this); // We do not have the package id yet
+    HotkeyDialog* dlg = new HotkeyDialog(_editIndex, _hotkeyModel, this); // We do not have the package id yet
     if(dlg->exec()==QDialog::Accepted)
     {
         _hotkeyModel->select();
@@ -67,7 +71,7 @@ void PackageDialog::onHotkeyEdit()
 void PackageDialog::onHotkeyEdit(QModelIndex index)
 {
     HotkeyDialog* dlg = new HotkeyDialog(_editIndex, _hotkeyModel, this);
-    dlg->setData(index, _ui->lineName->text());
+    dlg->setData(index);
     if(dlg->exec()==QDialog::Accepted)
     {
         _hotkeyModel->select();
@@ -78,11 +82,26 @@ void PackageDialog::onHotkeyEdit(QModelIndex index)
 
 void PackageDialog::onHotkeyRemove()
 {
-/*    QListWidgetItem* item = ui->listHotkeys->currentItem();
-    if(!item) return;
+    QModelIndex index = _ui->_listHotkeys->currentIndex();
+    Hotkey hotkey = HotkeyTable::getFromModel(_hotkeyModel, index.row());
 
-    onEditHotkey(item);
-    */
+    QMessageBox msg(this);
+    msg.setWindowIcon(Resources::iconHotkey());
+    msg.setWindowTitle(tr("Remove hotkey?"));
+    msg.setInformativeText(tr("Are you sure to delete hotkey with description\n'%2'?").arg(hotkey.getDescription()));
+    msg.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
+    msg.setDefaultButton(QMessageBox::No);
+    msg.setIcon(QMessageBox::Warning);
+    int button = msg.exec();
+    if(button!=QMessageBox::Yes) return;
+
+    bool ok = _hotkeyModel->removeRow(index.row());
+    if(!ok) {
+        QMessageBox::critical(this, tr("Error"), tr("Could not remove hotkey:\n %1").arg(_hotkeyModel->lastError().text()));
+        return;
+    }
+    _hotkeyModel->submitAll();
+    onCurrentRowChanged(QModelIndex());
 }
 
     /*
@@ -195,3 +214,12 @@ void PackageDialog::updateHeader(QModelIndex, int, int)
     _ui->_listHotkeys->resizeColumnToContents(1);
 }
 
+void PackageDialog::noChanges()
+{
+    _ui->buttonBox->setStandardButtons(QDialogButtonBox::Close);
+}
+
+void PackageDialog::gotChanges()
+{
+    _ui->buttonBox->setStandardButtons(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+}
