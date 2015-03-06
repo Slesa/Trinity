@@ -17,6 +17,7 @@ HotkeyDialog::HotkeyDialog(int package, QSqlRelationalTableModel* hotkeyModel, Q
   , _editIndex(-1)
 {
     _ui->setupUi(this);
+
     connect(_ui->buttonAllSequence, SIGNAL(clicked()), SLOT(onAllSequence()));
     connect(_ui->buttonWinSequence, SIGNAL(clicked()), SLOT(onWinSequence()));
     connect(_ui->buttonLinSequence, SIGNAL(clicked()), SLOT(onLinSequence()));

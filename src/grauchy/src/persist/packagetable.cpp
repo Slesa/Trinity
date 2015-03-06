@@ -55,19 +55,17 @@ Package PackageTable::getFromModel(QSqlRelationalTableModel* model, int row)
     Package package;
     QSqlRecord record = model->record(row);
 
-    int idIndex = model->fieldIndex(PackageTable::fieldId);
-    package.setId(record.value(idIndex).toInt());
+    package.setId(record.value(PackageTable::fieldId).toInt());
 
-    int idName = model->fieldIndex(PackageTable::fieldName);
-    QString name = record.value(idName).toString();
+    QString name = record.value(PackageTable::fieldName).toString();
     package.setName(name);
 
-    int idDescr = model->fieldIndex(PackageTable::fieldDescr);
-    QString descr = record.value(idDescr).toString();
+    QString descr = record.value(PackageTable::fieldDescr).toString();
     package.setDescription(descr);
 
     return package;
 }
+
 
 Package PackageTable::getById(int id)
 {

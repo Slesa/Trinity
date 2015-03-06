@@ -6,7 +6,7 @@ class Entity
 public:
     Entity();
 
-    int getId() { return _Id; }
+    int getId() const { return _Id; }
     void setId(int id) { _Id = id; }
 
 private:

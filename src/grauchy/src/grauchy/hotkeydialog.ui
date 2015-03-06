@@ -89,6 +89,10 @@
         <property name="text">
          <string>...</string>
         </property>
+        <property name="icon">
+         <iconset resource="grauchy.qrc">
+          <normaloff>:/resources/general.png</normaloff>:/resources/general.png</iconset>
+        </property>
        </widget>
       </item>
       <item row="1" column="0">
@@ -108,6 +112,10 @@
        <widget class="QPushButton" name="buttonWinSequence">
         <property name="text">
          <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="grauchy.qrc">
+          <normaloff>:/resources/windows.png</normaloff>:/resources/windows.png</iconset>
         </property>
        </widget>
       </item>
@@ -129,6 +137,10 @@
         <property name="text">
          <string>...</string>
         </property>
+        <property name="icon">
+         <iconset resource="grauchy.qrc">
+          <normaloff>:/resources/linux.png</normaloff>:/resources/linux.png</iconset>
+        </property>
        </widget>
       </item>
       <item row="3" column="0">
@@ -148,6 +160,10 @@
        <widget class="QPushButton" name="buttonMacSequence">
         <property name="text">
          <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="grauchy.qrc">
+          <normaloff>:/resources/mac.png</normaloff>:/resources/mac.png</iconset>
         </property>
        </widget>
       </item>
@@ -178,7 +194,9 @@
   <tabstop>lineMacSequence</tabstop>
   <tabstop>buttonMacSequence</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="grauchy.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>

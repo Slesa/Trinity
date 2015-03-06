@@ -8,6 +8,13 @@ class Resources
 public:
     static QIcon iconPackage();
     static QIcon iconHotkey();
+    static QIcon iconOk();
+    static QIcon iconCancel();
+    static QIcon iconClose();
+    static QIcon iconWindows();
+    static QIcon iconLinux();
+    static QIcon iconMac();
+    static QIcon iconGeneral();
 };
 
 #endif // RESOURCES_H

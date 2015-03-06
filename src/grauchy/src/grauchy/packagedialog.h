@@ -47,9 +47,10 @@ private:
 private:
     Ui::PackageDialog* _ui;
     QList<QDialog*> _openDialogs;
-    QSqlRelationalTableModel* _model;
+    QSqlRelationalTableModel* _packageModel;
     QSqlRelationalTableModel* _hotkeyModel;
-    int _editIndex;
+    int _editedPackageId;
+    int _editedPackageRow;
 };
 
 #endif // PACKAGEDIALOG_H

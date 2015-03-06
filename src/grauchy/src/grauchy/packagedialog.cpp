@@ -14,8 +14,9 @@
 PackageDialog::PackageDialog(QSqlRelationalTableModel* model, QWidget *parent)
   : FloatingDialog(parent)
   , _ui(new Ui::PackageDialog)
-  , _model(model)
-  , _editIndex(-1)
+  , _packageModel(model)
+  , _editedPackageId(-1)
+  , _editedPackageRow(-1)
 {
     _ui->setupUi(this);
 
@@ -25,6 +26,8 @@ PackageDialog::PackageDialog(QSqlRelationalTableModel* model, QWidget *parent)
     connect(_ui->buttonRemove, SIGNAL(clicked()), SLOT(onHotkeyRemove()));
     connect(_ui->lineName, SIGNAL(textChanged(QString)), SLOT(gotChanges()));
     connect(_ui->textDescr, SIGNAL(textChanged()), SLOT(gotChanges()));
+
+    noChanges();
 }
 
 PackageDialog::~PackageDialog()
@@ -36,24 +39,45 @@ void PackageDialog::setData(QModelIndex index)
 {
     createHotkeyModel();
 
-    Package package;
-    package = PackageTable::getFromModel(_model, index.row());
+    _editedPackageRow = index.row();
+    Package package = PackageTable::getFromModel(_packageModel, _editedPackageRow);
 
-    _editIndex = package.getId();
+    _editedPackageId = package.getId();
     _ui->lineName->setText(package.getName());
     _ui->textDescr->setPlainText(package.getDescription());
     _ui->buttonAdd->setEnabled(true);
 
-    _hotkeyModel->setFilter(QString("%1=%2").arg(HotkeyTable::fieldPackage).arg(_editIndex));
+    _hotkeyModel->setFilter(QString("%1=%2").arg(HotkeyTable::fieldPackage).arg(_editedPackageId));
     _hotkeyModel->select();
 
     this->setWindowTitle(tr("Edit package '%1'").arg(package.getName()));
+
     noChanges();
+}
+
+void PackageDialog::accept()
+{
+    QString name = _ui->lineName->text();
+    QString descr = _ui->textDescr->toPlainText();
+
+    if(_editedPackageRow>=0)
+    {
+        PackageTable::updatePackage(_editedPackageId, name, descr);
+    }
+    else
+    {
+        QSqlQuery query = PackageTable::prepareInsertion();
+        PackageTable::addPackage(query, name, descr);
+    }
+
+    _packageModel->submit();
+
+    QDialog::accept();
 }
 
 void PackageDialog::onHotkeyAdd()
 {
-    HotkeyDialog* dlg = new HotkeyDialog(_editIndex, _hotkeyModel, this); // We do not have the package id yet
+    HotkeyDialog* dlg = new HotkeyDialog(_editedPackageId, _hotkeyModel, this); // We do not have the package id yet
     if(dlg->exec()==QDialog::Accepted)
     {
         _hotkeyModel->select();
@@ -70,7 +94,7 @@ void PackageDialog::onHotkeyEdit()
 
 void PackageDialog::onHotkeyEdit(QModelIndex index)
 {
-    HotkeyDialog* dlg = new HotkeyDialog(_editIndex, _hotkeyModel, this);
+    HotkeyDialog* dlg = new HotkeyDialog(_editedPackageId, _hotkeyModel, this);
     dlg->setData(index);
     if(dlg->exec()==QDialog::Accepted)
     {
@@ -150,26 +174,6 @@ void PackageDialog::done(int r)
     FloatingDialog::done(r);
 }
 */
-void PackageDialog::accept()
-{
-    QString name = _ui->lineName->text();
-    QString descr = _ui->textDescr->toPlainText();
-
-    PackageTable packages;
-    if(_editIndex>=0)
-    {
-        packages.updatePackage(_editIndex, name, descr);
-    }
-    else
-    {
-        QSqlQuery query = packages.prepareInsertion();
-        packages.addPackage(query, name, descr);
-    }
-
-    _model->submit();
-
-    QDialog::accept();
-}
 
 void PackageDialog::onCurrentRowChanged(QModelIndex index)
 {
@@ -206,7 +210,7 @@ void PackageDialog::createHotkeyModel()
 
     connect(_ui->_listHotkeys->selectionModel(), SIGNAL(currentRowChanged(QModelIndex,QModelIndex)), SLOT(onCurrentRowChanged(QModelIndex)));
 
-    _ui->_listHotkeys->setCurrentIndex(_model->index(0,0));
+    _ui->_listHotkeys->setCurrentIndex(_hotkeyModel->index(0,0));
 }
 
 void PackageDialog::updateHeader(QModelIndex, int, int)
@@ -217,9 +221,13 @@ void PackageDialog::updateHeader(QModelIndex, int, int)
 void PackageDialog::noChanges()
 {
     _ui->buttonBox->setStandardButtons(QDialogButtonBox::Close);
+    _ui->buttonBox->button(QDialogButtonBox::Close)->setIcon(Resources::iconClose());
 }
 
 void PackageDialog::gotChanges()
 {
     _ui->buttonBox->setStandardButtons(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+
+    _ui->buttonBox->button(QDialogButtonBox::Ok)->setIcon(Resources::iconOk());
+    _ui->buttonBox->button(QDialogButtonBox::Cancel)->setIcon(Resources::iconCancel());
 }

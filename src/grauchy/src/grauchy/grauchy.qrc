@@ -7,11 +7,16 @@
         <file>resources/settings.png</file>
         <file>resources/button_ok.png</file>
         <file>resources/button_cancel.png</file>
+        <file>resources/button_close.png</file>
         <file>resources/edit_add.png</file>
         <file>resources/edit_remove.png</file>
         <file>resources/edit_view.png</file>
         <file>resources/options.png</file>
         <file>resources/help.png</file>
         <file>resources/quit.png</file>
+        <file>resources/windows.png</file>
+        <file>resources/linux.png</file>
+        <file>resources/mac.png</file>
+        <file>resources/general.png</file>
     </qresource>
 </RCC>

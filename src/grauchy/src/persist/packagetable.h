@@ -17,9 +17,9 @@ public:
 public:
     PackageTable();
 
-    QSqlQuery prepareInsertion();
-    QVariant addPackage(QSqlQuery& q, const QString& name, const QString& descr);
-    bool updatePackage(int id, const QString& name, const QString& descr);
+    static QSqlQuery prepareInsertion();
+    static QVariant addPackage(QSqlQuery& q, const QString& name, const QString& descr);
+    static bool updatePackage(int id, const QString& name, const QString& descr);
 
     static Package getFromModel(QSqlRelationalTableModel* model, int row);
     static Package getById(int id);

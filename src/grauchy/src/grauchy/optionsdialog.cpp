@@ -3,6 +3,8 @@
 #include "optionspage.h"
 #include "settingspage.h"
 #include "packagespage.h"
+#include "resources.h"
+#include <QPushButton>
 
 OptionsDialog::OptionsDialog(QWidget *parent) :
     FloatingDialog(parent),
@@ -15,6 +17,7 @@ OptionsDialog::OptionsDialog(QWidget *parent) :
     connect(ui->listContent, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), SLOT(changePage(QListWidgetItem*,QListWidgetItem*)));
     createPages();
     ui->listContent->setCurrentRow(0);
+    ui->buttonBox->button(QDialogButtonBox::Close)->setIcon(Resources::iconClose());
 }
 
 OptionsDialog::~OptionsDialog()
