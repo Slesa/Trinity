@@ -1,5 +1,11 @@
 #include "resources.h"
 
+QIcon Resources::iconOptions()
+{
+    return QIcon(":/resources/options.png");
+
+}
+
 QIcon Resources::iconPackage()
 {
     return QIcon(":/resources/package.png");

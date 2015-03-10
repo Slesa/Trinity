@@ -10,6 +10,7 @@ OptionsDialog::OptionsDialog(QWidget *parent) :
     FloatingDialog(parent),
     ui(new Ui::OptionsDialog)
 {
+    this->setWindowIcon(Resources::iconOptions());
     ui->setupUi(this);
 
     while(ui->stackedPages->count()) ui->stackedPages->removeWidget(ui->stackedPages->widget(0));

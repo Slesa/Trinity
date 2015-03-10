@@ -2,6 +2,7 @@
 #include "ui_hotkeydialog.h"
 #include "keystrokedialog.h"
 #include "floatingdialog.h"
+#include "resources.h"
 #include "data/systems.h"
 #include "data/package.h"
 #include "persist/hotkeytable.h"
@@ -13,9 +14,10 @@ HotkeyDialog::HotkeyDialog(int package, QSqlRelationalTableModel* hotkeyModel, Q
   : FloatingDialog(parent)
   , _ui(new Ui::HotkeyDialog)
   , _hotkeyModel(hotkeyModel)
-  , _package(package)
-  , _editIndex(-1)
+  , _packageId(package)
+  , _editedHotkeyId(-1)
 {
+    this->setWindowIcon(Resources::iconHotkey());
     _ui->setupUi(this);
 
     connect(_ui->buttonAllSequence, SIGNAL(clicked()), SLOT(onAllSequence()));
@@ -23,13 +25,19 @@ HotkeyDialog::HotkeyDialog(int package, QSqlRelationalTableModel* hotkeyModel, Q
     connect(_ui->buttonLinSequence, SIGNAL(clicked()), SLOT(onLinSequence()));
     connect(_ui->buttonMacSequence, SIGNAL(clicked()), SLOT(onMacSequence()));
 
-    createKeyStrokeModel();
+    connect(_ui->textDescription, SIGNAL(textChanged()), SLOT(gotChanges()));
+    connect(_ui->lineAllSequence, SIGNAL(textChanged(QString)), SLOT(gotChanges()));
+    connect(_ui->lineWinSequence, SIGNAL(textChanged(QString)), SLOT(gotChanges()));
+    connect(_ui->lineLinSequence, SIGNAL(textChanged(QString)), SLOT(gotChanges()));
+    connect(_ui->lineMacSequence, SIGNAL(textChanged(QString)), SLOT(gotChanges()));
 
     if(package>=0)
     {
         Package pkg = PackageTable::getById(package);
         _ui->linePackage->setText(pkg.getName());
     }
+
+    noChanges();
 }
 
 HotkeyDialog::~HotkeyDialog()
@@ -42,7 +50,7 @@ void HotkeyDialog::setData(QModelIndex index)
     Hotkey hotkey;
     hotkey = HotkeyTable::getFromModel(_hotkeyModel, index.row());
 
-    _editIndex = hotkey.getId();
+    _editedHotkeyId = hotkey.getId();
     _ui->textDescription->setText(hotkey.getDescription());
 
     int hotkeyId = hotkey.getId();
@@ -95,24 +103,29 @@ void HotkeyDialog::accept()
     QString descr = _ui->textDescription->toPlainText();
 
     HotkeyTable hotkeys;
-    if(_editIndex>=0)
+    if(_editedHotkeyId>=0)
     {
-        hotkeys.updateHotkey(_editIndex, descr);
+        hotkeys.updateHotkey(_editedHotkeyId, descr);
     }
     else
     {
         QSqlQuery query = hotkeys.prepareInsertion();
-        hotkeys.addHotkey(query, _package, descr);
+        hotkeys.addHotkey(query, _packageId, descr);
     }
     _hotkeyModel->submit();
     QDialog::accept();
 }
 
-void HotkeyDialog::createKeyStrokeModel()
+void HotkeyDialog::noChanges()
 {
-   _keyStrokeModel = new QSqlRelationalTableModel();
-   _keyStrokeModel->setEditStrategy(QSqlTableModel::OnManualSubmit);
-   _keyStrokeModel->setTable(KeyStrokeTable::tableName);
-   int idHotkey = _keyStrokeModel->fieldIndex(KeyStrokeTable::fieldHotkey);
-   _keyStrokeModel->setRelation(idHotkey, QSqlRelation(HotkeyTable::tableName, HotkeyTable::fieldId, HotkeyTable::fieldDescr));
+    _ui->buttonBox->setStandardButtons(QDialogButtonBox::Close);
+    _ui->buttonBox->button(QDialogButtonBox::Close)->setIcon(Resources::iconClose());
+}
+
+void HotkeyDialog::gotChanges()
+{
+    _ui->buttonBox->setStandardButtons(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+
+    _ui->buttonBox->button(QDialogButtonBox::Ok)->setIcon(Resources::iconOk());
+    _ui->buttonBox->button(QDialogButtonBox::Cancel)->setIcon(Resources::iconCancel());
 }

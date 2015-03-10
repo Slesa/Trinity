@@ -50,7 +50,6 @@ private:
     QSqlRelationalTableModel* _packageModel;
     QSqlRelationalTableModel* _hotkeyModel;
     int _editedPackageId;
-    int _editedPackageRow;
 };
 
 #endif // PACKAGEDIALOG_H

@@ -36,16 +36,18 @@ private slots:
     void onWinSequence();
     void onLinSequence();
     void onMacSequence();
+
+    void gotChanges();
 private:
+    void noChanges();
     void onSequence(QLineEdit*);
-    void createKeyStrokeModel();
 
 private:
     Ui::HotkeyDialog* _ui;
     QSqlRelationalTableModel* _hotkeyModel;
     QSqlRelationalTableModel* _keyStrokeModel;
-    int _package;
-    int _editIndex;
+    int _packageId;
+    int _editedHotkeyId;
 };
 
 #endif // HOTKEYDIALOG_H

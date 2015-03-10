@@ -16,8 +16,8 @@ PackageDialog::PackageDialog(QSqlRelationalTableModel* model, QWidget *parent)
   , _ui(new Ui::PackageDialog)
   , _packageModel(model)
   , _editedPackageId(-1)
-  , _editedPackageRow(-1)
 {
+    this->setWindowIcon(Resources::iconPackage());
     _ui->setupUi(this);
 
     connect(_ui->_listHotkeys, SIGNAL(activated(QModelIndex)), SLOT(onHotkeyEdit(QModelIndex)));
@@ -39,8 +39,8 @@ void PackageDialog::setData(QModelIndex index)
 {
     createHotkeyModel();
 
-    _editedPackageRow = index.row();
-    Package package = PackageTable::getFromModel(_packageModel, _editedPackageRow);
+    int editedPackageRow = index.row();
+    Package package = PackageTable::getFromModel(_packageModel, editedPackageRow);
 
     _editedPackageId = package.getId();
     _ui->lineName->setText(package.getName());
@@ -60,7 +60,7 @@ void PackageDialog::accept()
     QString name = _ui->lineName->text();
     QString descr = _ui->textDescr->toPlainText();
 
-    if(_editedPackageRow>=0)
+    if(_editedPackageId>=0)
     {
         PackageTable::updatePackage(_editedPackageId, name, descr);
     }
@@ -222,6 +222,7 @@ void PackageDialog::noChanges()
 {
     _ui->buttonBox->setStandardButtons(QDialogButtonBox::Close);
     _ui->buttonBox->button(QDialogButtonBox::Close)->setIcon(Resources::iconClose());
+    onCurrentRowChanged(QModelIndex());
 }
 
 void PackageDialog::gotChanges()

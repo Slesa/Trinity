@@ -86,12 +86,18 @@
       </item>
       <item row="0" column="2">
        <widget class="QPushButton" name="buttonAllSequence">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Record a key combination for all operating systems&lt;/p&gt;&lt;p&gt;Shortcut: &lt;span style=&quot; font-weight:600;&quot;&gt;Ctrl+A&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>...</string>
         </property>
         <property name="icon">
          <iconset resource="grauchy.qrc">
           <normaloff>:/resources/general.png</normaloff>:/resources/general.png</iconset>
+        </property>
+        <property name="shortcut">
+         <string>Ctrl+A</string>
         </property>
        </widget>
       </item>
@@ -110,12 +116,18 @@
       </item>
       <item row="1" column="2">
        <widget class="QPushButton" name="buttonWinSequence">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Record a key combination for the Windows operating systems&lt;/p&gt;&lt;p&gt;Shortcut: &lt;span style=&quot; font-weight:600;&quot;&gt;Ctrl+W&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>...</string>
         </property>
         <property name="icon">
          <iconset resource="grauchy.qrc">
           <normaloff>:/resources/windows.png</normaloff>:/resources/windows.png</iconset>
+        </property>
+        <property name="shortcut">
+         <string>Ctrl+W</string>
         </property>
        </widget>
       </item>
@@ -134,12 +146,18 @@
       </item>
       <item row="2" column="2">
        <widget class="QPushButton" name="buttonLinSequence">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Record a key combination for the Linux operating systems&lt;/p&gt;&lt;p&gt;Shortcut: &lt;span style=&quot; font-weight:600;&quot;&gt;Ctrl+L&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>...</string>
         </property>
         <property name="icon">
          <iconset resource="grauchy.qrc">
           <normaloff>:/resources/linux.png</normaloff>:/resources/linux.png</iconset>
+        </property>
+        <property name="shortcut">
+         <string>Ctrl+L</string>
         </property>
        </widget>
       </item>
@@ -158,12 +176,18 @@
       </item>
       <item row="3" column="2">
        <widget class="QPushButton" name="buttonMacSequence">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Record a key combination for the Mac operating systems&lt;/p&gt;&lt;p&gt;Shortcut: &lt;span style=&quot; font-weight:600;&quot;&gt;Ctrl+M&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>...</string>
         </property>
         <property name="icon">
          <iconset resource="grauchy.qrc">
           <normaloff>:/resources/mac.png</normaloff>:/resources/mac.png</iconset>
+        </property>
+        <property name="shortcut">
+         <string>Ctrl+M</string>
         </property>
        </widget>
       </item>
@@ -176,7 +200,7 @@
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+      <set>QDialogButtonBox::Close</set>
      </property>
     </widget>
    </item>
