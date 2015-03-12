@@ -1,6 +1,7 @@
 #ifndef MAINVIEW_H
 #define MAINVIEW_H
 
+#include "persist/packagetable.h"
 #include <QWidget>
 
 namespace Ui {
@@ -24,6 +25,8 @@ private slots:
     void onOptions();
     void onQuit();
     void closeOptions();
+    void onPackageChanged();
+    void onUpdateResult(QString text);
 
 private:
     void updateData();
@@ -39,6 +42,7 @@ private:
     QSqlRelationalTableModel* _packageModel;
     QSqlRelationalTableModel* _searchModel;
     OptionsDialog* _optionsDlg;
+    Package _currentPackage;
 };
 
 #endif // MAINVIEW_H
