@@ -19,11 +19,12 @@ public:
 public:
     KeyStrokeTable();
 
-    QSqlQuery prepareInsertion();
-    QVariant addKeyStroke(QSqlQuery& query, int hotkey, const QString& sequence, int system);
-    bool updateKeyStroke(int id, const QString& sequence, int system);
+    static QSqlQuery prepareInsertion();
+    static QVariant addKeyStroke(QSqlQuery& query, int hotkey, const QString& sequence, int system);
+    static void addOrUpdateKeyStroke(int hotkey, int system, const QString& sequence);
+//    bool updateKeyStroke(int id, const QString& sequence, int system);
 
-    static KeyStroke getFromModel(QSqlRelationalTableModel* model, int row);
+//    static KeyStroke getFromModel(QSqlRelationalTableModel* model, int row);
     KeyStroke getByHotkey(int hotkey, int system);
     QSqlQuery findByHotkey(int hotkey, int system);
     KeyStroke getById(int id);

@@ -44,21 +44,32 @@ void MainView::onPackageChanged()
 
 void MainView::onUpdateResult(QString text)
 {
-    QString filter =  QString("%1=%2").arg(HotkeyTable::fieldPackage).arg(_currentPackage.getId());
+    // Filter: only current package
+    QString filter = QString("%1=%2").arg(HotkeyTable::fieldPackage).arg(_currentPackage.getId());
 
+#if (defined Q_OS_WIN)
+    int oSystem = SystemWindows;
+#elif (defined Q_OS_MAC)
+    int oSystem = SystemMac;
+#elif (defined Q_OS_UNIX)
+    int oSystem = SystemLinux;
+#endif
+
+    // Filter: only non-empty sequences
+    filter += " AND ";
+    filter += QString("%1<>''").arg(KeyStrokeTable::fieldSequence);
+
+    // Filter: current or all systems
+    filter += " AND ";
+    filter += QString("(%1=%2 OR %1=%3)").arg(KeyStrokeTable::fieldSystem).arg(SystemAll).arg(oSystem);
+
+    // Filter: search text
     if(!text.isEmpty())
     {
         filter += " AND ";
-        //filter += QString("LOWER(%1) LIKE %'%2'%").arg(HotkeyTable::fieldDescr).arg(text.toLower());
-        filter += QString("LOWER(%1) CONTAINS %2").arg(HotkeyTable::fieldDescr).arg(text.toLower());
-//        QStringList tags = text.split(' ');
-//        foreach(QString tag, tags)
-//        {
-//            filter += QString('')
-//        }
+        filter += QString("%1 LIKE '%%2%'").arg(HotkeyTable::fieldDescr).arg(text);
     }
     _searchModel->setFilter(filter);
-//    _searchModel->setFilter(QString("%0 like '%1'").arg(HotkeyTable::fieldDescr).arg(filter));
     _searchModel->select();
 }
 
@@ -98,33 +109,29 @@ void MainView::createModels()
 void MainView::createSearchModel()
 {
     _searchModel = new QSqlRelationalTableModel(_ui->_listResult);
-    _searchModel->setTable(HotkeyTable::tableName);
+    _searchModel->setTable(KeyStrokeTable::tableName);
+
     _ui->_listResult->setModel(_searchModel);
 
-
-    int idIndex = _searchModel->fieldIndex(HotkeyTable::fieldId);
+    int idIndex = _searchModel->fieldIndex(KeyStrokeTable::fieldId);
     _searchModel->setHeaderData(idIndex, Qt::Horizontal, tr("Id"));
-    int idPackage = _searchModel->fieldIndex(HotkeyTable::fieldPackage);
-    _searchModel->setHeaderData(idPackage, Qt::Horizontal, tr("Package"));
-    int idDescr = _searchModel->fieldIndex(HotkeyTable::fieldDescr);
-    _searchModel->setHeaderData(idDescr, Qt::Horizontal, tr("Description"));
+    int idHotkey = _searchModel->fieldIndex(KeyStrokeTable::fieldHotkey);
+    _searchModel->setRelation(idHotkey, QSqlRelation(HotkeyTable::tableName, HotkeyTable::fieldId, HotkeyTable::fieldDescr));
+    _searchModel->setHeaderData(idHotkey, Qt::Horizontal, tr("Description"));
+    int idSequence = _searchModel->fieldIndex(KeyStrokeTable::fieldSequence);
+    _searchModel->setHeaderData(idSequence, Qt::Horizontal, tr("Sequence"));
+    int idSystem = _searchModel->fieldIndex(KeyStrokeTable::fieldSystem);
+    _searchModel->setHeaderData(idSystem, Qt::Horizontal, tr("System"));
     _ui->_listResult->setColumnHidden(idIndex, true);
-    _ui->_listResult->setColumnHidden(idPackage, true);
-    _ui->_listResult->horizontalHeader()->setSectionResizeMode(idDescr, QHeaderView::Stretch);
+    _ui->_listResult->setColumnHidden(idSystem, true);
+    _ui->_listResult->horizontalHeader()->setSectionResizeMode(idHotkey, QHeaderView::Stretch);
 }
 
 void MainView::createPackageModel()
 {
     _packageModel = new QSqlRelationalTableModel(_ui->_comboPackages);
     _packageModel->setTable(PackageTable::tableName);
-/*
-    int idIndex = _model->fieldIndex(PackageTable::fieldId);
-    _model->setHeaderData(idIndex, Qt::Horizontal, tr("Id"));
-    int idName = _model->fieldIndex(PackageTable::fieldName);
-    _model->setHeaderData(idName, Qt::Horizontal, tr("Name"));
-    int idDescr = _model->fieldIndex(PackageTable::fieldDescr);
-    _model->setHeaderData(idDescr, Qt::Horizontal, tr("Description"));
-*/
+
     if(!_packageModel->select())
     {
         showError(_packageModel->lastError());
@@ -137,10 +144,6 @@ void MainView::createPackageModel()
 
     _ui->_comboPackages->setModel(_packageModel);
     _ui->_comboPackages->setModelColumn(1);
-//    _ui->listPackages->setColumnHidden(0, true);
-//    _ui->listPackages->resizeColumnToContents(2);
-
-//    connect(_ui->listPackages->selectionModel(), SIGNAL(currentRowChanged(QModelIndex,QModelIndex)), SLOT(onCurrentRowChanged(QModelIndex)));
 
     updateData();
 }

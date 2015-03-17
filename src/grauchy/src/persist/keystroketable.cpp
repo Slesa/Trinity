@@ -37,6 +37,28 @@ QVariant KeyStrokeTable::addKeyStroke(QSqlQuery& q, int hotkey, const QString& s
     return q.lastInsertId();
 }
 
+void KeyStrokeTable::addOrUpdateKeyStroke(int hotkey, int system, const QString& sequence)
+{
+    QString cmd = QString("UPDATE %1 set %2='%3' WHERE %4='%5' AND %6='%7'")
+            .arg(tableName)
+            .arg(fieldSequence)
+            .arg(sequence)
+            .arg(fieldSystem)
+            .arg(system)
+            .arg(fieldHotkey)
+            .arg(hotkey);
+    QSqlQuery q;
+    bool ok = q.exec(cmd);
+    if(!ok)
+        throw new SqlException(q.lastError());
+    if(q.numRowsAffected()==0)
+    {
+        q = prepareInsertion();
+        addKeyStroke(q, hotkey, sequence, system);
+    }
+}
+
+/*
 bool KeyStrokeTable::updateKeyStroke(int id, const QString& sequence, int system)
 {
     QSqlQuery q;
@@ -53,7 +75,8 @@ bool KeyStrokeTable::updateKeyStroke(int id, const QString& sequence, int system
         qDebug() << "Unable to update " << id << ": " << q.lastError();
     return ok;
 }
-
+*/
+/*
 KeyStroke KeyStrokeTable::getFromModel(QSqlRelationalTableModel* model, int row)
 {
     KeyStroke keyStroke;
@@ -73,7 +96,7 @@ KeyStroke KeyStrokeTable::getFromModel(QSqlRelationalTableModel* model, int row)
 
     return keyStroke;
 }
-
+*/
 KeyStroke KeyStrokeTable::getByHotkey(int hotkey, int system)
 {
     KeyStroke keyStroke;

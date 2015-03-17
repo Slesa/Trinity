@@ -6,101 +6,125 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>592</width>
-    <height>373</height>
+    <width>486</width>
+    <height>381</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Ask grauchy...</string>
   </property>
-  <widget class="QComboBox" name="_comboPackages">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>20</y>
-     <width>401</width>
-     <height>25</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="_pushOptions">
-   <property name="geometry">
-    <rect>
-     <x>480</x>
-     <y>20</y>
-     <width>80</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;F10&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Change the settings and known packages of this application.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-   <property name="text">
-    <string>Options</string>
-   </property>
-   <property name="icon">
-    <iconset resource="grauchy.qrc">
-     <normaloff>:/resources/options.png</normaloff>:/resources/options.png</iconset>
-   </property>
-   <property name="iconSize">
-    <size>
-     <width>16</width>
-     <height>16</height>
-    </size>
-   </property>
-   <property name="shortcut">
-    <string>F10</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="_lineInput">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>100</y>
-     <width>401</width>
-     <height>25</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QTableView" name="_listResult">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>160</y>
-     <width>401</width>
-     <height>192</height>
-    </rect>
-   </property>
-   <property name="editTriggers">
-    <set>QAbstractItemView::NoEditTriggers</set>
-   </property>
-   <property name="alternatingRowColors">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="_pushQuit">
-   <property name="geometry">
-    <rect>
-     <x>480</x>
-     <y>320</y>
-     <width>80</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Ctrl+Q&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Hide the application window. Keep in mind, that it keeps in background. If you really want to quit, use the command of the system tray menu.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-   <property name="text">
-    <string>Quit</string>
-   </property>
-   <property name="icon">
-    <iconset resource="grauchy.qrc">
-     <normaloff>:/resources/quit.png</normaloff>:/resources/quit.png</iconset>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Q</string>
-   </property>
-  </widget>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QLabel" name="labelPackage">
+       <property name="text">
+        <string>&amp;Package:</string>
+       </property>
+       <property name="buddy">
+        <cstring>_comboPackages</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="_comboPackages"/>
+     </item>
+     <item>
+      <widget class="QLabel" name="labelSearch">
+       <property name="text">
+        <string>&amp;Search for:</string>
+       </property>
+       <property name="buddy">
+        <cstring>_lineInput</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="_lineInput"/>
+     </item>
+     <item>
+      <widget class="QLabel" name="labelResult">
+       <property name="text">
+        <string>&amp;Result:</string>
+       </property>
+       <property name="buddy">
+        <cstring>_listResult</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTableView" name="_listResult">
+       <property name="editTriggers">
+        <set>QAbstractItemView::NoEditTriggers</set>
+       </property>
+       <property name="alternatingRowColors">
+        <bool>true</bool>
+       </property>
+       <property name="selectionBehavior">
+        <enum>QAbstractItemView::SelectRows</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QPushButton" name="_pushOptions">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;F10&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Change the settings and known packages of this application.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>Options</string>
+       </property>
+       <property name="icon">
+        <iconset resource="grauchy.qrc">
+         <normaloff>:/resources/options.png</normaloff>:/resources/options.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
+       <property name="shortcut">
+        <string>F10</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="_pushQuit">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Ctrl+Q&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Hide the application window. Keep in mind, that it keeps in background. If you really want to quit, use the command of the system tray menu.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>Quit</string>
+       </property>
+       <property name="icon">
+        <iconset resource="grauchy.qrc">
+         <normaloff>:/resources/quit.png</normaloff>:/resources/quit.png</iconset>
+       </property>
+       <property name="shortcut">
+        <string>Ctrl+Q</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
  </widget>
  <resources>
   <include location="grauchy.qrc"/>

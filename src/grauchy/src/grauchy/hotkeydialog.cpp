@@ -106,6 +106,10 @@ void HotkeyDialog::accept()
     if(_editedHotkeyId>=0)
     {
         hotkeys.updateHotkey(_editedHotkeyId, descr);
+        KeyStrokeTable::addOrUpdateKeyStroke(_editedHotkeyId, SystemAll, _ui->lineAllSequence->text());
+        KeyStrokeTable::addOrUpdateKeyStroke(_editedHotkeyId, SystemWindows, _ui->lineWinSequence->text());
+        KeyStrokeTable::addOrUpdateKeyStroke(_editedHotkeyId, SystemLinux, _ui->lineLinSequence->text());
+        KeyStrokeTable::addOrUpdateKeyStroke(_editedHotkeyId, SystemMac, _ui->lineMacSequence->text());
     }
     else
     {
