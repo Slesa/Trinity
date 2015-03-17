@@ -18,6 +18,7 @@ public:
 
 public:
     KeyStrokeTable();
+    static QSqlQuery getAll();
 
     static QSqlQuery prepareInsertion();
     static QVariant addKeyStroke(QSqlQuery& query, int hotkey, const QString& sequence, int system);
@@ -27,8 +28,8 @@ public:
 //    static KeyStroke getFromModel(QSqlRelationalTableModel* model, int row);
     KeyStroke getByHotkey(int hotkey, int system);
     QSqlQuery findByHotkey(int hotkey, int system);
-    KeyStroke getById(int id);
-    QSqlQuery findById(int id);
+    static KeyStroke getById(int id);
+    static QSqlQuery findById(int id);
 
 private:
     friend class KeyStrokeInitializer;

@@ -88,6 +88,12 @@ Hotkey HotkeyTable::getById(int id)
     return hotkey;
 }
 
+QSqlQuery HotkeyTable::getAll()
+{
+    QSqlQuery query(QString("SELECT * FROM %1").arg(tableName));
+    return query;
+}
+
 QSqlQuery HotkeyTable::findById(int id)
 {
     QSqlQuery query(QString("SELECT * FROM %1 WHERE %2=%3")
@@ -96,7 +102,6 @@ QSqlQuery HotkeyTable::findById(int id)
                     .arg(id));
     return query;
 }
-
 
 
 class HotkeyInitializer : public TableInitializer

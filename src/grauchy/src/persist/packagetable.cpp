@@ -1,8 +1,14 @@
 #include "packagetable.h"
+#include "hotkeytable.h"
+#include "keystroketable.h"
 #include "sqlexception.h"
+#include "data/hotkey.h"
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QVariant>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
 #include <QDebug>
 
 const char* PackageTable::tableName = "packages";
@@ -96,6 +102,49 @@ QSqlQuery PackageTable::findById(int id)
                     .arg(id));
     return query;
 }
+
+QString PackageTable::exportJson(QSqlRelationalTableModel* model, int row)
+{
+    Package package = PackageTable::getFromModel(model, row);
+
+    QJsonObject root;
+    root[PackageTable::fieldId] = package.getId();
+    root[PackageTable::fieldName] = package.getName();
+    root[PackageTable::fieldDescr] = package.getDescription();
+
+    QJsonArray jHotkeys;
+    QSqlQuery hotkeyQuery = HotkeyTable::getAll();
+    while(hotkeyQuery.next())
+    {
+        QJsonObject jHotkey;
+        Hotkey hotkey = HotkeyTable::getById(hotkeyQuery.value(HotkeyTable::fieldId).toInt());
+        jHotkey[HotkeyTable::fieldId] = hotkey.getId();
+        jHotkey[HotkeyTable::fieldPackage] = hotkey.getPackage();
+        jHotkey[HotkeyTable::fieldDescr] = hotkey.getDescription();
+
+        QJsonArray jKeyStrokes;
+        QSqlQuery keyStrokeQuery = KeyStrokeTable::getAll();
+        while(keyStrokeQuery.next())
+        {
+            QJsonObject jKeyStroke;
+            KeyStroke keyStroke = KeyStrokeTable::getById(keyStrokeQuery.value(KeyStrokeTable::fieldId).toInt());
+            jKeyStroke[KeyStrokeTable::fieldId] = keyStroke.getId();
+            jKeyStroke[KeyStrokeTable::fieldHotkey] = keyStroke.getHotkey();
+            jKeyStroke[KeyStrokeTable::fieldSystem] = keyStroke.getSystem();
+            jKeyStroke[KeyStrokeTable::fieldSequence] = keyStroke.getSequence();
+            jKeyStrokes.append(jKeyStroke);
+        }
+        jHotkey["Strokes"] = jKeyStrokes;
+
+        jHotkeys.append(jHotkey);
+    }
+    root["Hotkeys"] = jHotkeys;
+
+    QString json = QJsonDocument(root).toJson(QJsonDocument::Compact);
+    return json;
+}
+
+
 
 
 

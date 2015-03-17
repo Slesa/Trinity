@@ -16,6 +16,12 @@ KeyStrokeTable::KeyStrokeTable()
 {
 }
 
+QSqlQuery KeyStrokeTable::getAll()
+{
+    QSqlQuery query(QString("SELECT * FROM %1") .arg(tableName));
+    return query;
+}
+
 QSqlQuery KeyStrokeTable::prepareInsertion()
 {
     QSqlQuery q;

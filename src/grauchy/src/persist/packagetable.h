@@ -25,6 +25,8 @@ public:
     static Package getById(int id);
     static QSqlQuery findById(int id);
 
+    static QString exportJson(QSqlRelationalTableModel* model, int row);
+
 private:
     friend class PackageInitializer;
 };

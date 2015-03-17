@@ -5,6 +5,7 @@
 #include "persist/packagetable.h"
 #include <QtSql>
 #include <QMessageBox>
+#include <QFileDialog>
 
 PackagesPage::PackagesPage(QWidget *parent) :
     OptionsPage(parent),
@@ -18,6 +19,8 @@ PackagesPage::PackagesPage(QWidget *parent) :
     connect(_ui->_buttonAdd, SIGNAL(clicked()), SLOT(onPackageAdd()));
     connect(_ui->_buttonEdit, SIGNAL(clicked()), SLOT(onPackageEdit()));
     connect(_ui->_buttonRemove, SIGNAL(clicked()), SLOT(onPackageRemove()));
+
+    connect(_ui->_buttonExport, SIGNAL(clicked()), SLOT(onPackageExport()));
 }
 
 PackagesPage::~PackagesPage()
@@ -91,10 +94,21 @@ void PackagesPage::onPackageRemove()
     onCurrentRowChanged(QModelIndex());
 }
 
+void PackagesPage::onPackageExport()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Export package to..."));
+    if(fileName.isEmpty()) return;
+
+    QModelIndex index = _ui->_listPackages->currentIndex();
+    QString json = PackageTable::exportJson(_model, index.row());
+    QMessageBox::critical(this, tr("Debug"), json);
+}
+
 void PackagesPage::onCurrentRowChanged(QModelIndex index)
 {
     _ui->_buttonEdit->setEnabled(index.isValid());
     _ui->_buttonRemove->setEnabled(index.isValid());
+    _ui->_buttonExport->setEnabled(index.isValid());
 }
 
 

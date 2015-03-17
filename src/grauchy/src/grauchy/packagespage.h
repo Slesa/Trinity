@@ -40,6 +40,8 @@ private slots:
     // Button action: remove the current package
     void onPackageRemove();
 
+    void onPackageExport();
+
     // Listview action: edit current package
     void onEditPackage(QModelIndex index);
 
