@@ -101,7 +101,15 @@ void PackagesPage::onPackageExport()
 
     QModelIndex index = _ui->_listPackages->currentIndex();
     QString json = PackageTable::exportJson(_model, index.row());
-    QMessageBox::critical(this, tr("Debug"), json);
+
+    QFile fh(fileName);
+    if(!fh.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        QMessageBox::critical(this, tr("Error"), tr("Could not create export file\n%1").arg(fileName));
+        return;
+    }
+    QTextStream(&fh) << json;
+    fh.close();
 }
 
 void PackagesPage::onCurrentRowChanged(QModelIndex index)

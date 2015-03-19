@@ -125,13 +125,17 @@ KeyStroke KeyStrokeTable::getByHotkey(int hotkey, int system)
 
 QSqlQuery KeyStrokeTable::findByHotkey(int hotkey, int system)
 {
-    QSqlQuery query(QString("SELECT * FROM %1 WHERE %2=%3 AND %4=%5")
+    QString filter = QString("SELECT * FROM %1 WHERE %2=%3")
                     .arg(tableName)
                     .arg(fieldHotkey)
-                    .arg(hotkey)
+                    .arg(hotkey);
+    if(system>=0)
+    {
+        filter += QString(" AND %1=%2")
                     .arg(fieldSystem)
-                    .arg(system));
-    return query;
+                    .arg(system);
+    }
+    return QSqlQuery(filter);
 
 }
 

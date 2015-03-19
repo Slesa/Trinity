@@ -108,7 +108,7 @@ QString PackageTable::exportJson(QSqlRelationalTableModel* model, int row)
     Package package = PackageTable::getFromModel(model, row);
 
     QJsonObject root;
-    root[PackageTable::fieldId] = package.getId();
+    //root[PackageTable::fieldId] = package.getId();
     root[PackageTable::fieldName] = package.getName();
     root[PackageTable::fieldDescr] = package.getDescription();
 
@@ -118,17 +118,17 @@ QString PackageTable::exportJson(QSqlRelationalTableModel* model, int row)
     {
         QJsonObject jHotkey;
         Hotkey hotkey = HotkeyTable::getById(hotkeyQuery.value(HotkeyTable::fieldId).toInt());
-        jHotkey[HotkeyTable::fieldId] = hotkey.getId();
+        //jHotkey[HotkeyTable::fieldId] = hotkey.getId();
         jHotkey[HotkeyTable::fieldPackage] = hotkey.getPackage();
         jHotkey[HotkeyTable::fieldDescr] = hotkey.getDescription();
 
         QJsonArray jKeyStrokes;
-        QSqlQuery keyStrokeQuery = KeyStrokeTable::getAll();
+        QSqlQuery keyStrokeQuery = KeyStrokeTable::findByHotkey(hotkey.getId());
         while(keyStrokeQuery.next())
         {
             QJsonObject jKeyStroke;
             KeyStroke keyStroke = KeyStrokeTable::getById(keyStrokeQuery.value(KeyStrokeTable::fieldId).toInt());
-            jKeyStroke[KeyStrokeTable::fieldId] = keyStroke.getId();
+            //jKeyStroke[KeyStrokeTable::fieldId] = keyStroke.getId();
             jKeyStroke[KeyStrokeTable::fieldHotkey] = keyStroke.getHotkey();
             jKeyStroke[KeyStrokeTable::fieldSystem] = keyStroke.getSystem();
             jKeyStroke[KeyStrokeTable::fieldSequence] = keyStroke.getSequence();
@@ -140,7 +140,7 @@ QString PackageTable::exportJson(QSqlRelationalTableModel* model, int row)
     }
     root["Hotkeys"] = jHotkeys;
 
-    QString json = QJsonDocument(root).toJson(QJsonDocument::Compact);
+    QString json = QJsonDocument(root).toJson(QJsonDocument::Indented);
     return json;
 }
 
