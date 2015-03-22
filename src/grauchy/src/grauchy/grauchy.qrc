@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/" >
+    <qresource prefix="/">
         <file>resources/grauchy128.png</file>
         <file>resources/grauchy24.png</file>
         <file>resources/package.png</file>
@@ -18,5 +18,7 @@
         <file>resources/linux.png</file>
         <file>resources/mac.png</file>
         <file>resources/general.png</file>
+        <file>resources/basicskin.qss</file>
+        <file>resources/dropdown.png</file>
     </qresource>
 </RCC>

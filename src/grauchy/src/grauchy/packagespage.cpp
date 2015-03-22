@@ -21,6 +21,7 @@ PackagesPage::PackagesPage(QWidget *parent) :
     connect(_ui->_buttonRemove, SIGNAL(clicked()), SLOT(onPackageRemove()));
 
     connect(_ui->_buttonExport, SIGNAL(clicked()), SLOT(onPackageExport()));
+    connect(_ui->_buttonImport, SIGNAL(clicked()), SLOT(onPackageImport()));
 }
 
 PackagesPage::~PackagesPage()
@@ -110,6 +111,22 @@ void PackagesPage::onPackageExport()
     }
     QTextStream(&fh) << json;
     fh.close();
+}
+
+void PackagesPage::onPackageImport()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Import package from..."));
+    if(fileName.isEmpty()) return;
+
+    QFile fh(fileName);
+    if(!fh.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        QMessageBox::critical(this, tr("Error"), tr("Could not read import file\n%1").arg(fileName));
+        return;
+    }
+
+    QByteArray json = fh.readAll();
+    PackageTable::importJson(json);
 }
 
 void PackagesPage::onCurrentRowChanged(QModelIndex index)

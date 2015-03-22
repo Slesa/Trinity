@@ -27,12 +27,12 @@ QSqlQuery HotkeyTable::prepareInsertion()
     return q;
 }
 
-QVariant HotkeyTable::addHotkey(QSqlQuery& q, int package, const QString& descr)
+int HotkeyTable::addHotkey(QSqlQuery& q, int package, const QString& descr)
 {
     q.addBindValue(package);
     q.addBindValue(descr);
     q.exec();
-    return q.lastInsertId();
+    return q.lastInsertId().toInt();
 }
 
 bool HotkeyTable::updateHotkey(int id, const QString& descr)

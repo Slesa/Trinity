@@ -41,6 +41,7 @@ private slots:
     void onPackageRemove();
 
     void onPackageExport();
+    void onPackageImport();
 
     // Listview action: edit current package
     void onEditPackage(QModelIndex index);

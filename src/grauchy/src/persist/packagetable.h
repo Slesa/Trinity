@@ -18,7 +18,7 @@ public:
     PackageTable();
 
     static QSqlQuery prepareInsertion();
-    static QVariant addPackage(QSqlQuery& q, const QString& name, const QString& descr);
+    static int addPackage(QSqlQuery& q, const QString& name, const QString& descr);
     static bool updatePackage(int id, const QString& name, const QString& descr);
 
     static Package getFromModel(QSqlRelationalTableModel* model, int row);
@@ -26,6 +26,7 @@ public:
     static QSqlQuery findById(int id);
 
     static QString exportJson(QSqlRelationalTableModel* model, int row);
+    static QString importJson(const QByteArray& json);
 
 private:
     friend class PackageInitializer;

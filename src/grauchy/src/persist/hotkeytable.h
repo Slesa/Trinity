@@ -19,9 +19,9 @@ public:
     HotkeyTable();
     static QSqlQuery getAll();
 
-    QSqlQuery prepareInsertion();
-    QVariant addHotkey(QSqlQuery& q, int package, const QString& descr);
-    bool updateHotkey(int id, const QString& descr);
+    static QSqlQuery prepareInsertion();
+    static int addHotkey(QSqlQuery& q, int package, const QString& descr);
+    static bool updateHotkey(int id, const QString& descr);
 
     static Hotkey getFromModel(QSqlRelationalTableModel* model, int row);
     static Hotkey getById(int id);

@@ -23,6 +23,8 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationDomain("Graunchy");
 //    QCoreApplication::setApplicationVersion(GRAUCHY_VERSION_STRING);
 
+    app->setStyleSheet("file:///:/resources/basicskin.qss");
+
     MainView* view = new MainView();
     view->show();
     return qApp->exec();

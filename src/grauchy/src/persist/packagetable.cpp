@@ -32,12 +32,12 @@ QSqlQuery PackageTable::prepareInsertion()
     return q;
 }
 
-QVariant PackageTable::addPackage(QSqlQuery& q, const QString& name, const QString& descr)
+int PackageTable::addPackage(QSqlQuery& q, const QString& name, const QString& descr)
 {
     q.addBindValue(name);
     q.addBindValue(descr);
     q.exec();
-    return q.lastInsertId();
+    return q.lastInsertId().toInt();
 }
 
 bool PackageTable::updatePackage(int id, const QString& name, const QString& descr)
@@ -134,17 +134,41 @@ QString PackageTable::exportJson(QSqlRelationalTableModel* model, int row)
             jKeyStroke[KeyStrokeTable::fieldSequence] = keyStroke.getSequence();
             jKeyStrokes.append(jKeyStroke);
         }
-        jHotkey["Strokes"] = jKeyStrokes;
+        jHotkey[KeyStrokeTable::tableName] = jKeyStrokes;
 
         jHotkeys.append(jHotkey);
     }
-    root["Hotkeys"] = jHotkeys;
+    root[HotkeyTable::tableName] = jHotkeys;
 
     QString json = QJsonDocument(root).toJson(QJsonDocument::Indented);
     return json;
 }
 
+QString PackageTable::importJson(const QByteArray& json)
+{
+    QJsonParseError jerror;
+    QJsonDocument jdoc= QJsonDocument::fromJson(json, &jerror);
+    if(jerror.error != QJsonParseError::NoError)
+        return jerror.errorString();
 
+    QSqlQuery query = PackageTable::prepareInsertion();
+
+    QJsonObject root = jdoc.object();
+    QString name = root[PackageTable::fieldName].toString();
+    QString descr = root[PackageTable::fieldDescr].toString();
+    int packageId = PackageTable::addPackage(query, name, descr);
+
+    QJsonArray jHotkeys = root[HotkeyTable::tableName].toArray();
+    foreach(QJsonValue jHotkey, jHotkeys)
+    {
+        const QJsonObject& hotkey = jHotkey.toObject();
+        QSqlQuery hotkeyQuery = HotkeyTable::prepareInsertion();
+        QString descr = hotkey[HotkeyTable::fieldDescr].toString();
+        int hotkeyId = HotkeyTable::addHotkey(hotkeyQuery, packageId, descr);
+    }
+
+    return QString::null;
+}
 
 
 

@@ -1,0 +1,137 @@
+/*
+   http://doc.qt.io/qt-4.8/stylesheet-syntax.html
+
+   *** Purple Coffee ***
+   yellow shift 3
+   FFFF99  255,255,153
+   Shadow G
+   D9CC8C  217,204,140
+   Jacket II
+   B39980  179,153,128
+   Beach Brown
+   8C6673  140,102,115
+   Royal Purple
+   663366  102,51,102
+   http://www.colourlovers.com/palette/878762/Purple_Coffee
+*/
+
+#MainView {
+    border: 2px solid #8f8f91;
+    border-radius: 6px;
+;    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f6f7fa, stop: 1 #dadbde);
+    background-color: rgba(102,51,102,100%);
+    qproperty-geometry: rect(0 0 700 410);
+}
+
+/*** Push Buttons in MainView **********************************/
+#MainView > QPushButton {
+    font:  16px "Tahoma";
+    border: 2px solid #B39980;
+    border-radius: 6px;
+    min-width: 80;
+    min-height: 28;
+    background-color: #B39980;
+}
+#MainView > QPushButton:hover {
+    background-color: #D9CC8C;
+}
+#MainView > QPushButton:pressed {
+    border: 2px solid #E0CFB3;
+    background-color: #FFFF99;
+}
+
+
+/*** Labels ****************************************************/
+#MainView > QLabel {
+    font:  8px "Tahoma";
+    color: white;
+}
+
+/*** Line Edits ************************************************/
+#MainView > QLineEdit {
+    background-color: #B39980;
+    selection-background-color: #8C6673;
+    qproperty-alignment: AlignLeft;
+    border: 2px solid #B39980;
+    border-radius: 3px;
+}
+#MainView > QLineEdit:hover {
+    background-color: #D9CC8C;
+}
+#MainView > QLineEdit:focus {
+    background-color: #FFFF99;
+    selection-background-color: #663366;
+}
+
+
+/*** ComboBox **************************************************/
+#MainView > QComboBox {
+    font:  16px "Tahoma";
+    background-color: #B39980;
+    border: 2px solid #B39980;
+    border-radius: 3px;
+}
+/*#MainView > QComboBox::drop-down {
+    subcontrol-origin: margin;
+    image: url(dropdown.png);
+}*/
+#MainView > QComboBox::down-arrow {
+    image: url(dropdown.png);
+}
+#MainView > QComboBox QListView {
+    font:  16px "Tahoma";
+    background-color: #D9CC8C;
+    alternate-background-color: white;
+    border: 2px solid #B39980;
+    border-radius: 3px;
+}
+/*#MainView > QComboBox QListView:item {
+    border: 1px solid #d9d9d9;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+}*/
+
+
+/*** TableView *************************************************/
+#MainView > QTableView {
+    font:  16px "Tahoma";
+    background-color: #B39980;
+    alternate-background-color: #D9CC8C;
+    border: 2px solid #B39980;
+    border-radius: 3px;
+}
+#MainView > QTableView QHeaderView, QHeaderView::section, QTableCornerButton::section {
+    background-color: #B39980;
+}
+#MainView > QTableView:item {
+    border: 1px solid #d9d9d9;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+}
+/*#MainView > QTableView:item:hover {
+    background-color: #D9CC8C;
+}*/
+#MainView > QTableView:item:selected {
+    border: 1px solid #567dbc;
+    background-color: #FFFF99;
+    color: #663366;
+}
+
+
+/*
+#lineInput {
+    font:  16px "Tahoma";
+    border-width: 1px;
+    color: black;
+    qproperty-geometry: rect(46 30 580 24)
+}
+
+#comboPackages {
+    border-width: 0px;
+    background-color: rgba(0,244,120,0%);
+    border: 2px solid #8f8f91;
+    border-radius: 3px;
+    color: black;
+    qproperty-geometry: rect(46 30 580 24)
+}
+*/

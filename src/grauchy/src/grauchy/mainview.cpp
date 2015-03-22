@@ -23,8 +23,8 @@ MainView::MainView(QWidget *parent)
 
     connect(_ui->_pushQuit, SIGNAL(clicked()), SLOT(onQuit()));
     connect(_ui->_pushOptions, SIGNAL(clicked()), SLOT(onOptions()));
-    connect(_ui->_lineInput, SIGNAL(textChanged(QString)), SLOT(onUpdateResult(QString)));
-    connect(_ui->_comboPackages, SIGNAL(currentIndexChanged(int)), SLOT(onPackageChanged()));
+    connect(_ui->lineInput, SIGNAL(textChanged(QString)), SLOT(onUpdateResult(QString)));
+    connect(_ui->comboPackages, SIGNAL(currentIndexChanged(int)), SLOT(onPackageChanged()));
 }
 
 MainView::~MainView()
@@ -38,8 +38,8 @@ MainView::~MainView()
 
 void MainView::onPackageChanged()
 {
-    _currentPackage = PackageTable::getFromModel(_packageModel, _ui->_comboPackages->currentIndex());
-    onUpdateResult(_ui->_lineInput->text());
+    _currentPackage = PackageTable::getFromModel(_packageModel, _ui->comboPackages->currentIndex());
+    onUpdateResult(_ui->lineInput->text());
 }
 
 void MainView::onUpdateResult(QString text)
@@ -91,7 +91,7 @@ void MainView::onQuit()
 void MainView::updateData()
 {
     _packageModel->select();
-    _ui->_comboPackages->setCurrentIndex(0);
+    _ui->comboPackages->setCurrentIndex(0);
 }
 
 void MainView::closeOptions()
@@ -129,7 +129,7 @@ void MainView::createSearchModel()
 
 void MainView::createPackageModel()
 {
-    _packageModel = new QSqlRelationalTableModel(_ui->_comboPackages);
+    _packageModel = new QSqlRelationalTableModel(_ui->comboPackages);
     _packageModel->setTable(PackageTable::tableName);
 
     if(!_packageModel->select())
@@ -142,8 +142,8 @@ void MainView::createPackageModel()
         createDemoData();
     }
 
-    _ui->_comboPackages->setModel(_packageModel);
-    _ui->_comboPackages->setModelColumn(1);
+    _ui->comboPackages->setModel(_packageModel);
+    _ui->comboPackages->setModelColumn(1);
 
     updateData();
 }
@@ -152,19 +152,19 @@ void MainView::createDemoData()
 {
     PackageTable packageTable;
     QSqlQuery query = packageTable.prepareInsertion();
-    int rsIdx = packageTable.addPackage(query, "Resharper", "Visual Studio Extension").toInt();
-    int vsIdx = packageTable.addPackage(query, "Visual Studio", "Visual Studio").toInt();
-    int zshIdx = packageTable.addPackage(query, "Zsh", "The glorious shell").toInt();
-    int viIdx = packageTable.addPackage(query, "Vi", "The best editor").toInt();
+    int rsIdx = packageTable.addPackage(query, "Resharper", "Visual Studio Extension");
+    int vsIdx = packageTable.addPackage(query, "Visual Studio", "Visual Studio");
+    int zshIdx = packageTable.addPackage(query, "Zsh", "The glorious shell");
+    int viIdx = packageTable.addPackage(query, "Vi", "The best editor");
 
     HotkeyTable hotkeyTable;
     query = hotkeyTable.prepareInsertion();
-    int zshStartLine = hotkeyTable.addHotkey(query, zshIdx, "Goto start of line").toInt();
-    int zshEndLine = hotkeyTable.addHotkey(query, zshIdx, "Goto end of line").toInt();
-    int viStartLine = hotkeyTable.addHotkey(query, viIdx, "Goto start of line").toInt();
-    int viEndLine = hotkeyTable.addHotkey(query, viIdx, "Goto end of line").toInt();
-    int viStartDoc = hotkeyTable.addHotkey(query, viIdx, "Goto start of document").toInt();
-    int viEndDoc = hotkeyTable.addHotkey(query, viIdx, "Goto end of document").toInt();
+    int zshStartLine = hotkeyTable.addHotkey(query, zshIdx, "Goto start of line");
+    int zshEndLine = hotkeyTable.addHotkey(query, zshIdx, "Goto end of line");
+    int viStartLine = hotkeyTable.addHotkey(query, viIdx, "Goto start of line");
+    int viEndLine = hotkeyTable.addHotkey(query, viIdx, "Goto end of line");
+    int viStartDoc = hotkeyTable.addHotkey(query, viIdx, "Goto start of document");
+    int viEndDoc = hotkeyTable.addHotkey(query, viIdx, "Goto end of document");
 
     KeyStrokeTable keyStrokeTable;
     query = keyStrokeTable.prepareInsertion();
