@@ -159,12 +159,12 @@ void MainView::createDemoData()
 
     HotkeyTable hotkeyTable;
     query = hotkeyTable.prepareInsertion();
-    int zshStartLine = hotkeyTable.addHotkey(query, zshIdx, "Goto start of line");
-    int zshEndLine = hotkeyTable.addHotkey(query, zshIdx, "Goto end of line");
-    int viStartLine = hotkeyTable.addHotkey(query, viIdx, "Goto start of line");
-    int viEndLine = hotkeyTable.addHotkey(query, viIdx, "Goto end of line");
-    int viStartDoc = hotkeyTable.addHotkey(query, viIdx, "Goto start of document");
-    int viEndDoc = hotkeyTable.addHotkey(query, viIdx, "Goto end of document");
+    int zshStartLine = hotkeyTable.addHotkey(query, zshIdx, "Goto start of line", "");
+    int zshEndLine = hotkeyTable.addHotkey(query, zshIdx, "Goto end of line", "");
+    int viStartLine = hotkeyTable.addHotkey(query, viIdx, "Goto start of line", "");
+    int viEndLine = hotkeyTable.addHotkey(query, viIdx, "Goto end of line", "");
+    int viStartDoc = hotkeyTable.addHotkey(query, viIdx, "Goto start of document", "");
+    int viEndDoc = hotkeyTable.addHotkey(query, viIdx, "Goto end of document", "");
 
     KeyStrokeTable keyStrokeTable;
     query = keyStrokeTable.prepareInsertion();

@@ -25,7 +25,8 @@ HotkeyDialog::HotkeyDialog(int package, QSqlRelationalTableModel* hotkeyModel, Q
     connect(_ui->buttonLinSequence, SIGNAL(clicked()), SLOT(onLinSequence()));
     connect(_ui->buttonMacSequence, SIGNAL(clicked()), SLOT(onMacSequence()));
 
-    connect(_ui->textDescription, SIGNAL(textChanged()), SLOT(gotChanges()));
+    connect(_ui->lineDescription, SIGNAL(textChanged(QString)), SLOT(gotChanges()));
+    connect(_ui->textHint, SIGNAL(textChanged()), SLOT(gotChanges()));
     connect(_ui->lineAllSequence, SIGNAL(textChanged(QString)), SLOT(gotChanges()));
     connect(_ui->lineWinSequence, SIGNAL(textChanged(QString)), SLOT(gotChanges()));
     connect(_ui->lineLinSequence, SIGNAL(textChanged(QString)), SLOT(gotChanges()));
@@ -51,7 +52,8 @@ void HotkeyDialog::setData(QModelIndex index)
     hotkey = HotkeyTable::getFromModel(_hotkeyModel, index.row());
 
     _editedHotkeyId = hotkey.getId();
-    _ui->textDescription->setText(hotkey.getDescription());
+    _ui->lineDescription->setText(hotkey.getDescription());
+    _ui->textHint->setText(hotkey.getHint());
 
     int hotkeyId = hotkey.getId();
     KeyStrokeTable keyStrokeTable;
@@ -64,7 +66,7 @@ void HotkeyDialog::setData(QModelIndex index)
     QString linSequence = keyStrokeTable.getByHotkey(hotkeyId, SystemLinux).getSequence();
     _ui->lineLinSequence->setText(linSequence);
 
-    setWindowTitle(tr("Editing hotkey '%1'").arg(hotkey.getId()));
+    setWindowTitle(tr("Editing hotkey '%1'").arg(hotkey.getDescription()));
 }
 
 void HotkeyDialog::onAllSequence()
@@ -100,12 +102,13 @@ void HotkeyDialog::onSequence(QLineEdit* lineEdit)
 
 void HotkeyDialog::accept()
 {
-    QString descr = _ui->textDescription->toPlainText();
+    QString descr = _ui->lineDescription->text();
+    QString hint = _ui->textHint->toPlainText();
 
     HotkeyTable hotkeys;
     if(_editedHotkeyId>=0)
     {
-        hotkeys.updateHotkey(_editedHotkeyId, descr);
+        hotkeys.updateHotkey(_editedHotkeyId, descr, hint);
         KeyStrokeTable::addOrUpdateKeyStroke(_editedHotkeyId, SystemAll, _ui->lineAllSequence->text());
         KeyStrokeTable::addOrUpdateKeyStroke(_editedHotkeyId, SystemWindows, _ui->lineWinSequence->text());
         KeyStrokeTable::addOrUpdateKeyStroke(_editedHotkeyId, SystemLinux, _ui->lineLinSequence->text());
@@ -114,7 +117,7 @@ void HotkeyDialog::accept()
     else
     {
         QSqlQuery query = hotkeys.prepareInsertion();
-        hotkeys.addHotkey(query, _packageId, descr);
+        hotkeys.addHotkey(query, _packageId, descr, hint);
     }
     _hotkeyModel->submit();
     QDialog::accept();

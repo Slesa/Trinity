@@ -14,18 +14,20 @@ public:
     static const char* fieldId;
     static const char* fieldPackage;
     static const char* fieldDescr;
+    static const char* fieldHint;
 
 public:
     HotkeyTable();
     static QSqlQuery getAll();
 
     static QSqlQuery prepareInsertion();
-    static int addHotkey(QSqlQuery& q, int package, const QString& descr);
-    static bool updateHotkey(int id, const QString& descr);
+    static int addHotkey(QSqlQuery& q, int package, const QString& descr, const QString& hint);
+    static bool updateHotkey(int id, const QString& descr, const QString& hint);
 
     static Hotkey getFromModel(QSqlRelationalTableModel* model, int row);
     static Hotkey getById(int id);
     static QSqlQuery findById(int id);
+    static QSqlQuery getForPackage(int packageId);
 
 private:
     friend class HotkeyInitializer;

@@ -85,6 +85,9 @@
         <property name="editTriggers">
          <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::EditKeyPressed</set>
         </property>
+        <property name="tabKeyNavigation">
+         <bool>true</bool>
+        </property>
         <property name="alternatingRowColors">
          <bool>true</bool>
         </property>

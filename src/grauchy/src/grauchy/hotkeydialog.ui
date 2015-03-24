@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>501</width>
-    <height>364</height>
+    <width>576</width>
+    <height>464</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,14 +35,34 @@
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
         </property>
         <property name="buddy">
-         <cstring>textDescription</cstring>
+         <cstring>lineDescription</cstring>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QTextEdit" name="textDescription"/>
+       <widget class="QLineEdit" name="lineDescription"/>
       </item>
       <item row="1" column="0">
+       <widget class="QLabel" name="labelHint">
+        <property name="text">
+         <string>&amp;Hint:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+        </property>
+        <property name="buddy">
+         <cstring>textHint</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QTextEdit" name="textHint">
+        <property name="tabChangesFocus">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
        <widget class="QLabel" name="labelPackage">
         <property name="text">
          <string>Package:</string>
@@ -52,7 +72,7 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
+      <item row="2" column="1">
        <widget class="QLineEdit" name="linePackage">
         <property name="toolTip">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter a list of &lt;span style=&quot; font-weight:600;&quot;&gt;tag&lt;/span&gt; words, separated by comma.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -207,7 +227,8 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>textDescription</tabstop>
+  <tabstop>lineDescription</tabstop>
+  <tabstop>textHint</tabstop>
   <tabstop>linePackage</tabstop>
   <tabstop>lineAllSequence</tabstop>
   <tabstop>buttonAllSequence</tabstop>
@@ -229,8 +250,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>328</x>
-     <y>344</y>
+     <x>337</x>
+     <y>454</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -245,8 +266,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>396</x>
-     <y>350</y>
+     <x>405</x>
+     <y>454</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>

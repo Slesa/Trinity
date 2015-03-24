@@ -113,23 +113,24 @@ QString PackageTable::exportJson(QSqlRelationalTableModel* model, int row)
     root[PackageTable::fieldDescr] = package.getDescription();
 
     QJsonArray jHotkeys;
-    QSqlQuery hotkeyQuery = HotkeyTable::getAll();
+    QSqlQuery hotkeyQuery = HotkeyTable::getForPackage(package.getId());
     while(hotkeyQuery.next())
     {
         QJsonObject jHotkey;
         Hotkey hotkey = HotkeyTable::getById(hotkeyQuery.value(HotkeyTable::fieldId).toInt());
         //jHotkey[HotkeyTable::fieldId] = hotkey.getId();
-        jHotkey[HotkeyTable::fieldPackage] = hotkey.getPackage();
+        //jHotkey[HotkeyTable::fieldPackage] = hotkey.getPackage();
         jHotkey[HotkeyTable::fieldDescr] = hotkey.getDescription();
+        jHotkey[HotkeyTable::fieldHint] = hotkey.getHint();
 
         QJsonArray jKeyStrokes;
-        QSqlQuery keyStrokeQuery = KeyStrokeTable::findByHotkey(hotkey.getId());
+        QSqlQuery keyStrokeQuery = KeyStrokeTable::getForHotkey(hotkey.getId());
         while(keyStrokeQuery.next())
         {
             QJsonObject jKeyStroke;
             KeyStroke keyStroke = KeyStrokeTable::getById(keyStrokeQuery.value(KeyStrokeTable::fieldId).toInt());
             //jKeyStroke[KeyStrokeTable::fieldId] = keyStroke.getId();
-            jKeyStroke[KeyStrokeTable::fieldHotkey] = keyStroke.getHotkey();
+            //jKeyStroke[KeyStrokeTable::fieldHotkey] = keyStroke.getHotkey();
             jKeyStroke[KeyStrokeTable::fieldSystem] = keyStroke.getSystem();
             jKeyStroke[KeyStrokeTable::fieldSequence] = keyStroke.getSequence();
             jKeyStrokes.append(jKeyStroke);
@@ -164,7 +165,20 @@ QString PackageTable::importJson(const QByteArray& json)
         const QJsonObject& hotkey = jHotkey.toObject();
         QSqlQuery hotkeyQuery = HotkeyTable::prepareInsertion();
         QString descr = hotkey[HotkeyTable::fieldDescr].toString();
-        int hotkeyId = HotkeyTable::addHotkey(hotkeyQuery, packageId, descr);
+        QString hint = hotkey[HotkeyTable::fieldHint].toString();
+        int hotkeyId = HotkeyTable::addHotkey(hotkeyQuery, packageId, descr, hint);
+
+        QJsonArray jKeyStrokes = hotkey[KeyStrokeTable::tableName].toArray();
+        foreach(QJsonValue jKeyStroke, jKeyStrokes)
+        {
+            const QJsonObject& keyStroke = jKeyStroke.toObject();
+            QSqlQuery keyStrokeQuery = KeyStrokeTable::prepareInsertion();
+            //QString key = keyStroke[KeyStrokeTable::fieldHotkey].toString();
+            int system = keyStroke[KeyStrokeTable::fieldSystem].toInt();
+            QString sequence = keyStroke[KeyStrokeTable::fieldSequence].toString();
+
+            KeyStrokeTable::addKeyStroke(keyStrokeQuery, hotkeyId, sequence, system);
+        }
     }
 
     return QString::null;

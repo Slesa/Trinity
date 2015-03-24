@@ -107,7 +107,7 @@ KeyStroke KeyStrokeTable::getByHotkey(int hotkey, int system)
 {
     KeyStroke keyStroke;
 
-    QSqlQuery query = findByHotkey(hotkey, system);
+    QSqlQuery query = getForHotkey(hotkey, system);
     if(!query.next())
         return keyStroke;
 
@@ -123,7 +123,7 @@ KeyStroke KeyStrokeTable::getByHotkey(int hotkey, int system)
     return keyStroke;
 }
 
-QSqlQuery KeyStrokeTable::findByHotkey(int hotkey, int system)
+QSqlQuery KeyStrokeTable::getForHotkey(int hotkey, int system)
 {
     QString filter = QString("SELECT * FROM %1 WHERE %2=%3")
                     .arg(tableName)

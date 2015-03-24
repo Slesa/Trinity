@@ -20,9 +20,14 @@ public:
     QString getDescription() const { return _description; }
     void setDescription(const QString& description) { _description = description; }
 
+    // An additional hint to the hotkey
+    QString getHint() const { return _hint; }
+    void setHint(const QString& hint) { _hint = hint; }
+
 private:
     int _package;
     QString _description;
+    QString _hint;
 };
 
 #endif // HOTKEY_H
