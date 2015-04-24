@@ -37,7 +37,8 @@ SOURCES			= main.cpp \
     keystrokedialog.cpp \
     hotkeymodel.cpp \
     resources.cpp \
-    floatingdialog.cpp
+    floatingdialog.cpp \
+    demodata.cpp
 
 HEADERS			= \
                 commandlineparser.h \
@@ -53,7 +54,8 @@ HEADERS			= \
     keystrokedialog.h \
     hotkeymodel.h \
     resources.h \
-    floatingdialog.h
+    floatingdialog.h \
+    demodata.h
 
 TRANSLATIONS	= \
                 ../../translations/grauchy_fr.ts \
