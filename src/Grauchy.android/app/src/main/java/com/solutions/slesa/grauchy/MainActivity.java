@@ -1,19 +1,54 @@
 package com.solutions.slesa.grauchy;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 // http://www.mkyong.com/android/android-spinner-drop-down-list-example/
 // http://developer.android.com/guide/topics/ui/controls/spinner.html
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity implements AdapterView.OnItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        addItemsOnPackages();
+    }
+
+    private void addItemsOnPackages() {
+        Spinner spinner = (Spinner) findViewById(R.id.spinPackage);
+        List<String> list = new ArrayList<String>();
+        list.add("Visual Studio");
+        list.add("Resharper");
+        list.add("Vim");
+        list.add("Zsh");
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(dataAdapter);
+        spinner.setOnItemSelectedListener(this);
+    }
+
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+        // An item was selected. You can retrieve the selected item using
+        // parent.getItemAtPosition(pos)
+        String item = (String) parent.getItemAtPosition(pos);
+        EditText editbox = (EditText) findViewById(R.id.editSearch);
+        editbox.setText(item);
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Another interface callback
     }
 
     @Override
