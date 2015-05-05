@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+// http://www.mkyong.com/android/android-spinner-drop-down-list-example/
+// http://developer.android.com/guide/topics/ui/controls/spinner.html
 
 public class MainActivity extends ActionBarActivity {
 

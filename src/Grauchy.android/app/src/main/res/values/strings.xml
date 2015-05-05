@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">Grauchy</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="main_package">Package</string>
+    <string name="main_search">Search for</string>
+    <string name="main_result">Result</string>
+    <string name="main_packageHint">Select a package to get list of shortcuts</string>
+    <string name="main_searchHint">Enter a text to filter shortcut results</string>
+
     <string name="action_settings">Settings</string>
 </resources>
