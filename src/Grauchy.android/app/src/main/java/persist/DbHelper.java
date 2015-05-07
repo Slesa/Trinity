@@ -16,13 +16,29 @@ public class DbHelper extends SQLiteOpenHelper{
     private PackageTable _packageTable;
     public PackageTable packageTable() {
         if(_packageTable==null)
-            _packageTable = new PackageTable();
+            _packageTable = new PackageTable(this);
         return _packageTable;
+    }
+
+    private HotkeyTable _hotkeyTable;
+    public HotkeyTable hotkeyTable() {
+        if(_hotkeyTable==null)
+            _hotkeyTable = new HotkeyTable(this);
+        return _hotkeyTable;
+    }
+
+    private KeyStrokeTable _keyStrokeTable;
+    public KeyStrokeTable keyStrokeTable() {
+        if(_keyStrokeTable==null)
+            _keyStrokeTable = new KeyStrokeTable();
+        return _keyStrokeTable;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        packageTable().createTable(db);
+        packageTable().createTable();
+        hotkeyTable().createTable();
+        keyStrokeTable().createTable(db);
     }
 
     @Override

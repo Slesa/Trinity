@@ -13,15 +13,23 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.List;
 
+import persist.DbHelper;
+
 // http://www.mkyong.com/android/android-spinner-drop-down-list-example/
 // http://developer.android.com/guide/topics/ui/controls/spinner.html
 
 public class MainActivity extends Activity implements AdapterView.OnItemSelectedListener {
 
+    DbHelper _dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        _dbHelper = new DbHelper(getApplicationContext());
+        DemoData demoData = new DemoData(_dbHelper);
+        demoData.createDemoData();
 
         addItemsOnPackages();
     }
