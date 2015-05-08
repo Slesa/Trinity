@@ -5,6 +5,8 @@ public class TableBase {
     protected static final String TYPE_INT = " INTEGER";
     private static final String COMMA_SEP = ",";
     private static final String PRIMARY_KEY = " PRIMARY KEY";
+    protected static final String DESCENDING = " DESC";
+    protected static final String ASCENDING = " ASC";
     protected static final String FIELD_ID = "id";
 
     protected static String getDropTable(String tableName) {
