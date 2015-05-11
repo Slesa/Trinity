@@ -16,13 +16,13 @@ public class HotkeyTable extends TableBase {
         _dbHelper = dbHelper;
     }
 
-    public void createTable() {
+    public void createTable(SQLiteDatabase db) {
         String buffer = startCreateTable(TABLE_NAME);
         buffer = addPrimaryKey(buffer);
         buffer = addCreateColumn(buffer, TYPE_INT, FIELD_PACKAGE);
         buffer = addCreateColumn(buffer, TYPE_TEXT, FIELD_DESCR);
-        buffer = addCreateColumn(buffer, TYPE_TEXT, FIELD_HINT);
-        _dbHelper.getWritableDatabase().execSQL(buffer);
+        buffer = addCreateColumn(buffer, TYPE_TEXT, FIELD_HINT, true);
+        db.execSQL(buffer);
     }
 
     public long addHotkey(long pack, String descr, SystemFlag systems) {

@@ -1,5 +1,7 @@
 package com.solutions.slesa.grauchy;
 
+import java.io.File;
+
 import persist.DbHelper;
 import persist.SystemFlag;
 
@@ -9,6 +11,9 @@ public class DemoData {
 
     public DemoData(DbHelper dbHelper) {
         _dbHelper = dbHelper;
+
+        File fh = new File("grauchy.db");
+        fh.delete();
     }
 
     public void createDemoData() {
@@ -19,8 +24,8 @@ public class DemoData {
     }
 
     private void createZshKeys() {
-        long zshIdx = _dbHelper.packageTable().addPackage("Zsh", "The glorious shell");
 
+        long zshIdx = _dbHelper.packageTable().addPackage("Zsh", "The glorious shell");
         long startLine = _dbHelper.hotkeyTable().addHotkey(zshIdx, "Ctrl+a", SystemFlag.SystemAll);
     }
 

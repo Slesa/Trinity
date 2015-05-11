@@ -30,14 +30,14 @@ public class DbHelper extends SQLiteOpenHelper{
     private KeyStrokeTable _keyStrokeTable;
     public KeyStrokeTable keyStrokeTable() {
         if(_keyStrokeTable==null)
-            _keyStrokeTable = new KeyStrokeTable();
+            _keyStrokeTable = new KeyStrokeTable(this);
         return _keyStrokeTable;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        packageTable().createTable();
-        hotkeyTable().createTable();
+        packageTable().createTable(db);
+        hotkeyTable().createTable(db);
         keyStrokeTable().createTable(db);
     }
 

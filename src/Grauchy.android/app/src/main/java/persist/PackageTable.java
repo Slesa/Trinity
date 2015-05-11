@@ -16,12 +16,12 @@ public class PackageTable extends TableBase {
         _dbHelper = dbHelper;
     }
 
-    public void createTable() {
+    public void createTable(SQLiteDatabase db) {
         String buffer = startCreateTable(TABLE_NAME);
         buffer = addPrimaryKey(buffer);
         buffer = addCreateColumn(buffer, TYPE_TEXT, FIELD_NAME);
-        buffer = addCreateColumn(buffer, TYPE_TEXT, FIELD_DESCR);
-        _dbHelper.getWritableDatabase().execSQL(buffer);
+        buffer = addCreateColumn(buffer, TYPE_TEXT, FIELD_DESCR, true);
+        db.execSQL(buffer);
     }
 
     public long addPackage(String name, String descr) {

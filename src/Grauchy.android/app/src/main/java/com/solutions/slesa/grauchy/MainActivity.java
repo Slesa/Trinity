@@ -36,6 +36,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
 
     private void addItemsOnPackages() {
         Spinner spinner = (Spinner) findViewById(R.id.spinPackage);
+
         List<String> list = new ArrayList<String>();
         list.add("Visual Studio");
         list.add("Resharper");

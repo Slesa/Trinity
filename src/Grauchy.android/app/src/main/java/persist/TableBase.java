@@ -20,13 +20,25 @@ public class TableBase {
     }
 
     protected static String addPrimaryKey(String cmd) {
-        String buffer = addCreateColumn(cmd, TYPE_INT + PRIMARY_KEY, FIELD_ID);
+        return addPrimaryKey(cmd, false);
+    }
+
+    protected static String addPrimaryKey(String cmd, boolean last) {
+        String buffer = addCreateColumn(cmd, TYPE_INT + PRIMARY_KEY, FIELD_ID, last);
         return buffer;
     }
 
     protected static String addCreateColumn(String cmd, String type, String name) {
+        return addCreateColumn(cmd, type, name, false);
+    }
+
+    protected static String addCreateColumn(String cmd, String type, String name, boolean last) {
         String buffer = cmd +
-            type + " " + name + COMMA_SEP;
+            name + " " + type;
+        if(!last )
+            buffer += COMMA_SEP + " ";
+        else
+            buffer += ")";
         return buffer;
     }
 
