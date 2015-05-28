@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>MainForm.ui.qml</file>
+        <file>playing.qml</file>
+        <file>Button.qml</file>
+        <file>ClickableImage.qml</file>
+        <file>Transformer.qml</file>
+        <file>Square.qml</file>
+        <file>repeatme.qml</file>
+    </qresource>
+</RCC>
