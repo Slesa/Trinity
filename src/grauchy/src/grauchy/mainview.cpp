@@ -1,6 +1,7 @@
 #include "mainview.h"
 #include "ui_mainview.h"
 #include "optionsdialog.h"
+#include "demodata.h"
 #include "persist/persist.h"
 #include "persist/packagetable.h"
 #include "persist/hotkeytable.h"
@@ -150,30 +151,8 @@ void MainView::createPackageModel()
 
 void MainView::createDemoData()
 {
-    PackageTable packageTable;
-    QSqlQuery query = packageTable.prepareInsertion();
-    int rsIdx = packageTable.addPackage(query, "Resharper", "Visual Studio Extension");
-    int vsIdx = packageTable.addPackage(query, "Visual Studio", "Visual Studio");
-    int zshIdx = packageTable.addPackage(query, "Zsh", "The glorious shell");
-    int viIdx = packageTable.addPackage(query, "Vi", "The best editor");
-
-    HotkeyTable hotkeyTable;
-    query = hotkeyTable.prepareInsertion();
-    int zshStartLine = hotkeyTable.addHotkey(query, zshIdx, "Goto start of line", "");
-    int zshEndLine = hotkeyTable.addHotkey(query, zshIdx, "Goto end of line", "");
-    int viStartLine = hotkeyTable.addHotkey(query, viIdx, "Goto start of line", "");
-    int viEndLine = hotkeyTable.addHotkey(query, viIdx, "Goto end of line", "");
-    int viStartDoc = hotkeyTable.addHotkey(query, viIdx, "Goto start of document", "");
-    int viEndDoc = hotkeyTable.addHotkey(query, viIdx, "Goto end of document", "");
-
-    KeyStrokeTable keyStrokeTable;
-    query = keyStrokeTable.prepareInsertion();
-    keyStrokeTable.addKeyStroke(query, zshStartLine, "Ctrl+a", SystemAll);
-    keyStrokeTable.addKeyStroke(query, zshEndLine, "Ctrl+e", SystemAll);
-    keyStrokeTable.addKeyStroke(query, viStartLine, "^", SystemAll);
-    keyStrokeTable.addKeyStroke(query, viEndLine, "$", SystemAll);
-    keyStrokeTable.addKeyStroke(query, viStartDoc, "gg", SystemAll);
-    keyStrokeTable.addKeyStroke(query, viEndDoc, "G", SystemAll);
+    DemoData demoData;
+    demoData.createDemoData();
 }
 
 void MainView::showError(const QSqlError& error)
