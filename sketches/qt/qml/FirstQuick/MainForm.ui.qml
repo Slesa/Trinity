@@ -28,4 +28,11 @@ Item {
             text: qsTr("Press Me 3")
         }
     }
+
+    DoubleSlider {
+        id: doubleSlider1
+        x: 233
+        y: 322
+        color: "#9fe431"
+    }
 }
