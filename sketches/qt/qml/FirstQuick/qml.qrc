@@ -8,5 +8,6 @@
         <file>Transformer.qml</file>
         <file>Square.qml</file>
         <file>repeatme.qml</file>
+        <file>animation.qml</file>
     </qresource>
 </RCC>

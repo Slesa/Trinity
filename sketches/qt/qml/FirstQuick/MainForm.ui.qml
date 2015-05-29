@@ -10,22 +10,40 @@ Item {
     property alias button2: button2
     property alias button1: button1
 
-    RowLayout {
-        anchors.centerIn: parent
+    GroupBox {
+        id: groupBox1
+        x: 8
+        y: 399
+        width: 271
+        height: 73
+        title: qsTr("Group Box")
 
-        Button {
-            id: button1
-            text: qsTr("Press Me 1")
-        }
+        RowLayout {
+            x: 10
+            y: 185
+            anchors.centerIn: parent
 
-        Button {
-            id: button2
-            text: qsTr("Press Me 2")
-        }
+            Button {
+                id: button1
+                text: qsTr("Press Me 1")
+            }
 
-        Button {
-            id: button3
-            text: qsTr("Press Me 3")
+            Button {
+                id: button2
+                text: qsTr("Press Me 2")
+            }
+
+            Button {
+                id: button3
+                text: qsTr("Press Me 3")
+            }
         }
+    }
+
+    CheckBox {
+        id: checkBox1
+        x: 8
+        y: 8
+        text: qsTr("Check Box")
     }
 }

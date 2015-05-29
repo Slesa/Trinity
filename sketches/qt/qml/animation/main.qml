@@ -1,127 +1,79 @@
 import QtQuick 2.4
-import QtQuick.Controls 1.3
-import QtQuick.Window 2.2
-import QtQuick.Dialogs 1.2
 
-ApplicationWindow {
-    title: qsTr("Hello World")
-    width: 640
-    height: 480
-    color: "#343434"
-    visible: true
-
+Item {
+    id: root
+    width: 600
+    height: 300
+    property int duration: 3000
 
     Rectangle {
-        id: page
-
-
-        Image {
-            id: icon
-            x: 10
-            y: 20
-            width: 64
-            height: 64
-            source: "earth.png"
+        id: sky
+        width: parent.width
+        height: 200
+        gradient: Gradient {
+            GradientStop { position: 0.0; color: "#0080FF" }
+            GradientStop { position: 1.0; color: "#66CCFF" }
         }
-
-        Rectangle {
-            id: topLeftRect
-            width: 64
-            height: 64
-            color: "#00000000"
-            radius: 6
-            anchors.left: parent.left
-            anchors.leftMargin: 10
-            anchors.top: parent.top
-            anchors.topMargin: 20
-            border.color: "#808080"
-
-            MouseArea {
-                id: mouseArea
-                anchors.fill: parent
-                onClicked: {
-                    page.state = ''
-                }
-
-                x: 0
-                y: 0
-                width: 64
-                height: 64
-            }
-        }
-
-        Rectangle {
-            id: middleRightRect
-            x: 0
-            y: 0
-            width: 64
-            height: 64
-            color: "#00000000"
-            radius: 6
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.right: parent.right
-            anchors.rightMargin: 10
-            border.color: "#808080"
-            MouseArea {
-                id: mouseArea1
-                x: 0
-                y: 0
-                width: 64
-                height: 64
-                anchors.fill: parent
-                onClicked: {
-                    page.state = 'State1'
-                }
-            }
-        }
-
-        Rectangle {
-            id: bottomLeftRect
-            x: 0
-            y: 0
-            width: 64
-            height: 64
-            color: "#00000000"
-            radius: 6
-            anchors.left: parent.left
-            anchors.leftMargin: 10
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 20
-            border.color: "#808080"
-            MouseArea {
-                id: mouseArea2
-                x: 0
-                y: 0
-                width: 64
-                height: 64
-                anchors.fill: parent
-                onClicked: {
-                    page.state = 'State2'
-                }
-            }
-        }
-
-        states: [
-            State {
-                name: "State1"
-
-                PropertyChanges {
-                    target: icon
-                    x: middleRightRect.x
-                    y: middleRightRect.y
-                }
-            },
-
-            State {
-                name: "State2"
-
-                PropertyChanges {
-                    target: icon
-                    x: bottomLeftRect.x
-                    y: bottomLeftRect.y
-                }
-            }
-        ]
     }
 
+    Rectangle {
+        id: ground
+        anchors.top: sky.bottom
+        anchors.bottom: root.bottom
+        width: parent.width
+        gradient: Gradient {
+            GradientStop { position: 0.0; color: "#00FF00" }
+            GradientStop { position: 1.0; color: "#00803F" }
+        }
+    }
+
+    Image {
+        id: ball
+        x: 0; y: root.height-height
+        width: 40; height: 40
+        source: "earth.png"
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                ball.x = 0;
+                ball.y = root.height - ball.height;
+                ball.rotation = 0;
+                anim.start()
+            }
+        }
+    }
+
+    ParallelAnimation {
+        id: anim
+        SequentialAnimation {
+            NumberAnimation {
+                target: ball
+                properties: "y"
+                to: 20
+                duration: root.duration * 0.4
+                easing.type: Easing.OutCirc
+            }
+            NumberAnimation {
+                target: ball
+                properties: "y"
+                to: 240
+                duration: root.duration * 0.6
+                easing.type: Easing.OutBounce
+            }
+        }
+        NumberAnimation {
+            target: ball
+            properties: "x"
+            to: 400
+            duration: root.duration
+        }
+        RotationAnimation {
+            target: ball
+            properties: "rotation"
+            to: 720
+            duration: root.duration
+        }
+
+    }
 }
