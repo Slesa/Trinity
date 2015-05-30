@@ -9,5 +9,6 @@
         <file>Square.qml</file>
         <file>repeatme.qml</file>
         <file>animation.qml</file>
+        <file>DoubleSlider.qml</file>
     </qresource>
 </RCC>

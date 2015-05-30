@@ -46,4 +46,10 @@ Item {
         y: 8
         text: qsTr("Check Box")
     }
+    DoubleSlider {
+        id: doubleSlider1
+        x: 233
+        y: 322
+        color: "#9fe431"
+    }
 }

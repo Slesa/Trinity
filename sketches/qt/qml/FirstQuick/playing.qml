@@ -12,7 +12,7 @@ Rectangle {
     radius: 8
 
     gradient: Gradient {
-        GradientStop { position: 0; color: "red" }
+        GradientStop { position: 0; color: "#ffffff" }
         GradientStop { position: 0.5; color: "lightsteelblue" }
         GradientStop { position: 1.0; color: "slategray" }
     }
