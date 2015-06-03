@@ -105,6 +105,7 @@ ApplicationWindow {
     }
 
     function readDocument() {
+        console.debug(openDialog.fileUrl)
         io.source = openDialog.fileUrl
         io.read()
         view.model = JSON.parse(io.text)
