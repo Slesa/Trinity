@@ -41,4 +41,38 @@ ApplicationWindow {
             root.y += delta.y
         }
     }
+
+    Rectangle {
+        id: leftSide
+        border.color: 'gray'
+        border.width: 2
+        anchors.fill: parent
+
+        Text {
+            id: labelPackage
+            text: qsTr("Package")
+        }
+
+        ComboBox {
+            id: comboPackage
+            anchors.top: labelPackage.bottom
+        }
+
+        Text {
+            id: labelSearch
+            text: qsTr("Search")
+            anchors.top: comboPackage.bottom
+        }
+
+        TextInput {
+            id: textSearch
+            anchors.top: labelSearch.bottom
+        }
+
+        Text {
+            id: labelResult
+            text: qsTr("Result")
+            anchors.top: textSearch.bottom
+        }
+    }
 }
