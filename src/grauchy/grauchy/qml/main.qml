@@ -9,44 +9,44 @@ ApplicationWindow {
     width: 800
     height: 600
     visible: true
+    color: '#262626'
 
 	/* 
         Window frame with minimize, maximize and close
 	*/
-	Rectangle {
-		id: windowBorder
-		anchors.right: parent.right
+    MainHeader {
+        id: windowTitle
+        anchors.left: parent.left
+        anchors.right: parent.right
 		anchors.top: parent.top
 		height: 24
-		width: root.width
-		color: '#362424'
-	}
+        title: root.title
+        winx: root.x
+        winy: root.y
+        color: root.color
+        textColor: 'white'
 
-	Text {
-		text: root.title
-		anchors.horizontalCenter: parent.horizontalCenter
-		anchors.verticalCenter: parent.verticalCentr
-	}
-
-    MouseArea {
-        height: 24
-        width: parent.width
-        anchors.fill: parent
-        property variant clickPos: '1,1'
-
-        onPressed: { clickPos = Qt.point(mouse.x, mouse.y) }
-        onPositionChanged: {
-            var delta = Qt.point(mouse.x-clickPos.x, mouse.y-clickPos.y)
-            root.x += delta.x
-            root.y += delta.y
+        onMoveWindow: {
+            root.x = windowTitle.winx
+            root.y = windowTitle.winy
         }
+	}
+
+    MainFooter {
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        height: 24
+        color: root.color
+        textColor: 'white'
     }
 
+/*
     Rectangle {
         id: leftSide
         border.color: 'gray'
         border.width: 2
-        anchors.fill: parent
+        anchors.top: windowTitle.bottom
 
         Text {
             id: labelPackage
@@ -75,4 +75,5 @@ ApplicationWindow {
             anchors.top: textSearch.bottom
         }
     }
+    */
 }
