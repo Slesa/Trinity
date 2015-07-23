@@ -15,30 +15,44 @@ ApplicationWindow {
         Window frame with minimize, maximize and close
 	*/
     MainHeader {
-        id: windowTitle
-        anchors.left: parent.left
-        anchors.right: parent.right
-		anchors.top: parent.top
+        id: mainHeader
 		height: 24
         title: root.title
         winx: root.x
         winy: root.y
         color: root.color
         textColor: 'white'
+        anchors {
+            left: parent.left
+            right: parent.right
+            top: parent.top
+        }
 
         onMoveWindow: {
-            root.x = windowTitle.winx
-            root.y = windowTitle.winy
+            root.x = mainHeader.winx
+            root.y = mainHeader.winy
         }
 	}
 
     MainFooter {
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
+        id: mainFooter
         height: 24
         color: root.color
         textColor: 'white'
+        anchors {
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
+    }
+
+    MainContent {
+        anchors {
+            left: parent.left
+            right: parent.right
+            top: mainHeader.bottom
+            bottom: mainFooter.top
+        }
     }
 
 /*
@@ -46,7 +60,7 @@ ApplicationWindow {
         id: leftSide
         border.color: 'gray'
         border.width: 2
-        anchors.top: windowTitle.bottom
+        anchors.top: mainHeader.bottom
 
         Text {
             id: labelPackage

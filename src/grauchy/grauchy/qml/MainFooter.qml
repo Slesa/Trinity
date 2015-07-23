@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.4
 
 Rectangle {
     id: root
@@ -9,12 +9,14 @@ Rectangle {
 
     Text {
         id: textMsg
-        anchors.left: parent.left
-        anchors.leftMargin: 10
-        anchors.right: parent.right
-        anchors.rightMargin: 10
-        anchors.verticalCenter: parent.verticalCenter
         text: 'Status'
+        anchors {
+            left: parent.left
+            leftMargin: 10
+            right: parent.right
+            rightMargin: 10
+            verticalCenter: parent.verticalCenter
+        }
     }
 }
 
