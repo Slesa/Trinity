@@ -6,12 +6,15 @@ Rectangle {
 
     property alias text: label.text
     property alias icon: icon.source
-    color: 'red'
+    property string highIcon: ''
+    property string normColor: 'white'
+    property string highColor: '#26c79c'
 
     signal onClicked
 
+    color: 'transparent'
     width: 100
-    height: 62
+    height: 100
 
     MouseArea {
         id: mouseArea
@@ -24,6 +27,8 @@ Rectangle {
 
         Image {
             id: icon
+            width: 32
+            height: 32
             sourceSize: Qt.size(32,32)
             smooth: true
             anchors {
@@ -36,24 +41,24 @@ Rectangle {
         Text {
             id: label
             text: 'Text'
-            color: 'white'
+            color: mouseArea.containsMouse ? root.highColor : root.normColor
             font.pixelSize: 24
             anchors {
                 bottom: bottomFrame.top
-                bottomMargin: 5
+                bottomMargin: -1
                 horizontalCenter: parent.horizontalCenter
             }
         }
 
         Rectangle {
             id: bottomFrame
-            width: 1
-            color: 'white'
+            height: 2
+            color: mouseArea.containsMouse ? root.highColor : 'transparent'
             anchors {
                 bottom: parent.bottom
-                bottomMargin: 5
-                left: parent.left
-                right: parent.right
+//                bottomMargin:-5
+                left: label.left
+                right: label.right
             }
         }
     }

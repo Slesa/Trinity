@@ -47,6 +47,7 @@ ApplicationWindow {
     }
 
     MainContent {
+        color: root.color
         anchors {
             left: parent.left
             right: parent.right
