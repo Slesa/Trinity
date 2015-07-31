@@ -41,10 +41,11 @@ Rectangle {
         }
         width: buttonWidth
         height: buttonHeight
+        onClicked: { Qt.quit(); }
     }
-
+/*
     Component.onCompleted: {
         buttonQuit.onClicked.connect(Qt.quit)
-    }
+    }*/
 }
 
