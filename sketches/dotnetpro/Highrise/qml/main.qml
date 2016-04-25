@@ -6,6 +6,8 @@ Window {
     id: root
     visible: true
     title: qsTr("HighRise")
+    width: 640
+    height: 480
 
     RadialGradient {
            anchors.fill: parent
@@ -23,6 +25,10 @@ Window {
                    color: "#3D8CCB"
                }
            }
-       }
+    }
+
+    BuildingView {
+        anchors.fill: parent
+    }
 }
 
