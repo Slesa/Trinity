@@ -61,13 +61,15 @@ ApplicationWindow {
             right: parent.right
         }
         height: 60
-        color: 'lightgrey'
+        color: 'darkgrey'
 
         GroupBox {
             title: 'Property'
 
             Row {
+                spacing: 5
                 Text { text: 'New value:' }
+                // 1. Variante: Update beim Schreiben
                 TextInput {
                     id: prop
                     text: mainController.property
@@ -103,21 +105,33 @@ ApplicationWindow {
             title: 'Attribute'
 
             Row {
-                Text { text: 'Attribute:' }
+                spacing: 5
+                Text {
+                    text: 'Attribute:'
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+                // 2. Variante: Update per Funktionsaufruf
                 TextInput {
                     id: attrib
                     text: mainController.attribute
+                    anchors.verticalCenter: parent.verticalCenter
                     width: 160
                 }
                 Button {
                     text: 'Set'
+                    width: 60
+                    anchors.verticalCenter: parent.verticalCenter
                     onClicked: {
                         mainController.changeAttribute(attrib.text);
                     }
                 }
-                Text { text: 'Value:' }
+                Text {
+                    text: 'Value:'
+                    anchors.verticalCenter: parent.verticalCenter
+                }
                 TextInput {
                     text: mainController.attribute
+                    anchors.verticalCenter: parent.verticalCenter
                     readOnly: true
                 }
             }
