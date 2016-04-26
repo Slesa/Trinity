@@ -1,0 +1,25 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary
+            Source="pack://application:,,,/HighRise.LookAndFeel;component/Resources/Base/FontResources.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Color x:Key="Color.Transparent">Transparent</Color>
+    <Color x:Key="Color.White">White</Color>
+    <Color x:Key="Color.Black">Black</Color>
+
+    <Color x:Key="Color.Gray90">#BBBBBB</Color>
+    <Color x:Key="Color.Gray10">#121212</Color>
+
+    <Color x:Key="Color.Blue40">#2A2C63</Color>
+    <Color x:Key="Color.Blue60">#3D8CCB</Color>
+
+    <Color x:Key="Color.Orange50">#F59E11</Color>
+
+    <Color x:Key="Color.Red40">#A16752</Color>
+
+    <Color x:Key="Color.Yellow50">#AAAA33</Color>
+
+</ResourceDictionary>
