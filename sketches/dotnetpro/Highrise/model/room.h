@@ -4,7 +4,8 @@
 #include <QObject>
 
 enum RoomState {
-    Ok
+    Ok,
+    Error
 };
 
 enum LightState {

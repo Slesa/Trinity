@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-QT += qml quick
+QT += qml quick xml
 CONFIG += c++11
 
 SOURCES += main.cpp \
@@ -8,7 +8,8 @@ SOURCES += main.cpp \
     model/floor.cpp \
     model/building.cpp \
     buildingcontroller.cpp \
-    floorsmodel.cpp
+    floorsmodel.cpp \
+    data/datareader.cpp
 
 RESOURCES += qml.qrc
 
@@ -23,5 +24,6 @@ HEADERS += \
     model/floor.h \
     model/building.h \
     buildingcontroller.h \
-    floorsmodel.h
+    floorsmodel.h \
+    data/datareader.h
 
