@@ -9,7 +9,9 @@ SOURCES += main.cpp \
     model/building.cpp \
     buildingcontroller.cpp \
     floorsmodel.cpp \
-    data/datareader.cpp
+    data/datareader.cpp \
+    viewmodel/roomsmodel.cpp \
+    viewmodel/buildingmodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -25,5 +27,7 @@ HEADERS += \
     model/building.h \
     buildingcontroller.h \
     floorsmodel.h \
-    data/datareader.h
+    data/datareader.h \
+    viewmodel/roomsmodel.h \
+    viewmodel/buildingmodel.h
 

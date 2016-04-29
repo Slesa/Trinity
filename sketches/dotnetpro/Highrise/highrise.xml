@@ -1,3 +1,48 @@
 <highrise version="1.0">
-    <building />
+    <building name='Science Park 2'>
+        <floor id='1'>
+            <room id='101' name='Room 1-1' />
+            <room id='102' name='Room 1-2' roomstate='1' />
+        </floor>
+        <floor id='2'>
+            <room id='201' name='Room 2-1' />
+            <room id='202' name='Room 2-2' roomstate='1' />
+        </floor>
+        <floor id='3'>
+            <room id='301' name='Room 3-1' roomstate='1' />
+            <room id='302' name='Room 3-2' />
+        </floor>
+        <floor id='4'>
+            <room id='401' name='Room 4-1' />
+            <room id='402' name='Room 4-2' />
+        </floor>
+        <floor id='5'>
+            <room id='501' name='Room 5-1' />
+            <room id='502' name='Room 5-2' />
+        </floor>
+        <floor id='6'>
+            <room id='601' name='Room 6-1' roomstate='1' />
+            <room id='602' name='Room 6-2' />
+        </floor>
+        <floor id='7'>
+            <room id='701' name='Room 7-1' />
+            <room id='702' name='Room 7-2' />
+        </floor>
+        <floor id='8'>
+            <room id='801' name='Room 8-1' />
+            <room id='802' name='Room 8-2' />
+        </floor>
+        <floor id='9'>
+            <room id='901' name='Room 9-1' roomstate='1' />
+            <room id='902' name='Room 9-2' />
+        </floor>
+        <floor id='10'>
+            <room id='1001' name='Room 10-1' />
+            <room id='1002' name='Room 10-2' roomstate='1' />
+        </floor>
+        <floor id='11'>
+            <room id='1101' name='Room 11-1' />
+            <room id='1102' name='Room 11-2' roomstate='1' />
+        </floor>
+    </building>
 </highrise>

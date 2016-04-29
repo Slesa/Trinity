@@ -16,7 +16,7 @@ public:
         return _id;
     }
 
-    QList<Room*> rooms() {
+    QList<Room*>& rooms() {
         return _rooms;
     }
 

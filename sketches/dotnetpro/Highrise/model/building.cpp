@@ -5,6 +5,5 @@ Building::Building(int id, const QString& name, QObject *parent)
     , _id(id)
     , _name(name)
 {
-
 }
 

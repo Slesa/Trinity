@@ -26,7 +26,7 @@ public:
         emit nameChanged();
     }
 
-    QList<Floor*> floors() {
+    QList<Floor*>& floors() {
         return _floors;
     }
 
