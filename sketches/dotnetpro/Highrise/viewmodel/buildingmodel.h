@@ -8,9 +8,10 @@ class Building;
 class BuildingModel : public QAbstractListModel
 {
     enum RoomRoles {
-        NameRole = Qt::UserRole + 1,
-        LightStateRole = Qt::UserRole + 2,
-        RoomStateRole = Qt::UserRole + 3,
+        IdRole = Qt::UserRole + 1,
+        NameRole = Qt::UserRole + 2,
+        LightStateRole = Qt::UserRole + 3,
+        RoomStateRole = Qt::UserRole + 4,
     };
 
 public:

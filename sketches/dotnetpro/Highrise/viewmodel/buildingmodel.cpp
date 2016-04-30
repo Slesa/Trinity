@@ -16,12 +16,14 @@ QVariant BuildingModel::data(const QModelIndex &index, int role) const
      auto room = _rooms.at(index.row());
 
      switch (role) {
-     case RoomRoles::NameRole:
+     case IdRole:
+         return room->id();
+     case NameRole:
          return room->name();
      case LightStateRole:
-         return room->lightState();
+         return room->lightState()==LightState::On ? tr("On") : tr("Off");
      case RoomStateRole:
-         return room->roomState();
+         return room->roomState()==RoomState::Ok ? tr("Ok") : tr("Error");
      default:
          return QVariant();
      }
@@ -35,8 +37,9 @@ int BuildingModel::rowCount(const QModelIndex &parent) const
 QHash<int, QByteArray> BuildingModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
+    roles[IdRole] = "id";
     roles[NameRole] = "name";
-    roles[LightStateRole] = "lightsttae";
+    roles[LightStateRole] = "lightstate";
     roles[RoomStateRole] = "roomstate";
     return roles;
 }

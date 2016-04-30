@@ -117,7 +117,13 @@ Floor* DataReader::parseFloorElement(QDomElement& root) {
 //        qDebug() << "XML, reading room";
         auto room = parseRoomElement(child);
         if( room!=nullptr ) {
-            qDebug() << "XML, adding room " << room->id() << " (" << room->name() << ")";
+            QString lightstate = ", Light ";
+            lightstate += (room->lightState()==LightState::Off) ? QString("off"):QString("on");
+            QString roomstate = ", State ";
+            roomstate += (room->roomState()==RoomState::Ok) ? QString("ok"):QString("error");
+            qDebug() << "XML, adding room "
+                     << room->id()
+                     << " (" << room->name() << ")" << lightstate << roomstate;
             floor->rooms().append(room);
         }
         child = child.nextSiblingElement(tagRoom);

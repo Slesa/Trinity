@@ -8,7 +8,6 @@ SOURCES += main.cpp \
     model/floor.cpp \
     model/building.cpp \
     buildingcontroller.cpp \
-    floorsmodel.cpp \
     data/datareader.cpp \
     viewmodel/roomsmodel.cpp \
     viewmodel/buildingmodel.cpp
@@ -26,7 +25,6 @@ HEADERS += \
     model/floor.h \
     model/building.h \
     buildingcontroller.h \
-    floorsmodel.h \
     data/datareader.h \
     viewmodel/roomsmodel.h \
     viewmodel/buildingmodel.h

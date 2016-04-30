@@ -4,7 +4,15 @@ import QtQuick.Controls 1.2
 Rectangle {
     color: 'transparent'
     Row {
+        id: inputLine
+        height: 20
         spacing: 5
+        anchors {
+            left: parent.left
+            right: parent.right
+            top: parent.top
+        }
+
         Text {
             anchors.verticalCenter: parent.verticalCenter
             text: qsTr('Filter:')
@@ -16,6 +24,16 @@ Rectangle {
         Button {
             anchors.verticalCenter: parent.verticalCenter
             text: qsTr('Reset filter')
+        }
+    }
+
+    RoomListView {
+        id: roomList
+        anchors {
+            left: parent.left
+            right: parent.right
+            top: inputLine.bottom
+            bottom: parent.bottom
         }
     }
 }

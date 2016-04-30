@@ -1,6 +1,5 @@
 #ifndef ROOM_H
 #define ROOM_H
-
 #include <QObject>
 
 enum RoomState {
@@ -20,6 +19,7 @@ class Room : public QObject
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(RoomState roomState READ roomState WRITE setRoomState NOTIFY roomStateChanged)
     Q_PROPERTY(LightState lightState READ lightState WRITE setLightState NOTIFY lightStateChanged)
+
 public:
     explicit Room(int id, const QString& name, QObject *parent = 0);
 
@@ -53,6 +53,7 @@ public:
         _lightState = value;
         emit lightStateChanged();
     }
+
 signals:
     void nameChanged();
     void roomStateChanged();
