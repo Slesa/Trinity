@@ -16,15 +16,15 @@ Rectangle {
         }
         Row {
             spacing: 10
-            Text { width: buildingList.width-hlightCol.width-hstateCol.width-30; text: qsTr('Roomname'); color: 'white' }
-            Text { id: hlightCol; width: 40; text: qsTr('Light'); color: 'white' }
-            Text { id: hstateCol; width: 50; text: qsTr('Status'); color: 'white' }
+            Text { width: buildingList.width-hlightCol.width-hstateCol.width-30; text: qsTr('Roomname'); color: 'white'; font.pointSize: 14 }
+            Text { id: hlightCol; width: 40; text: qsTr('Light'); color: 'white'; font.pointSize: 14 }
+            Text { id: hstateCol; width: 50; text: qsTr('Status'); color: 'white'; font.pointSize: 14 }
         }
     }
 
     ListView {
         id: buildingList
-        model: buildingModel
+        model: buildingProxy
         focus: true
         clip: true
         delegate: roomDelegate
@@ -56,9 +56,9 @@ Rectangle {
             //color: model.index % 2 == 0 ? "blue" : "black"
             Row {
                 spacing: 10
-                Text { width: buildingList.width-lightCol.width-stateCol.width-30; text: model.name; color: 'white' }
-                Text { id: lightCol; width: 40; text: model.lightstate; color: 'white' }
-                Text { id: stateCol; width: 50; text: model.roomstate; color: 'white' }
+                Text { width: buildingList.width-lightCol.width-stateCol.width-30; text: model.name; color: 'white'; font.pointSize: 16 }
+                Text { id: lightCol; width: 40; text: model.lightstate; color: 'white'; font.pointSize: 16 }
+                Text { id: stateCol; width: 50; text: model.roomstate; color: 'white'; font.pointSize: 16 }
             }
          }
      }

@@ -43,3 +43,9 @@ QHash<int, QByteArray> BuildingModel::roleNames() const
     roles[RoomStateRole] = "roomstate";
     return roles;
 }
+
+bool BuildingProxy::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
+{
+    QModelIndex index1 = sourceModel()->index(sourceRow, 0, sourceParent);
+    return sourceModel()->data(index1, BuildingModel::NameRole).toString().contains(filterRegExp());
+}

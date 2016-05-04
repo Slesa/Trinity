@@ -1,7 +1,9 @@
 #ifndef BUILDINGMODEL_H
 #define BUILDINGMODEL_H
 #include <QAbstractListModel>
+#include <QSortFilterProxyModel>
 #include "model/room.h"
+#include <QDebug>
 
 class Building;
 
@@ -22,6 +24,32 @@ public:
 
 private:
     QList<Room*> _rooms;
+    friend class BuildingProxy;
+};
+
+class BuildingProxy: public QSortFilterProxyModel
+{
+//    Q_PROPERTY(QString filter READ filter WRITE setFilter NOTIFY filterChanged)
+public:
+/*    QString filter() const {
+        return _filter;
+    }
+    void setFilter(const QString& value) {
+        qDebug() << "Setting filter";
+        if( _filter==value ) return;
+        _filter = value;
+        emit filterChanged();
+        this->invalidateFilter();
+    }*/
+
+protected:
+    virtual bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const;
+
+//signals:
+//    void filterChanged();
+
+//private:
+//    QString _filter;
 };
 
 #endif // BUILDINGMODEL_H

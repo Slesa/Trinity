@@ -4,7 +4,11 @@
         <file>qml/main.qml</file>
         <file>qml/BuildingView.qml</file>
         <file>qml/RoomListView.qml</file>
+        <file>qml/components/EditBox.qml</file>
+        <file>qml/components/IconButton.qml</file>
         <file>qml/components/ScrollBar.qml</file>
+        <file>assets/magnifier.png</file>
+        <file>assets/clear.png</file>
     </qresource>
 </RCC>
 

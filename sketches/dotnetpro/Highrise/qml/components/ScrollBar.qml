@@ -16,7 +16,7 @@ Item {
     }
 
     property Flickable flickable: null;
-    property int handleSize: 7;
+    property int handleSize: 17;
 
     function scrollDown () {
         flickable.contentY = Math.min (flickable.contentY + (flickable.height / 4), flickable.contentHeight - flickable.height);
