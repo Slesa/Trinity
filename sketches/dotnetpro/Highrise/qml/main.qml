@@ -28,6 +28,7 @@ Window {
     }
 
     BuildingView {
+        id: buildingView
         anchors.fill: parent
     }
 }

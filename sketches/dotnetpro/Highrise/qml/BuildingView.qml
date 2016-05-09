@@ -3,7 +3,9 @@ import QtQuick.Controls 1.2
 import "components"
 
 Rectangle {
+    id: root
     color: 'transparent'
+
     Row {
         id: inputLine
         height: 20
@@ -43,12 +45,23 @@ Rectangle {
 
     RoomListView {
         id: roomList
+        width: root.width/2
         anchors {
-            left: parent.left
             margins: 20
-            right: parent.right
+            left: parent.left
             top: inputLine.bottom
             bottom: parent.bottom
+        }
+    }
+
+    RoomGridView {
+        id: roomGrid
+        anchors {
+            margins: 20
+            top: inputLine.bottom
+            bottom: parent.bottom
+            left: roomList.right
+            right: parent.right
         }
     }
 }

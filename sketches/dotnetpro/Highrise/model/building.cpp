@@ -7,3 +7,10 @@ Building::Building(int id, const QString& name, QObject *parent)
 {
 }
 
+QList<Room*>* Building::getRooms() {
+    auto rooms = new QList<Room*>();
+    foreach (auto floor, floors() ) {
+        rooms->append(floor->rooms());
+    }
+    return rooms;
+}

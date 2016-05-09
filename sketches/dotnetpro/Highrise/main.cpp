@@ -15,6 +15,8 @@ int main(int argc, char *argv[])
     auto building = buildings[0];
     auto buildingModel = new BuildingModel(building);
     auto buildingProxy = new BuildingProxy();
+    auto rooms = building->getRooms();
+    auto roomsModel = new RoomsModel(*rooms);
     buildingProxy->setSourceModel(buildingModel);
 
 //    auto roomsModel = new RoomsModel(building->floors());
@@ -23,6 +25,7 @@ int main(int argc, char *argv[])
     auto context = engine.rootContext();
     context->setContextProperty("buildingModel", buildingModel);
     context->setContextProperty("buildingProxy", buildingProxy);
+    context->setContextProperty("roomsModel", roomsModel);
 
 
     engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));

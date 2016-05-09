@@ -30,6 +30,8 @@ public:
         return _floors;
     }
 
+    QList<Room*>* getRooms();
+
 signals:
     void nameChanged();
 
