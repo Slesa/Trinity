@@ -33,7 +33,7 @@ public:
     void setName(const QString& value) {
         if( _name==value ) return;
         _name = value;
-        emit nameChanged();
+        emit nameChanged(this);
     }
 
     RoomState roomState() const {
@@ -42,7 +42,7 @@ public:
     void setRoomState(const RoomState value) {
         if( _roomState==value ) return;
         _roomState = value;
-        emit roomStateChanged();
+        emit roomStateChanged(this);
     }
 
     LightState lightState() const {
@@ -51,13 +51,13 @@ public:
     void setLightState(const LightState value) {
         if( _lightState==value ) return;
         _lightState = value;
-        emit lightStateChanged();
+        emit lightStateChanged(this);
     }
 
 signals:
-    void nameChanged();
-    void roomStateChanged();
-    void lightStateChanged();
+    void nameChanged(Room*);
+    void roomStateChanged(Room*);
+    void lightStateChanged(Room*);
 
 public slots:
 

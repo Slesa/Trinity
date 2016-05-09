@@ -5,6 +5,8 @@
 
 class RoomsModel : public QAbstractListModel
 {
+    Q_OBJECT
+
     enum RoomRoles {
         IdRole = Qt::UserRole + 1,
         NameRole = Qt::UserRole + 2,
@@ -16,7 +18,8 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QHash<int, QByteArray> roleNames() const;
-
+private slots:
+    void onDataChanged(Room*);
 private:
     QList<Room*> _rooms;
 };

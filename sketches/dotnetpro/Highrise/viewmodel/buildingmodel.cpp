@@ -1,5 +1,6 @@
 #include "viewmodel/buildingmodel.h"
 #include "model/building.h"
+#include <QDebug>
 
 BuildingModel::BuildingModel(Building* building)
 {
@@ -14,19 +15,46 @@ QVariant BuildingModel::data(const QModelIndex &index, int role) const
          return QVariant();
 
      auto room = _rooms.at(index.row());
-
      switch (role) {
      case IdRole:
          return room->id();
      case NameRole:
          return room->name();
      case LightStateRole:
-         return room->lightState()==LightState::On ? tr("On") : tr("Off");
+         return room->lightState()==LightState::On ? 1 : 0;
      case RoomStateRole:
-         return room->roomState()==RoomState::Ok ? tr("Ok") : tr("Error");
+         return room->roomState()==RoomState::Ok ? 1 : 0;
      default:
          return QVariant();
      }
+}
+
+bool BuildingModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    qDebug() << "Setting data";
+    if (!index.isValid() || index.row() < 0 || index.row() >= rowCount()) {
+        qDebug() << "Index not found";
+        return false;
+    }
+
+    auto room = _rooms.at(index.row());
+    switch (role) {
+    case NameRole:
+        room->setName(value.toString());
+        break;
+    case LightStateRole:
+        qDebug() << "Setting light state " << value;
+        room->setLightState(value==1 ? LightState::On : LightState::Off);
+        break;
+    case RoomStateRole:
+        qDebug() << "Setting room state" << value;
+        room->setRoomState(value==0 ? RoomState::Ok : RoomState::Error);
+        break;
+    default:
+        return false;
+    }
+    emit dataChanged(index, index);
+    return true;
 }
 
 int BuildingModel::rowCount(const QModelIndex &parent) const

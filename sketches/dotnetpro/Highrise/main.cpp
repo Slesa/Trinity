@@ -15,14 +15,16 @@ int main(int argc, char *argv[])
     auto building = buildings[0];
     auto buildingModel = new BuildingModel(building);
     auto buildingProxy = new BuildingProxy();
+    buildingProxy->setSourceModel(buildingModel);
+
     auto rooms = building->getRooms();
     auto roomsModel = new RoomsModel(*rooms);
-    buildingProxy->setSourceModel(buildingModel);
 
 //    auto roomsModel = new RoomsModel(building->floors());
 
     QQmlApplicationEngine engine;
     auto context = engine.rootContext();
+    context->setContextProperty("buildingName", building->name());
     context->setContextProperty("buildingModel", buildingModel);
     context->setContextProperty("buildingProxy", buildingProxy);
     context->setContextProperty("roomsModel", roomsModel);

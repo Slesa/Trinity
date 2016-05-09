@@ -1,10 +1,23 @@
 #include "viewmodel/roomsmodel.h"
+#include <QDebug>
 
 RoomsModel::RoomsModel(const QList<Room*>& rooms)
     : _rooms(rooms)
 {
+    foreach(Room* room, rooms) {
+        connect(room, SIGNAL(nameChanged(Room*)), SLOT(onDataChanged(Room*)) );
+        connect(room, SIGNAL(lightStateChanged(Room*)), SLOT(onDataChanged(Room*)) );
+        connect(room, SIGNAL(roomStateChanged(Room*)), SLOT(onDataChanged(Room*)) );
+    }
 }
 
+void RoomsModel::onDataChanged(Room* room) {
+    qDebug() << "Name changed to " << room->name();
+
+    auto row = _rooms.indexOf(room);
+    auto index = this->index(row);
+    emit dataChanged(index, index);
+}
 
 QVariant RoomsModel::data(const QModelIndex &index, int role) const
 {

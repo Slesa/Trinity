@@ -18,6 +18,7 @@ class BuildingModel : public QAbstractListModel
 public:
     BuildingModel(Building* building);
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
+    virtual bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QHash<int, QByteArray> roleNames() const;
 

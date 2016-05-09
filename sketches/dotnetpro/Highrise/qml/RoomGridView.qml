@@ -61,7 +61,7 @@ Rectangle {
                     topMargin: -lightbulb.height/2
                     horizontalCenter: parent.horizontalCenter
                 }
-                //visible: model.lightstate===1
+                visible: model.lightstate===1
             }
 
             Text {
