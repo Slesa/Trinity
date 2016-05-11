@@ -29,3 +29,6 @@ HEADERS += \
     viewmodel/roomsmodel.h \
     viewmodel/buildingmodel.h
 
+DISTFILES += \
+    todo.md
+
