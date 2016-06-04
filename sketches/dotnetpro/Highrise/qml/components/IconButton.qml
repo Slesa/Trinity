@@ -15,6 +15,7 @@ Rectangle {
     height: parent.height
     antialiasing: true
     color: 'transparent'
+    border.color: mouseArea.containsMouse ? 'white' : 'transparent'
 
 //    anchors.verticalCenter: parent.verticalCenter
 //    color: mouseArea.containsMouse ? '#e3f6fc' : 'white'

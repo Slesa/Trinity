@@ -5,12 +5,20 @@ FocusScope {
     width: 250; height: 32
 
     property alias text: input.text
-
     signal inputChanged
 
     Rectangle {
-        anchors.fill: parent
+        id: root
+        signal inputChanged
+        width: 250; height: 32
+        //anchors.fill: parent
         color: '#FF5198d0'
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: { focusScope.focus = true; }
+        }
+        Keys.onEscapePressed: { focusScope.focus = false; }
 
         Image {
             id: watermark
@@ -22,36 +30,33 @@ FocusScope {
             source: "qrc:/assets/magnifier.png"
         }
 
-        MouseArea {
-            anchors.fill: parent
-            onClicked: { focusScope.focus = true }
-        }
-
         TextInput {
             id: input
-            anchors { left: parent.left; leftMargin: 8; right: parent.right; rightMargin: 8; verticalCenter: parent.verticalCenter }
+            anchors { left: watermark.right; leftMargin: 8; right: parent.right; rightMargin: 8; verticalCenter: parent.verticalCenter }
             color: 'white'
-            focus: true
-            selectByMouse: true
+            //selectByMouse: true
             onTextChanged: {
-                focusScope.inputChanged();
+                root.inputChanged();
             }
         }
 
         states: State {
-            name: "hasText"; when: focusScope.activeFocus // input.text != ''
-            PropertyChanges { target: watermark; opacity: 0 }
+            name: "hasText"; when: input.text != ''
+            PropertyChanges { target: watermark; opacity: 0; width: 0 }
         }
 
         transitions: [
             Transition {
-                from: ""; to: "hasText"
-                NumberAnimation { exclude: watermark; properties: "opacity" }
-            },
+                ParallelAnimation {
+                //from: ""; to: "hasText"
+                NumberAnimation { properties: "width"; duration: 500 }
+                OpacityAnimator { target: watermark; duration: 300 }
+                }
+            } /*,
             Transition {
                 from: "hasText"; to: ""
-                NumberAnimation { properties: "opacity" }
-            }
+                NumberAnimation { properties: "opacity, width" }
+            }*/
         ]
     }
 }

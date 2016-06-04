@@ -1,10 +1,10 @@
 # Todo
 
+* Allgemein, Fokus?
+
 * Icons, kein Hintergrund
 * Icons, MouseOver
 * Icons, Pressed
-
-* Allgemein, Fokus?
 
 * EditBox, SelectAllOnFocus?
 * EditBox, Fokus hergeben

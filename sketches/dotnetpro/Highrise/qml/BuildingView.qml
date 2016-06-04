@@ -18,9 +18,6 @@ Rectangle {
             topMargin: 20
         }
 
-        Text {
-            anchors.verticalCenter: parent.verticalCenter
-        }
         EditBox {
             id: editFilter
             anchors.verticalCenter: parent.verticalCenter
@@ -46,6 +43,7 @@ Rectangle {
     RoomListView {
         id: roomList
         width: root.width/2
+        focus: true
         anchors {
             margins: 20
             left: parent.left
