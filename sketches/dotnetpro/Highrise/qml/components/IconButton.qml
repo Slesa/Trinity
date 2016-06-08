@@ -5,7 +5,6 @@ Rectangle {
     id: root
 
     property alias icon: icon.source
-
     property alias text: label.text
     property alias font: label.font
 
@@ -15,7 +14,11 @@ Rectangle {
     height: parent.height
     antialiasing: true
     color: 'transparent'
-    border.color: mouseArea.containsMouse ? 'white' : 'transparent'
+    border.color: mouseArea.containsMouse || focus ? 'white' : 'transparent'
+
+    Keys.onSpacePressed: {
+        root.clicked();
+    }
 
 //    anchors.verticalCenter: parent.verticalCenter
 //    color: mouseArea.containsMouse ? '#e3f6fc' : 'white'

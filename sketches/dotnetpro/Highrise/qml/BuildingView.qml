@@ -6,37 +6,12 @@ Rectangle {
     id: root
     color: 'transparent'
 
-    Row {
-        id: inputLine
-        height: 20
-        spacing: 5
-        anchors {
-            left: parent.left
-            leftMargin: 20
-            right: parent.right
-            top: parent.top
-            topMargin: 20
-        }
-
-        EditBox {
-            id: editFilter
-            anchors.verticalCenter: parent.verticalCenter
-            width: 160
-            //text: buildingProxy.filterRegExp
-            //hint: qsTr('Filter')
-            onInputChanged: {
-                console.debug("Text changed");
-                buildingProxy.setFilterRegExp(text);
-            }
-        }
-        IconButton {
-            anchors.verticalCenter: parent.verticalCenter
-            icon: 'qrc:/assets/clear.png'
-            text: qsTr('Reset filter')
-            onClicked: {
-                console.debug("Clear filter");
-                editFilter.text = '';
-            }
+    BuildingViewHeader {
+        id: header
+        activeFocusOnTab: true
+        onFocusChanged: {
+            if(focus===false)
+                roomList.forceActiveFocus();
         }
     }
 
@@ -44,19 +19,21 @@ Rectangle {
         id: roomList
         width: root.width/2
         focus: true
+        activeFocusOnTab: true
         anchors {
             margins: 20
             left: parent.left
-            top: inputLine.bottom
+            top: header.bottom
             bottom: parent.bottom
         }
     }
 
     RoomGridView {
         id: roomGrid
+        activeFocusOnTab: true
         anchors {
             margins: 20
-            top: inputLine.bottom
+            top: header.bottom
             bottom: parent.bottom
             left: roomList.right
             right: parent.right

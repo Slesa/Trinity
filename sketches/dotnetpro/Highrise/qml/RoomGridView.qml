@@ -2,10 +2,8 @@ import QtQuick 2.3
 import QtGraphicalEffects 1.0
 import "components"
 
-Rectangle {
+FocusScope {
     id: root
-    color: 'transparent'
-
 
     GridView {
         id: roomList
@@ -70,6 +68,5 @@ Rectangle {
                 anchors.centerIn: parent
             }
          }
-
     }
 }

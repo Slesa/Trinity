@@ -3,6 +3,7 @@
         <file>highrise.xml</file>
         <file>qml/main.qml</file>
         <file>qml/BuildingView.qml</file>
+        <file>qml/BuildingViewHeader.qml</file>
         <file>qml/RoomGridView.qml</file>
         <file>qml/RoomListView.qml</file>
         <file>qml/components/EditBox.qml</file>

@@ -9,7 +9,6 @@ FocusScope {
 
     Rectangle {
         id: root
-        signal inputChanged
         width: 250; height: 32
         //anchors.fill: parent
         color: '#FF5198d0'
@@ -36,7 +35,7 @@ FocusScope {
             color: 'white'
             //selectByMouse: true
             onTextChanged: {
-                root.inputChanged();
+                focusScope.inputChanged();
             }
         }
 
