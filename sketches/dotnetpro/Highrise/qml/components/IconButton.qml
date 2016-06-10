@@ -20,10 +20,6 @@ Rectangle {
         root.clicked();
     }
 
-//    anchors.verticalCenter: parent.verticalCenter
-//    color: mouseArea.containsMouse ? '#e3f6fc' : 'white'
-//    border.color: mouseArea.containsMouse ? '#01adef' : 'white'
-
     MouseArea {
         id: mouseArea
         anchors {
@@ -39,7 +35,6 @@ Rectangle {
 
         Image {
             id: icon
-//            source: mouseArea.containsMouse ? root.iconHover : root.iconNormal
             clip: true
             width: 24
             height: 24

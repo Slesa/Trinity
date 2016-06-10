@@ -11,6 +11,8 @@
         <file>qml/components/ScrollBar.qml</file>
         <file>assets/magnifier.png</file>
         <file>assets/clear.png</file>
+        <file>assets/down.png</file>
+        <file>assets/up.png</file>
     </qresource>
 </RCC>
 

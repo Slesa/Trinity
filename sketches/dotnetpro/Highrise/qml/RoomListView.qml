@@ -5,9 +5,8 @@ FocusScope {
 
     Rectangle {
         id: roomHeader
-        /*width: 480;*/ height: 18
+        height: 18
         color: 'transparent'
-        //color: model.index % 2 == 0 ? "blue" : "black"
         anchors {
             left: parent.left
             right: scrollbar.left
@@ -71,7 +70,6 @@ FocusScope {
 
             }
             Keys.onReturnPressed: {
-                console.debug("Return pressed");
                 model.lightstate = model.lightstate===1 ? 0 : 1;
             }
         }
