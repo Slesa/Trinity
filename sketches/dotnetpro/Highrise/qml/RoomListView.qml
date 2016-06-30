@@ -1,14 +1,12 @@
 import QtQuick 2.3
 import "components"
 
-Rectangle {
-    color: 'transparent'
+FocusScope {
 
     Rectangle {
         id: roomHeader
-        /*width: 480;*/ height: 18
+        height: 18
         color: 'transparent'
-        //color: model.index % 2 == 0 ? "blue" : "black"
         anchors {
             left: parent.left
             right: scrollbar.left
@@ -50,33 +48,37 @@ Rectangle {
 
     Component {
         id: roomDelegate
-            Rectangle {
-                width: parent.width; height: 22
-                color: mouseArea.containsMouse ? 'lightsteelblue' : 'transparent'
-                opacity: mouseArea.containsMouse ? 0.2 : 1.0
-                //color: model.index % 2 == 0 ? "blue" : "black"
-                Row {
-                    spacing: 10
-                    Text { width: buildingList.width-lightCol.width-stateCol.width-30; text: model.name; color: 'white'; font.pointSize: 16 }
-                    Text { id: lightCol; width: 40; text: getLightStateText(model.lightstate); color: 'white'; font.pointSize: 16 }
-                    Text { id: stateCol; width: 50; text: getRoomStateText(model.roomstate); color: 'white'; font.pointSize: 16 }
+        Rectangle {
+            width: parent.width; height: 22
+            color: mouseArea.containsMouse ? 'lightsteelblue' : 'transparent'
+            opacity: mouseArea.containsMouse ? 0.2 : 1.0
+            //color: model.index % 2 == 0 ? "blue" : "black"
+            Row {
+                spacing: 10
+                Text { width: buildingList.width-lightCol.width-stateCol.width-30; text: model.name; color: 'white'; font.pointSize: 16 }
+                Text { id: lightCol; width: 40; text: getLightStateText(model.lightstate); color: 'white'; font.pointSize: 16 }
+                Text { id: stateCol; width: 50; text: getRoomStateText(model.roomstate); color: 'white'; font.pointSize: 16 }
+            }
+
+            MouseArea {
+                id: mouseArea
+                anchors.fill: parent
+                hoverEnabled: true
+                onDoubleClicked: {
+                    model.lightstate = model.lightstate===1 ? 0 : 1;
                 }
 
-                MouseArea {
-                   id: mouseArea
-                   anchors.fill: parent
-                   hoverEnabled: true
-                   onDoubleClicked: {
-                       model.lightstate = model.lightstate===1 ? 0 : 1;
-                   }
+            }
+            Keys.onReturnPressed: {
+                model.lightstate = model.lightstate===1 ? 0 : 1;
             }
         }
-     }
+    }
 
-     function getLightStateText(state) {
-         return state===1 ? qsTr('On') : qsTr('Off');
-     }
-     function getRoomStateText(state) {
-         return state===0 ? qsTr('Ok') : qsTr('Error');
-     }
+    function getLightStateText(state) {
+        return state===1 ? qsTr('On') : qsTr('Off');
+    }
+    function getRoomStateText(state) {
+        return state===0 ? qsTr('Ok') : qsTr('Error');
+    }
 }

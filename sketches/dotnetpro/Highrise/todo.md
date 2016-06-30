@@ -1,7 +1,5 @@
 # Todo
 
-* Allgemein, Fokus?
-
 * Icons, kein Hintergrund
 * Icons, MouseOver
 * Icons, Pressed
@@ -9,7 +7,6 @@
 * EditBox, SelectAllOnFocus?
 * EditBox, Fokus hergeben
 
-* Scrollbar, Pfeile
 * Scrollbar, MouseOver
 * ScrollBar, Pressed
 

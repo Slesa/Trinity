@@ -2,10 +2,8 @@ import QtQuick 2.3
 import QtGraphicalEffects 1.0
 import "components"
 
-Rectangle {
+FocusScope {
     id: root
-    color: 'transparent'
-
 
     GridView {
         id: roomList
@@ -43,9 +41,6 @@ Rectangle {
             width: roomList.cellWidth-10; height: roomList.cellHeight-10
             color: model.roomstate===0 ? '#A16752' : 'transparent'
             clip: true
-            //border.color: 'white'
-            //border.width: 1
-            //color: model.index % 2 == 0 ? "blue" : "black"
 
             RadialGradient {
                 id: lightbulb
@@ -70,6 +65,5 @@ Rectangle {
                 anchors.centerIn: parent
             }
          }
-
     }
 }

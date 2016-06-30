@@ -1,6 +1,5 @@
 import QtQuick 2.4
 
-// http://stackoverflow.com/questions/17833103/how-to-create-scrollbar-in-qtquick-2-0
 Item {
     id: scrollBar
 
@@ -28,7 +27,6 @@ Item {
    Binding {
         target: handle;
         property: "y";
-        //value: !isNaN(flickable.visibleArea.heightRatio) ? (clicker.drag.maximumY * flickable.contentY) / (flickable.contentHeight * (1 - flickable.visibleArea.heightRatio)) : 0
         value: (flickable.contentY * clicker.drag.maximumY / (flickable.contentHeight - flickable.height));
         when: (!clicker.drag.active);
     }
@@ -36,7 +34,6 @@ Item {
         target: flickable;
         property: "contentY";
         value: (( flickable.contentHeight * (1 - flickable.visibleArea.heightRatio)) * handle.y) / clicker.drag.maximumY
-        //value: (handle.y * (flickable.contentHeight - flickable.height) / clicker.drag.maximumY);
         when: (clicker.drag.active || clicker.pressed);
     }
 
@@ -65,8 +62,10 @@ Item {
 
         Image {
             height: parent.height
-            //source: buttonUp.containsMouse ? Icons.iconArrowUpHover : Icons.iconArrowUpNormal
+            width: parent.height
+            source: "qrc:/assets/up.png"
             fillMode: Image.PreserveAspectCrop
+            anchors.horizontalCenter: parent.horizontalCenter
         }
     }
     MouseArea {
@@ -83,8 +82,10 @@ Item {
 
         Image {
             height: parent.height
-            //source: buttonDown.containsMouse ? Icons.iconArrowDownHover : Icons.iconArrowDownNormal
+            width: parent.height
+            source: "qrc:/assets/down.png"
             fillMode: Image.PreserveAspectCrop
+            anchors.horizontalCenter: parent.horizontalCenter
         }
     }
     Item {
@@ -120,8 +121,8 @@ Item {
 
             Rectangle {
                 id: backHandle;
-                color: 'blue' // clicker.containsMouse ? Colors.brushTextHover : Colors.brushTextInactive // (clicker.pressed ? "blue" : "black");
-                opacity: 0.7 // (flickable.moving ? 0.65 : 0.35);
+                color: 'blue'
+                opacity: 0.7
                 anchors { fill: parent; }
 
                 Behavior on opacity { NumberAnimation { duration: 150; } }

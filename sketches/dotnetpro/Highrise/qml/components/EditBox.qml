@@ -9,9 +9,7 @@ FocusScope {
 
     Rectangle {
         id: root
-        signal inputChanged
         width: 250; height: 32
-        //anchors.fill: parent
         color: '#FF5198d0'
 
         MouseArea {
@@ -23,7 +21,6 @@ FocusScope {
         Image {
             id: watermark
             anchors {
-                //fill: parent
                 leftMargin: 8
                 verticalCenter: parent.verticalCenter
             }
@@ -34,9 +31,8 @@ FocusScope {
             id: input
             anchors { left: watermark.right; leftMargin: 8; right: parent.right; rightMargin: 8; verticalCenter: parent.verticalCenter }
             color: 'white'
-            //selectByMouse: true
             onTextChanged: {
-                root.inputChanged();
+                focusScope.inputChanged();
             }
         }
 
