@@ -1,0 +1,22 @@
+﻿<Window x:Class="AkkaTalk.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Views="clr-namespace:AkkaTalk.Views"
+        xmlns:Helpers="clr-namespace:AkkaTalk.Helpers"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    
+    <Window.Resources>
+        <Helpers:MainViewModelLocator x:Key="ViewModelLocator" />
+    </Window.Resources>
+    <Window.DataContext>
+        <Binding Path="ViewModel" Source="{StaticResource ViewModelLocator}" />
+    </Window.DataContext>
+    
+    <DockPanel>
+        <Views:MessageSender DockPanel.Dock="Left" />
+        <Views:MessageReceiver />
+    </DockPanel>
+</Window>

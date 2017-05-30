@@ -4,3 +4,7 @@ build-*/
 bin/
 examples/
 __pycache__/
+obj/
+bin/
+.vs/
+packages/

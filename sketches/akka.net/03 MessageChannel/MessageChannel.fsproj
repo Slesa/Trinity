@@ -62,23 +62,23 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Akka">
-      <HintPath>packages\Akka.1.2.0\lib\net45\Akka.dll</HintPath>
+      <HintPath>D:\work\github\Trinity\sketches\akka.net\03 MessageChannel\..\packages\Akka.1.2.0\lib\net45\Akka.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Akka.FSharp">
-      <HintPath>packages\Akka.FSharp.1.2.0\lib\net45\Akka.FSharp.dll</HintPath>
+      <HintPath>D:\work\github\Trinity\sketches\akka.net\03 MessageChannel\..\packages\Akka.FSharp.1.2.0\lib\net45\Akka.FSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FSharp.PowerPack">
-      <HintPath>packages\FSPowerPack.Core.Community.3.0.0.0\lib\Net40\FSharp.PowerPack.dll</HintPath>
+      <HintPath>D:\work\github\Trinity\sketches\akka.net\03 MessageChannel\..\packages\FSPowerPack.Core.Community.3.0.0.0\lib\Net40\FSharp.PowerPack.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FSharp.PowerPack.Linq">
-      <HintPath>packages\FSPowerPack.Linq.Community.3.0.0.0\lib\Net40\FSharp.PowerPack.Linq.dll</HintPath>
+      <HintPath>D:\work\github\Trinity\sketches\akka.net\03 MessageChannel\..\packages\FSPowerPack.Linq.Community.3.0.0.0\lib\Net40\FSharp.PowerPack.Linq.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FsPickler">
-      <HintPath>packages\FsPickler.1.2.21\lib\net45\FsPickler.dll</HintPath>
+      <HintPath>D:\work\github\Trinity\sketches\akka.net\03 MessageChannel\..\packages\FsPickler.3.2.0\lib\net45\FsPickler.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
@@ -86,7 +86,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>D:\work\github\Trinity\sketches\akka.net\03 MessageChannel\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
