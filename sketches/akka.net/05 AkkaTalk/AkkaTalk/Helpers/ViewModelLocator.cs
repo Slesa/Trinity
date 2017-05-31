@@ -33,4 +33,5 @@ namespace AkkaTalk.Helpers
     public class MainViewModelLocator : ViewModelLocator<MainViewModel> {}
     public class MessageReceiverViewModelLocator : ViewModelLocator<MessageReceiverViewModel> {}
     public class MessageSenderViewModelLocator : ViewModelLocator<MessageSenderViewModel> {}
+    public class TurnstileViewModelLocator : ViewModelLocator<TurnstileViewModel> {}
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Windows;
+﻿using System.Collections.ObjectModel;
 using AkkaTalk.Helpers;
 using Prism.Events;
 
@@ -16,15 +13,5 @@ namespace AkkaTalk.ViewModels
         }
 
         public ObservableCollection<string> Messages { get; set; }
-
-    }
-
-    public static class DispatcherExtensions
-    {
-        public static void AddOnUI<T>(this ICollection<T> collection, T item)
-        {
-            Action<T> addMethod = collection.Add;
-            Application.Current.Dispatcher.BeginInvoke(addMethod, item);
-        }
     }
 }

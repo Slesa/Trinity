@@ -1,15 +1,11 @@
-﻿using Akka.Actor;
-using AkkaTalk.Helpers;
+﻿using AkkaTalk.Helpers;
 
 namespace AkkaTalk
 {
     public class MainViewModel : IViewModel
     {
-        private readonly ActorSystem _actorSystem;
-
-        public MainViewModel(ActorSystem actorSystem)
+        public MainViewModel()
         {
-            _actorSystem = actorSystem;
         }
     }
 }

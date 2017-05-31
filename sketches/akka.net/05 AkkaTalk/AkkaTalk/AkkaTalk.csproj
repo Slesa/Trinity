@@ -67,8 +67,8 @@
       <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
@@ -120,17 +120,24 @@
     </ApplicationDefinition>
     <Compile Include="Actors\MessageActor.cs" />
     <Compile Include="Actors\NLogLogger.cs" />
+    <Compile Include="Actors\PersonActor.cs" />
+    <Compile Include="Actors\TurnstileActor.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Events.cs" />
+    <Compile Include="Helpers\DispatcherExtensions.cs" />
     <Compile Include="Helpers\IViewModel.cs" />
     <Compile Include="Helpers\ViewModelLocator.cs" />
     <Compile Include="ViewModels\MessageReceiverViewModel.cs" />
     <Compile Include="ViewModels\MessageSenderViewModel.cs" />
+    <Compile Include="ViewModels\TurnstileViewModel.cs" />
     <Compile Include="Views\MessageReceiver.xaml.cs">
       <DependentUpon>MessageReceiver.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MessageSender.xaml.cs">
       <DependentUpon>MessageSender.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TurnstileView.xaml.cs">
+      <DependentUpon>TurnstileView.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -153,10 +160,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\TurnstileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Message.cs" />
-    <Compile Include="MessageActorsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -187,7 +197,10 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\GreenLight.png" />
+    <Resource Include="Resources\RedLight.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

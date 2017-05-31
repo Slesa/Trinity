@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Akka.Actor;
+using AkkaTalk.Actors;
 using AkkaTalk.Helpers;
 using AkkaTalk.Models;
 using Microsoft.Practices.Prism.Commands;
@@ -32,7 +33,7 @@ namespace AkkaTalk.ViewModels
 
         private void Send()
         {
-            var greeter = _actorSystem.ActorSelection("akka://MessageSystem/user/messenger");
+            var greeter = _actorSystem.ActorSelection("/user/message");
             greeter.Tell(new Message(Message));
         }
 

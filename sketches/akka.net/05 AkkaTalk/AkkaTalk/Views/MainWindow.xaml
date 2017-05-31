@@ -16,7 +16,8 @@
     </Window.DataContext>
     
     <DockPanel>
-        <Views:MessageSender DockPanel.Dock="Left" />
+        <Views:MessageSender Width="100" DockPanel.Dock="Left" />
+        <Views:TurnstileView Width="180" DockPanel.Dock="Right" />
         <Views:MessageReceiver />
     </DockPanel>
 </Window>

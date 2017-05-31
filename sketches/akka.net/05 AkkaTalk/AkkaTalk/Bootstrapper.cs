@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows;
 using Akka.Actor;
 using Akka.Configuration;
+using AkkaTalk.Actors;
 using AkkaTalk.ViewModels;
 using AkkaTalk.Views;
 using Microsoft.Practices.ServiceLocation;
@@ -29,18 +30,33 @@ namespace AkkaTalk
         {
             base.ConfigureContainer();
 
-            ActorSystem = CreateActorSystem();
-            //var messageActorProps = Props.Create<MessageActor>();
-            //var messageActor = ActorSystem.ActorOf(messageActorProps, "messenger");
-            var messageActor = ActorSystem.ActorOf<MessageActor>("messenger");
-
             Container.RegisterType<ActorSystem>(new InjectionFactory(_ => ActorSystem));
             Container.RegisterType<MainViewModel>();
             Container.RegisterType<MessageReceiverViewModel>();
             Container.RegisterType<MessageSenderViewModel>();
+
+
+            ActorSystem = CreateActorSystem();
+            var personActorProps = Props.Create<PersonActor>();
+            /*var personActor =*/
+            ActorSystem.ActorOf(personActorProps, "person");
+
+            var messageActorProps = Props.Create<MessageActor>();
+            /*var messageActor =*/
+            ActorSystem.ActorOf(messageActorProps, "message");
+
+            var turnstileActorProps = Props.Create<TurnstileActor>();
+            /*var messageActor =*/
+            ActorSystem.ActorOf(turnstileActorProps, "turnstile");
         }
 
-        private ActorSystem ActorSystem { get; set; }
+        private ActorSystem _actorSystem;
+
+        private ActorSystem ActorSystem
+        {
+            get { return _actorSystem ?? (_actorSystem = CreateActorSystem()); }
+            set { _actorSystem = value; }
+        }
 
         private ActorSystem CreateActorSystem()
         {

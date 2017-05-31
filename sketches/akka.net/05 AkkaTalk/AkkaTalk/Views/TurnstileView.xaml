@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="AkkaTalk.Views.MessageSender"
+﻿<UserControl x:Class="AkkaTalk.Views.TurnstileView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,15 +7,17 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <Helpers:MessageSenderViewModelLocator x:Key="ViewModelLocator" />
+        <Helpers:TurnstileViewModelLocator x:Key="ViewModelLocator" />
     </UserControl.Resources>
     <UserControl.DataContext>
         <Binding Path="ViewModel" Source="{StaticResource ViewModelLocator}" />
     </UserControl.DataContext>
     
-    <StackPanel Orientation="Vertical">
-        <Label Content="Enter _text:" Target="{Binding ElementName=_msg}" />
-        <TextBox x:Name="_msg" Text="{Binding Message, UpdateSourceTrigger=PropertyChanged}" />
-        <Button Content="_Send" Command="{Binding SendCommand}" IsDefault="True" />
-    </StackPanel>
+    <DockPanel Background="{Binding Background}">
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Get Ticket" Command="{Binding GetTicketCommand}" />
+            <Button Content="Walk through" Command="{Binding WalkThroughCommand}" />
+        </StackPanel>
+        <Image Source="{Binding IconFilename}" Width="160" Height="160" />
+    </DockPanel>
 </UserControl>

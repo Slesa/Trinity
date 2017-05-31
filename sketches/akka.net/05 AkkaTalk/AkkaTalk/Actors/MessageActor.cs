@@ -12,10 +12,9 @@ namespace AkkaTalk.Actors
 
         public MessageActor()
         {
-            Receive<Message>(/*async*/ msg =>
+            Receive<Message>(msg =>
             {
                 log.Info("Received message: " + msg.Text);
-                //await Task.Delay(50);
                 var eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
                 eventAggregator.GetEvent<MessageEvent>().Publish(string.Format("Message from {0}: {1}", Context.Sender.ToString(), msg.Text));
             });
