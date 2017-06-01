@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="AkkaTalk.Views.TurnstileView"
+﻿<UserControl x:Class="AkkaTalk.Views.CashDrawerView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,16 +8,16 @@
              d:DesignHeight="300" d:DesignWidth="300"
              Margin="10">
     <UserControl.Resources>
-        <Helpers:TurnstileViewModelLocator x:Key="ViewModelLocator" />
+        <Helpers:CashDrawerViewModelLocator x:Key="ViewModelLocator" />
     </UserControl.Resources>
     <UserControl.DataContext>
         <Binding Path="ViewModel" Source="{StaticResource ViewModelLocator}" />
     </UserControl.DataContext>
-    
+
     <DockPanel Background="{Binding Background}">
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Get Ticket" Command="{Binding GetTicketCommand}" />
-            <Button Content="Walk through" Command="{Binding WalkThroughCommand}" />
+            <Button Content="Open Drawer" Command="{Binding OpenDrawerCommand}" />
+            <Button Content="Close Drawer" Command="{Binding CloseDrawerCommand}" />
         </StackPanel>
         <Image Source="{Binding IconFilename}" />
     </DockPanel>

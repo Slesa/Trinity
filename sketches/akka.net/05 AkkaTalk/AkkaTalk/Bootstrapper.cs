@@ -48,6 +48,10 @@ namespace AkkaTalk
             var turnstileActorProps = Props.Create<TurnstileActor>();
             /*var messageActor =*/
             ActorSystem.ActorOf(turnstileActorProps, "turnstile");
+
+            var drawerActorProps = Props.Create<CashDrawerStateMachine>();
+            /*var messageActor =*/
+            ActorSystem.ActorOf(drawerActorProps, "cashdrawer");
         }
 
         private ActorSystem _actorSystem;

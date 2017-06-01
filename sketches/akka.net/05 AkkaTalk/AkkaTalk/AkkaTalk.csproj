@@ -118,6 +118,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Actors\CashDrawerActor.cs" />
     <Compile Include="Actors\MessageActor.cs" />
     <Compile Include="Actors\NLogLogger.cs" />
     <Compile Include="Actors\PersonActor.cs" />
@@ -127,9 +128,13 @@
     <Compile Include="Helpers\DispatcherExtensions.cs" />
     <Compile Include="Helpers\IViewModel.cs" />
     <Compile Include="Helpers\ViewModelLocator.cs" />
+    <Compile Include="ViewModels\CashDrawerViewModel.cs" />
     <Compile Include="ViewModels\MessageReceiverViewModel.cs" />
     <Compile Include="ViewModels\MessageSenderViewModel.cs" />
     <Compile Include="ViewModels\TurnstileViewModel.cs" />
+    <Compile Include="Views\CashDrawerView.xaml.cs">
+      <DependentUpon>CashDrawerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MessageReceiver.xaml.cs">
       <DependentUpon>MessageReceiver.xaml</DependentUpon>
     </Compile>
@@ -139,6 +144,10 @@
     <Compile Include="Views\TurnstileView.xaml.cs">
       <DependentUpon>TurnstileView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\CashDrawerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -200,6 +209,10 @@
   <ItemGroup>
     <Resource Include="Resources\GreenLight.png" />
     <Resource Include="Resources\RedLight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DrawerClosed.png" />
+    <Resource Include="Resources\DrawerOpen.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

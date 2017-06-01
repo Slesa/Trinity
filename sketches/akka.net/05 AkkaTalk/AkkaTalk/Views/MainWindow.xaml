@@ -10,6 +10,14 @@
     
     <Window.Resources>
         <Helpers:MainViewModelLocator x:Key="ViewModelLocator" />
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Margin" Value="5" />
+        </Style>
+        <Style TargetType="{x:Type Image}">
+            <Setter Property="Margin" Value="20" />
+            <Setter Property="MinWidth" Value="60" />
+            <Setter Property="MinHeight" Value="60" />
+        </Style>
     </Window.Resources>
     <Window.DataContext>
         <Binding Path="ViewModel" Source="{StaticResource ViewModelLocator}" />
@@ -17,7 +25,14 @@
     
     <DockPanel>
         <Views:MessageSender Width="100" DockPanel.Dock="Left" />
-        <Views:TurnstileView Width="180" DockPanel.Dock="Right" />
+        <Grid DockPanel.Dock="Right" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Views:CashDrawerView Grid.Row="0" Width="180" />
+            <Views:TurnstileView Grid.Row="1" Width="180" />
+        </Grid>
         <Views:MessageReceiver />
     </DockPanel>
 </Window>

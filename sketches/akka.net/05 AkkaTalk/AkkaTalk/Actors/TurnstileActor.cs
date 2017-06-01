@@ -9,7 +9,7 @@ namespace AkkaTalk.Actors
 
     public class TurnstileActor : ReceiveActor
     {
-        private IEventAggregator _eventAggregator;
+        private readonly IEventAggregator _eventAggregator;
 
         public TurnstileActor()
         {
