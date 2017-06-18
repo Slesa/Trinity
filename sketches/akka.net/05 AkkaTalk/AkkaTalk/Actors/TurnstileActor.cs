@@ -1,5 +1,4 @@
 ﻿using Akka.Actor;
-using Microsoft.Practices.ServiceLocation;
 using Prism.Events;
 
 namespace AkkaTalk.Actors
@@ -11,9 +10,9 @@ namespace AkkaTalk.Actors
     {
         private readonly IEventAggregator _eventAggregator;
 
-        public TurnstileActor()
+        public TurnstileActor(IEventAggregator eventAggregator)
         {
-            _eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+            _eventAggregator = eventAggregator;
             Become(Locked);
         }
 

@@ -3,11 +3,14 @@ using System.IO;
 using System.Windows;
 using Akka.Actor;
 using Akka.Configuration;
+using Akka.DI.Core;
+using Akka.DI.Unity;
 using AkkaTalk.Actors;
 using AkkaTalk.ViewModels;
 using AkkaTalk.Views;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
+using Prism.Events;
 using Prism.Unity;
 
 namespace AkkaTalk
@@ -41,15 +44,21 @@ namespace AkkaTalk
             /*var personActor =*/
             ActorSystem.ActorOf(personActorProps, "person");
 
-            var messageActorProps = Props.Create<MessageActor>();
+            var propsResolver = new UnityDependencyResolver(Container, ActorSystem);
+
+            var eventAggregator = Container.Resolve<IEventAggregator>();
+            var messageActorProps = ActorSystem.DI().Props<MessageActor>();
+            //var messageActorProps = Props.Create<MessageActor>(() => new MessageActor(eventAggregator) );
             /*var messageActor =*/
             ActorSystem.ActorOf(messageActorProps, "message");
 
-            var turnstileActorProps = Props.Create<TurnstileActor>();
+            var turnstileActorProps = ActorSystem.DI().Props<TurnstileActor>();
+            //var turnstileActorProps = Props.Create<TurnstileActor>(() => new TurnstileActor(eventAggregator));
             /*var messageActor =*/
             ActorSystem.ActorOf(turnstileActorProps, "turnstile");
 
-            var drawerActorProps = Props.Create<CashDrawerStateMachine>();
+            var drawerActorProps = ActorSystem.DI().Props<CashDrawerStateMachine>();
+            //var drawerActorProps = Props.Create<CashDrawerStateMachine>(() => new CashDrawerStateMachine(eventAggregator));
             /*var messageActor =*/
             ActorSystem.ActorOf(drawerActorProps, "cashdrawer");
         }
