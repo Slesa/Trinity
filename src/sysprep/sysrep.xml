@@ -1,0 +1,36 @@
+<sysrep>
+    <architectures>
+        <architecture id="1" name="Linux" /> 
+        <architecture id="2" name="Windows" /> 
+        <architecture id="3" name="Cygwin" /> 
+        <architecture id="4" name="Linux on Windows" /> 
+    </architectures>
+    <systems>
+        <system name="Ubuntu" installer="apt-get install -y" architecture="1" />
+        <system name="SuSE" installer="zypper install -y" architecture="1" />
+        <system name="Mandriva" installer="apt-get install -y" architecture="1" />
+        <system name="Arch" installer="yum install -y" architecture="1" />
+        <system name="Ubuntu / Win" installer="apt-get install -y" architecture="4" />
+        <system name="SuSE / Win" installer="zypper install -y" architecture="4" />
+        <system name="Windows" installer="choco install -y" architecture="2" />
+        <system name="Cygwin" installer="" architecture="3" />
+    </systems>
+local packs="xsel git firefox" 
+	local archpacks="yaourt" 
+	local noarchpacks="vim" 
+	local bsdPacks="pidof" 
+
+    <groups>
+        <group id="1" name="Prereq" />
+        <group id="2" name="Core" />
+        <group id="3" name="Develop" />
+        <group id="4" name="KDE" />
+        <group id="5" name="XFCE" />
+        <group id="6" name="TeX" />
+        <group id="7" name="Games" />
+    </groups>
+    <packages>
+        <package name="xsel" group="1" />
+    </packages>
+
+</sysrep>
