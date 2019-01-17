@@ -2,20 +2,27 @@ import QtQuick 2.0
 import QtQuick.Controls 2.2
 
 Item {
+    anchors.fill: parent
 
-    Column {
-    Frame {
-        background: Rectangle {
-            color: "transparent"
-            border.color: "#21be2b"
-            radius: 2
+    //Column {
+    //    anchors.fill: parent
+
+        Frame {
+            id: topLabel
+
+            anchors { horizontalCenter: parent.horizontalCenter; top: parent.top; topMargin: 20 }
+            background: Rectangle {
+                color: "transparent"
+                border.color: "#21be2b"
+                radius: 2
+            }
+            Text {
+                text: qsTr("Detecting OS")
+            }
         }
-        Text {
-            text: qsTr("Detecting OS")
-        }
-    }
 
     Frame {
+        anchors { horizontalCenter: parent.horizontalCenter; bottom: topLabel.bottom; bottomMargin: 20 }
         background: Rectangle {
             color: "transparent"
             border.color: "#21be2b"
@@ -30,7 +37,8 @@ Item {
     }
 
     ProgressBar {
+        anchors { horizontalCenter: parent.horizontalCenter; verticalCenterOffset: parent.verticalCenter }
         value: model.currentStep
     }
-    }
+    //}
 }
