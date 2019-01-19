@@ -4,23 +4,24 @@ import QtQuick.Controls 2.2
 Item {
     anchors.fill: parent
 
-    //Column {
-    //    anchors.fill: parent
-
-        Frame {
-            id: topLabel
-
-            anchors { horizontalCenter: parent.horizontalCenter; top: parent.top; topMargin: 20 }
-            background: Rectangle {
-                color: "transparent"
-                border.color: "#21be2b"
-                radius: 2
-            }
-            Text {
-                text: qsTr("Detecting OS")
-            }
+    Frame {
+        background: Rectangle {
+            color: "transparent"
+            border.color: "#21be2b"
+            radius: 2
         }
-
+        Column {
+            id: topLabel
+            Text { text: qsTr("Running on:") }
+            Text { text: sysinfo.osName }
+            Text { text: qsTr("Operating system:") }
+            Text { text: sysinfo.kernelType }
+            Text { text: qsTr("Distribution:") }
+            Text { text: sysinfo.distribution }
+            Text { text: qsTr("Window manager:") }
+            Text { text: sysinfo.wmName }
+        }
+/*
     Frame {
         anchors { horizontalCenter: parent.horizontalCenter; bottom: topLabel.bottom; bottomMargin: 20 }
         background: Rectangle {
@@ -37,8 +38,7 @@ Item {
     }
 
     ProgressBar {
-        anchors { horizontalCenter: parent.horizontalCenter; verticalCenterOffset: parent.verticalCenter }
         value: model.currentStep
+    } */
     }
-    //}
 }
