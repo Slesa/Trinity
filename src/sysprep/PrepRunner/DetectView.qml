@@ -2,43 +2,24 @@ import QtQuick 2.0
 import QtQuick.Controls 2.2
 
 Item {
-    anchors.fill: parent
+    anchors.Center: parent.Center
 
-    Frame {
-        background: Rectangle {
-            color: "transparent"
-            border.color: "#21be2b"
-            radius: 2
+    Column {
+        Row {
+            TextField { readOnly: true; text: qsTr("Running on:") }
+            TextField { readOnly: true; text: systeminfo.osName }
         }
-        Column {
-            id: topLabel
-            Text { text: qsTr("Running on:") }
-            Text { text: sysinfo.osName }
-            Text { text: qsTr("Operating system:") }
-            Text { text: sysinfo.kernelType }
-            Text { text: qsTr("Distribution:") }
-            Text { text: sysinfo.distribution }
-            Text { text: qsTr("Window manager:") }
-            Text { text: sysinfo.wmName }
+        Row {
+            TextField { readOnly: true; text: qsTr("Operating system:") }
+            TextField { readOnly: true; text: systeminfo.kernelType }
         }
-/*
-    Frame {
-        anchors { horizontalCenter: parent.horizontalCenter; bottom: topLabel.bottom; bottomMargin: 20 }
-        background: Rectangle {
-            color: "transparent"
-            border.color: "#21be2b"
-            radius: 2
+        Row {
+            TextField { readOnly: true; text: qsTr("Distribution:") }
+            TextField { readOnly: true; text: systeminfo.distribution }
         }
-        Text {
-            text: qsTr("Probing:")
+        Row {
+            TextField { readOnly: true; text: qsTr("Window manager:") }
+            TextField { readOnly: true; text: systeminfo.wmName }
         }
-        Text {
-            text: model.currentOs
-        }
-    }
-
-    ProgressBar {
-        value: model.currentStep
-    } */
     }
 }
