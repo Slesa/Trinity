@@ -2,6 +2,8 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>qtquickcontrols2.conf</file>
-        <file>DetectView.qml</file>
+        <file>SystemInfoView.qml</file>
+        <file>ButtonView.qml</file>
+        <file>CustomizeView.qml</file>
     </qresource>
 </RCC>
