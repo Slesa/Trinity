@@ -1,15 +1,16 @@
 #include "runner.h"
+#include <QGuiApplication>
+#include <QClipboard>
+#include <QDesktopServices>
+#include <QUrl>
 #include <QFile>
 #include <QProcess>
 #include <QDebug>
 
-Runner::Runner(QObject *parent) : QObject(parent)
-  , _doSshKeys(true)
-  , _doCorePrograms(true)
-  , _doXPrograms(true)
-  , _doWmPrograms(true)
-  , _doTexPrograms(true)
-  , _doGames(true)
+const char Runner::fileSshKey[] = "~/.ssh/id_rsa.pub";
+
+Runner::Runner(Settings& settings, QObject *parent) : QObject(parent)
+    , _settings(settings)
 {
 }
 
@@ -36,11 +37,41 @@ void Runner::startRunner() {
 }
 
 void Runner::installSshKeys() {
-    if( !doSshKeys() )
+    if( !_settings.doSshKeys() )
         return;
-
-    if (QFile::exists("~/.ssh/id_rsa.pub"))
+    if (QFile::exists(fileSshKey)) {
+        _logfile << "[Skip] SSH file already present";
         return;
+    }
+    QProcess process;
+    auto params = QStringList() << "-b" << "2048" << "-t" << "rsa" << "-f" << fileSshKey << "-q" << "-N" << "";
+    process.start("ssh-keygen", params);
+    process.waitForFinished();
+    if( process.exitCode()!=0 ) {
+        _logfile << "[Failed] Could not generate SSH file";
+        return;
+    }
 
+    auto sshKey = readFile(fileSshKey);
+    QClipboard* clipboard = QGuiApplication::clipboard();
+    clipboard->setText(sshKey);
 
+    QDesktopServices::openUrl(QUrl("https://github.com/settings/keys"));
+    QDesktopServices::openUrl(QUrl("https://gitlab.com/profile/keys"));
+}
+
+QString Runner::readFile(const char* fileName) {
+    QString result;
+    QFile file(fileName);
+    if(!file.open(QIODevice::ReadOnly)) {
+        qDebug() << "Error: could not read file "<< file.errorString();
+        return result;
+    }
+
+    QTextStream in(&file);
+    while(!in.atEnd()) {
+        result += in.readLine() + "\n";
+    }
+    file.close();
+    return result;
 }

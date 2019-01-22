@@ -4,21 +4,28 @@
 
 #include "systeminfo.h"
 #include "runner.h"
+#include "commandlineparser.h"
 
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QCoreApplication::setApplicationName("Preparation Runner");
+    QCoreApplication::setApplicationVersion("0.1");
+    QGuiApplication app(argc, argv);
 
+    Settings settings;
+    CommandLineParser::readArguments(app, settings);
+
+    Runner runner(settings);
     SystemInfo systemInfo;
-    Runner runner;
     auto validStart = runner.hasRootRights();
 #ifdef QT_DEBUG
     validStart = true;
 #endif
-    QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("systeminfo", &systemInfo);
     engine.rootContext()->setContextProperty("runner", &runner);
+    engine.rootContext()->setContextProperty("settings", &settings);
     QString entryPoint = validStart ? QStringLiteral("qrc:/main.qml") : QStringLiteral("qrc:/norootmsg.qml");
     engine.load(QUrl(entryPoint));
     if (engine.rootObjects().isEmpty())

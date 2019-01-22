@@ -14,14 +14,14 @@ Column {
             CheckBox {
                 height: 20
                 text: qsTr("Generate SSH Key");
-                onClicked: runner.doSshKeys = checked
-                Component.onCompleted: checked = runner.doSshKeys
+                onClicked: settings.doSshKeys = checked
+                Component.onCompleted: checked = settings.doSshKeys
             }
             CheckBox {
                 height: 20
                 text: qsTr("Install Fonts");
-                onClicked: runner.doFonts = checked
-                Component.onCompleted: checked = runner.doFonts
+                onClicked: settings.doFonts = checked
+                Component.onCompleted: checked = settings.doFonts
             }
         }
     }
@@ -35,32 +35,32 @@ Column {
             CheckBox {
                 height: 20
                 text: qsTr("Core programs");
-                onClicked: runner.doCorePrograms = checked
-                Component.onCompleted: checked = runner.doCorePrograms
+                onClicked: settings.doCorePrograms = checked
+                Component.onCompleted: checked = settings.doCorePrograms
             }
             CheckBox {
                 height: 20
                 text: qsTr("X-Programs");
-                onClicked: runner.doXPrograms = checked
-                Component.onCompleted: checked = runner.doXPrograms
+                onClicked: settings.doXPrograms = checked
+                Component.onCompleted: checked = settings.doXPrograms
             }
             CheckBox {
                 height: 20
                 text: qsTr("WM Programs");
-                onClicked: runner.doWmPrograms = checked
-                Component.onCompleted: checked = runner.doWmPrograms
+                onClicked: settings.doWmPrograms = checked
+                Component.onCompleted: checked = settings.doWmPrograms
             }
             CheckBox {
                 height: 20
                 text: qsTr("TeX Programs");
-                onClicked: runner.doTexPrograms = checked
-                Component.onCompleted: checked = runner.doTexPrograms
+                onClicked: settings.doTexPrograms = checked
+                Component.onCompleted: checked = settings.doTexPrograms
             }
             CheckBox {
                 height: 20
                 text: qsTr("Games");
-                onClicked: runner.doGames = checked
-                Component.onCompleted: checked = runner.doGames
+                onClicked: settings.doGames = checked
+                Component.onCompleted: checked = settings.doGames
             }
         }
     }
