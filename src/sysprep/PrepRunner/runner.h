@@ -18,7 +18,7 @@ public:
     explicit Runner(QObject *parent = nullptr);
     Q_INVOKABLE void startRunner();
 
-    bool ensureRoot();
+    bool hasRootRights();
 
     bool doSshKeys() const { return _doSshKeys; }
     void setSshKeys(bool value) { _doSshKeys = value; emit doSshKeysChanged(); }
