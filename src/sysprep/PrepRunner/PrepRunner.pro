@@ -1,4 +1,4 @@
-QT += quick
+QT += core quick
 CONFIG += c++11 static
 
 # The following define makes your compiler emit warnings if you use

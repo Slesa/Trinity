@@ -4,10 +4,12 @@
 #include <QDesktopServices>
 #include <QUrl>
 #include <QFile>
+#include <QDir>
 #include <QProcess>
 #include <QDebug>
 
 const char Runner::fileSshKey[] = "~/.ssh/id_rsa.pub";
+const char Runner::pathDotFiles[] = "~/.dotfiles";
 
 Runner::Runner(Settings& settings, QObject *parent) : QObject(parent)
     , _settings(settings)
@@ -34,14 +36,16 @@ bool Runner::hasRootRights() {
 
 void Runner::startRunner() {
     installSshKeys();
+    installDotFiles();
 }
 
-void Runner::installSshKeys() {
+bool Runner::installSshKeys() {
     if( !_settings.doSshKeys() )
-        return;
+        return false;
+    _logfile << "Installing SSH keys";
     if (QFile::exists(fileSshKey)) {
         _logfile << "[Skip] SSH file already present";
-        return;
+        return false;
     }
     QProcess process;
     auto params = QStringList() << "-b" << "2048" << "-t" << "rsa" << "-f" << fileSshKey << "-q" << "-N" << "";
@@ -49,7 +53,7 @@ void Runner::installSshKeys() {
     process.waitForFinished();
     if( process.exitCode()!=0 ) {
         _logfile << "[Failed] Could not generate SSH file";
-        return;
+        return false;
     }
 
     auto sshKey = readFile(fileSshKey);
@@ -58,7 +62,33 @@ void Runner::installSshKeys() {
 
     QDesktopServices::openUrl(QUrl("https://github.com/settings/keys"));
     QDesktopServices::openUrl(QUrl("https://gitlab.com/profile/keys"));
+    _logfile << "[Ok] SSH keys created";
+    return true;
 }
+
+bool Runner::installDotFiles() {
+    _logfile << "Installing dot files";
+    QProcess process;
+    QStringList params;
+    if (QDir(pathDotFiles).exists()) {
+        _logfile << "[...] dot files already present, updating";
+        params << "pull" << "origin" << "master";
+    }
+    else {
+        _logfile << "[...] cloning from server";
+        params << "clone" << "git@github.com:slesa/DotFiles" << pathDotFiles;
+    }
+    process.start("git", params);
+    process.waitForFinished();
+    if( process.exitCode()!=0 ) {
+        _logfile << "[Failed] Could not get latest dot files";
+        return false;
+    }
+    _logfile << "[Ok] dot files created";
+    return true;
+}
+
+
 
 QString Runner::readFile(const char* fileName) {
     QString result;
