@@ -9,7 +9,7 @@ const char* SystemInfo::wmXfce = "xfce";
 const char* SystemInfo::wmKde = "kde";
 const char* SystemInfo::wmUnknown = "unknown";
 const char* SystemInfo::appXfce = "xfce4-panel";
-const char* SystemInfo::appKde = "kde4-panel";
+const char* SystemInfo::appKde = "kdeinit5";
 
 SystemInfo::SystemInfo()
 {

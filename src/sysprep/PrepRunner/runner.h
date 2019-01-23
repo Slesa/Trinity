@@ -9,8 +9,6 @@
 class Runner : public QObject
 {
     Q_OBJECT
-    static const char fileSshKey[];
-    static const char pathDotFiles[];
 public:
     explicit Runner(Settings& settings, QObject *parent = nullptr);
     Q_INVOKABLE void startRunner();
@@ -21,10 +19,13 @@ public:
 private:
     Settings& _settings;
     QStringList _logfile;
-        
+
+    static QString fileSshKey();
+    static QString pathDotFiles();
+
     bool installSshKeys();
     bool installDotFiles();
-    QString readFile(const char* fileName);
+    QString readFile(const QString& fileName);
 };
 
 #endif // RUNNER_H
