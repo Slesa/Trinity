@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.5
 
 Column {
-    padding: 5
+//    padding: 5
     spacing: 5
     height: parent.height
     GroupBox {

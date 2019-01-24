@@ -6,5 +6,7 @@
         <file>ButtonView.qml</file>
         <file>CustomizeView.qml</file>
         <file>norootmsg.qml</file>
+        <file>StartView.qml</file>
+        <file>WaitForSshView.qml</file>
     </qresource>
 </RCC>

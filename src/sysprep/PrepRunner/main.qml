@@ -1,5 +1,6 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
+import QtQml.StateMachine 1.12 as DSM
 
 ApplicationWindow {
     id: root
@@ -8,28 +9,84 @@ ApplicationWindow {
     height: 480
     title: qsTr("Preparation Runner")
 
-    CustomizeView {
-        anchors { top: parent.top; bottom: buttonRow.top; left: parent.left; right: infoRow.left; rightMargin: 10 }
-    }
-    SystemInfoView {
-        id: infoRow
-        anchors { top: parent.top; bottom: buttonRow.top; right: parent.right }
+    StartView {
+        anchors.fill: parent
+        id: startPage
     }
 
-    ButtonView {
-        id: buttonRow
-        anchors { bottom: parent.bottom; bottomMargin: 5; left: parent.left; right: parent.right }
-    }
-    /* ScrollView {
+    Control {
+        id: runningView
         anchors.fill: parent
+        visible: false
+
+        WaitForSshView {
+            anchors.fill: parent
+            id: waitSshPage
+            visible: false
+        }
 
         ListView {
-            width: parent.width
-            model: 20
-            delegate: ItemDelegate {
-                text: "Item " + (index + 1)
-                width: parent.width
+            id: logView
+            model: runner.logfile
+            height: 200
+            anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
+            delegate: Rectangle {
+                border.color: "lightblue"
+                height: 25
+                //width: parent.width
+                Text {
+                    anchors.centerIn: parent
+                    text: modelData
+                }
             }
         }
-    } */
+    }
+
+    DSM.StateMachine {
+        initialState: startState
+        running: true
+        DSM.State {
+            id: startState
+            DSM.SignalTransition {
+                targetState: runningState
+                signal: runner.running
+            }
+            onEntered: console.log("startState entered")
+            onExited: {
+                startPage.visible = false
+                console.log("startState exited")
+            }
+        }
+
+        DSM.State {
+            id: runningState
+            DSM.SignalTransition {
+                targetState: waitSshState
+                signal: runner.waitForSsh
+            }
+            onEntered: console.log("runningState entered")
+            onExited: {
+                runningView.visible = true
+                console.log("runningState exited")
+            }
+        }
+
+        DSM.State {
+            id: waitSshState
+            /* DSM.SignalTransition {
+                targetState: s2
+                signal: runner.waitForOk
+            } */
+            onEntered: {
+                waitSshPage.visible = true
+                // runner.continueRunner()
+                console.log("waitSshState entered")
+            }
+            onExited: {
+                waitSshPage.visible = false
+                console.log("waitSshState exited")
+            }
+        }
+    }
+
 }

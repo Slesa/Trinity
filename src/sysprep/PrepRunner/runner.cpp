@@ -32,24 +32,35 @@ bool Runner::hasRootRights() {
 }
 
 void Runner::startRunner() {
+    emit running();
     installSshKeys();
+}
+
+void Runner::continueRunner() {
     installDotFiles();
 }
 
 bool Runner::installSshKeys() {
     if( !_settings.doSshKeys() )
         return false;
-    _logfile << "Installing SSH keys";
+    _logfile << "Installing SSH keys"; emit logfileChanged();
     if (QFile::exists(fileSshKey())) {
-        _logfile << "[Skip] SSH file already present";
+        _logfile << "[Skip] SSH file already present"; emit logfileChanged();
         return false;
     }
     QProcess process;
-    auto params = QStringList() << "-b" << "2048" << "-t" << "rsa" << "-f" << fileSshKey() << "-q" << "-N" << "";
+    QStringList params;
+    params << "-b" << "4096" << "-t" << "rsa" << "-f" << fileSshKey() << "-q" << "-N" << "";
     process.start("ssh-keygen", params);
     process.waitForFinished();
+    auto outp = QString(process.readAllStandardOutput());
+    qDebug() << "Output: " << outp;
+    _logfile << outp; emit logfileChanged();
     if( process.exitCode()!=0 ) {
-        _logfile << "[Failed] Could not generate SSH file";
+        auto errout = QString(process.readAllStandardError());
+        qDebug() << "Stderr: " << errout;
+        _logfile << errout;
+        _logfile << "[Failed] Could not generate SSH file"; emit logfileChanged();
         return false;
     }
 
@@ -60,6 +71,7 @@ bool Runner::installSshKeys() {
     QDesktopServices::openUrl(QUrl("https://github.com/settings/keys"));
     QDesktopServices::openUrl(QUrl("https://gitlab.com/profile/keys"));
     _logfile << "[Ok] SSH keys created";
+    emit waitForSsh();
     return true;
 }
 

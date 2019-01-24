@@ -9,12 +9,18 @@
 class Runner : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QStringList logfile MEMBER _logfile NOTIFY logfileChanged)
 public:
     explicit Runner(Settings& settings, QObject *parent = nullptr);
     Q_INVOKABLE void startRunner();
+    Q_INVOKABLE void continueRunner();
 
     bool hasRootRights();
 
+signals:
+    void logfileChanged();
+    void running();
+    void waitForSsh();
 
 private:
     Settings& _settings;
