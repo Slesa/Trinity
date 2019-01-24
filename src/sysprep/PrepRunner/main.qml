@@ -12,30 +12,46 @@ ApplicationWindow {
     StartView {
         anchors.fill: parent
         id: startPage
+        Rectangle {
+            color: "orange"
+            opacity: 0.3
+            anchors.fill: parent
+        }
     }
 
     Control {
         id: runningView
         anchors.fill: parent
         visible: false
-
-        WaitForSshView {
+/*
+        Rectangle {
+            color: "blue"
+            opacity: 0.3
             anchors.fill: parent
+        }
+*/
+/*
+        WaitForSshView {
+            // anchors.fill: parent
             id: waitSshPage
             visible: false
+            height: 300
+            width: 300
+            //anchors { left: parent.left; leftMargin: 5; right: parent.right; rightMargin: 5; top: parent.top }
         }
-
+*/
         ListView {
             id: logView
             model: runner.logfile
-            height: 200
-            anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
+            anchors.fill: parent
+            //height: 200
+//            anchors { top: parent.bottom; left: parent.left; leftMargin: 5; right: parent.right; rightMargin: 5; bottom: parent.bottom }
             delegate: Rectangle {
-                border.color: "lightblue"
-                height: 25
-                //width: parent.width
+                //border.color: "lightblue"
+                height: 22
+                width: parent.width
                 Text {
-                    anchors.centerIn: parent
+                    // anchors.centerIn: parent
                     text: modelData
                 }
             }
@@ -64,9 +80,11 @@ ApplicationWindow {
                 targetState: waitSshState
                 signal: runner.waitForSsh
             }
-            onEntered: console.log("runningState entered")
-            onExited: {
+            onEntered: {
                 runningView.visible = true
+                console.log("runningState entered")
+            }
+            onExited: {
                 console.log("runningState exited")
             }
         }

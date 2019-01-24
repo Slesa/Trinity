@@ -32,6 +32,8 @@ private:
     bool installSshKeys();
     bool installDotFiles();
     QString readFile(const QString& fileName);
+    void appendLog(const QString& line);
+    void appendLog(const QStringList& lines);
 };
 
 #endif // RUNNER_H

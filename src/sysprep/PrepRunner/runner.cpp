@@ -43,68 +43,74 @@ void Runner::continueRunner() {
 bool Runner::installSshKeys() {
     if( !_settings.doSshKeys() )
         return false;
-    _logfile << "Installing SSH keys"; emit logfileChanged();
-    if (QFile::exists(fileSshKey())) {
-        _logfile << "[Skip] SSH file already present"; emit logfileChanged();
-        return false;
-    }
-    QProcess process;
-    QStringList params;
-    params << "-b" << "4096" << "-t" << "rsa" << "-f" << fileSshKey() << "-q" << "-N" << "";
-    process.start("ssh-keygen", params);
-    process.waitForFinished();
-    auto outp = QString(process.readAllStandardOutput());
-    qDebug() << "Output: " << outp;
-    _logfile << outp; emit logfileChanged();
-    if( process.exitCode()!=0 ) {
-        auto errout = QString(process.readAllStandardError());
-        qDebug() << "Stderr: " << errout;
-        _logfile << errout;
-        _logfile << "[Failed] Could not generate SSH file"; emit logfileChanged();
+    auto filename = fileSshKey();
+    appendLog(QString("Installing SSH keys in %1...").arg(filename));
+    if (QFile::exists(filename)) {
+        appendLog("[Skip] SSH file already present");
         return false;
     }
 
-    auto sshKey = readFile(fileSshKey());
+    QProcess process;
+    QStringList params;
+    params << "-b" << "4096" << "-t" << "rsa" << "-f" << filename << "-q" << "-N" << "";
+    process.start("ssh-keygen", params);
+    process.waitForFinished();
+//    appendLog( QString(process.readAllStandardOutput()).split("\n") );
+
+    if( process.exitCode()!=0 ) {
+        appendLog( QString(process.readAllStandardError()).split("\n") );
+        appendLog("[Failed] Could not generate SSH file");
+        return false;
+    }
+
+    auto sshKey = readFile(filename+".pub");
+    appendLog("SSH key is "+sshKey);
+    if( sshKey.isEmpty() ) {
+        appendLog("[Error] SSH is empty");
+        return false;
+    }
     QClipboard* clipboard = QGuiApplication::clipboard();
     clipboard->setText(sshKey);
 
     QDesktopServices::openUrl(QUrl("https://github.com/settings/keys"));
     QDesktopServices::openUrl(QUrl("https://gitlab.com/profile/keys"));
-    _logfile << "[Ok] SSH keys created";
+    appendLog("[Ok] SSH keys created");
     emit waitForSsh();
     return true;
 }
 
 bool Runner::installDotFiles() {
-    _logfile << "Installing dot files";
+    appendLog("Installing dot files...");
     auto path = pathDotFiles();
     QProcess process;
     QStringList params;
     if (QDir(path).exists()) {
-        _logfile << "[...] dot files already present, updating";
+        appendLog("[...] dot files already present, updating");
         params << "pull" << "origin" << "master";
     }
     else {
-        _logfile << "[...] cloning from server";
+        appendLog("[...] cloning from server");
         params << "clone" << "git@github.com:slesa/DotFiles" << path;
     }
     process.start("git", params);
     process.waitForFinished();
-    auto outp = QString(process.readAllStandardOutput());
-    _logfile << outp;
+    appendLog( QString(process.readAllStandardOutput()).split("\n") );
+
     if( process.exitCode()!=0 ) {
-        auto errout = QString(process.readAllStandardError());
-        _logfile << errout;
-        _logfile << "[Failed] Could not get latest dot files";
+        appendLog( QString(process.readAllStandardError()).split("\n") );
+        appendLog("[Failed] Could not get latest dot files");
         return false;
     }
-    _logfile << "[Ok] dot files created";
+    appendLog("[Ok] dot files created");
     return true;
 }
 
 QString Runner::fileSshKey() {
     //const char Runner::fileSshKey[] = "~/.ssh/id_rsa.pub";
-    return QStandardPaths::locate(QStandardPaths::HomeLocation, ".ssh/id_rsa.pub", QStandardPaths::LocateFile);
+    auto fn = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/.ssh/id_rsa";
+    //auto fn = QStandardPaths::locate(QStandardPaths::HomeLocation, ".ssh/id_rsa.pub", QStandardPaths::LocateFile);
+    qDebug() << "ssh key file name: " << fn;
+    return fn;
 }
 QString Runner::pathDotFiles() {
     //const char Runner::pathDotFiles[] = "~/.dotfiles";
@@ -115,16 +121,25 @@ QString Runner::pathDotFiles() {
 QString Runner::readFile(const QString& fileName) {
     QString result;
     QFile file(fileName);
-    if(!file.open(QIODevice::ReadOnly)) {
-        qDebug() << "Error: could not read file "<< file.errorString();
+    if(!file.open(QIODevice::ReadOnly | QFile::Text)) {
+        qCritical() << "Error: could not read file " << fileName << ": " << file.errorString();
         return result;
     }
 
     QTextStream in(&file);
-    while(!in.atEnd()) {
-        result += in.readLine() + "\n";
-    }
+    result = in.readAll();
+    qDebug() << "ssh key read as " << result;
     file.close();
     return result;
 }
 
+void Runner::appendLog(const QString& line) {
+    qDebug() << line;
+    _logfile << line;
+    emit logfileChanged();
+}
+void Runner::appendLog(const QStringList& lines) {
+    for(const QString& line : lines) {
+        if( !line.isEmpty()) appendLog(line);
+    }
+}

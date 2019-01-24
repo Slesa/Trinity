@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 2.2
 
 Column {
+    anchors.fill: parent
 
     TextField {
         // anchors { top: parent.top; left: parent.left; right: parent.right }
