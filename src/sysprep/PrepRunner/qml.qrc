@@ -8,5 +8,6 @@
         <file>norootmsg.qml</file>
         <file>StartView.qml</file>
         <file>WaitForSshView.qml</file>
+        <file>RunningView.qml</file>
     </qresource>
 </RCC>

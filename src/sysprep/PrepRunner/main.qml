@@ -19,42 +19,14 @@ ApplicationWindow {
         }
     }
 
-    Control {
-        id: runningView
+    RunningView {
         anchors.fill: parent
+        id: runningPage
         visible: false
-/*
         Rectangle {
-            color: "blue"
+            color: "yellow"
             opacity: 0.3
             anchors.fill: parent
-        }
-*/
-/*
-        WaitForSshView {
-            // anchors.fill: parent
-            id: waitSshPage
-            visible: false
-            height: 300
-            width: 300
-            //anchors { left: parent.left; leftMargin: 5; right: parent.right; rightMargin: 5; top: parent.top }
-        }
-*/
-        ListView {
-            id: logView
-            model: runner.logfile
-            anchors.fill: parent
-            //height: 200
-//            anchors { top: parent.bottom; left: parent.left; leftMargin: 5; right: parent.right; rightMargin: 5; bottom: parent.bottom }
-            delegate: Rectangle {
-                //border.color: "lightblue"
-                height: 22
-                width: parent.width
-                Text {
-                    // anchors.centerIn: parent
-                    text: modelData
-                }
-            }
         }
     }
 
@@ -81,7 +53,7 @@ ApplicationWindow {
                 signal: runner.waitForSsh
             }
             onEntered: {
-                runningView.visible = true
+                runningPage.visible = true
                 console.log("runningState entered")
             }
             onExited: {

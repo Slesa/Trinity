@@ -1,16 +1,31 @@
-import QtQuick 2.0
-import QtQuick.Controls 2.2
+import QtQuick 2.12
+import QtQuick.Controls 2.5
 
-Column {
-    anchors.fill: parent
+Rectangle {
+    //anchors.fill: parent.fill
+    color: "magenta"
+    Column {
+        anchors.fill: parent
+        anchors.margins: 5
 
-    TextField {
-        // anchors { top: parent.top; left: parent.left; right: parent.right }
-        text: qsTr("Please add SSH keys to GitHub and GitLab and press then Continue")
+
+        Text {
+            // anchors { top: parent.top; left: parent.left; right: parent.right }
+            font.pointSize:12
+            wrapMode: Text.WordWrap
+            text: qsTr("Please add SSH keys to GitHub and GitLab and press then Continue")
+        }
     }
-
-    Button {
-        // anchors { bottom: parent.bottom; anchors.left: parent.left; anchors.right: parent.right }
-        text: qsTr("Continue")
+    Row {
+        id: buttonRow
+        height: 35
+        spacing: 5
+        padding: 5
+        anchors { bottom: parent.bottom; bottomMargin: 5; left: parent.left; right: parent.right }
+        Button {
+            text: qsTr("Continue")
+            height: parent.height
+            onClicked: Qt.quit()
+        }
     }
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+    <Name>Preparation Runner</Name>
+    <Version>0.0.1</Version>
+    <Title>Preparation Installer</Title>
+    <Publisher>Slesa Solutions</Publisher>
+    <StartMenuDir>Preparation</StartMenuDir>
+    <TargetDir>@HomeDir@/Preparation</TargetDir>
+</Installer>

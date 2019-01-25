@@ -6,10 +6,16 @@
 #include <QObject>
 #include <QDebug>
 
+enum SshResult {
+    Ok, WaitForCopy, Failure
+};
+
 class Runner : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QStringList logfile MEMBER _logfile NOTIFY logfileChanged)
+
+    static const char strPathDotFiles[];
 public:
     explicit Runner(Settings& settings, QObject *parent = nullptr);
     Q_INVOKABLE void startRunner();
@@ -19,7 +25,11 @@ public:
 
 signals:
     void logfileChanged();
+    // In start page was run started
     void running();
+    // Run failed
+    void runFailed();
+    // Copy ssh key in cliboard where needed
     void waitForSsh();
 
 private:
@@ -29,8 +39,10 @@ private:
     static QString fileSshKey();
     static QString pathDotFiles();
 
-    bool installSshKeys();
+    SshResult installSshKeys();
+    // Returns true if no error occured
     bool installDotFiles();
+
     QString readFile(const QString& fileName);
     void appendLog(const QString& line);
     void appendLog(const QStringList& lines);
