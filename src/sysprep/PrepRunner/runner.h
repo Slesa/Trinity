@@ -3,8 +3,10 @@
 
 #include "settings.h"
 #include <QStringList>
+#include <QProcess>
 #include <QObject>
 #include <QDebug>
+
 
 enum SshResult {
     Ok, WaitForCopy, Failure
@@ -31,17 +33,23 @@ signals:
     void runFailed();
     // Copy ssh key in cliboard where needed
     void waitForSsh();
+    void waitForDot();
+
+private slots:
+    void onDotFileExit(int exitCode, QProcess::ExitStatus exitStatus);
 
 private:
     Settings& _settings;
     QStringList _logfile;
+
+    QProcess* _procDotFiles;
 
     static QString fileSshKey();
     static QString pathDotFiles();
 
     SshResult installSshKeys();
     // Returns true if no error occured
-    bool installDotFiles();
+    void installDotFiles();
 
     QString readFile(const QString& fileName);
     void appendLog(const QString& line);

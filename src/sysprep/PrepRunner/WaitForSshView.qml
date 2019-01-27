@@ -3,11 +3,10 @@ import QtQuick.Controls 2.5
 
 Rectangle {
     //anchors.fill: parent.fill
-    color: "magenta"
+    color: "lightblue"
     Column {
         anchors.fill: parent
         anchors.margins: 5
-
 
         Text {
             // anchors { top: parent.top; left: parent.left; right: parent.right }

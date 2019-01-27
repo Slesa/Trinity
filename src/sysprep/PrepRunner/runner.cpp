@@ -5,13 +5,13 @@
 #include <QUrl>
 #include <QFile>
 #include <QDir>
-#include <QProcess>
 #include <QDebug>
 
 const char Runner::strPathDotFiles[] = ".dotfiles";
 
 Runner::Runner(Settings& settings, QObject *parent) : QObject(parent)
-    , _settings(settings)
+  , _settings(settings)
+  , _procDotFiles(nullptr)
 {
 }
 
@@ -51,7 +51,7 @@ void Runner::startRunner() {
 }
 
 void Runner::continueRunner() {
-    auto noerror = installDotFiles();
+    installDotFiles();
 }
 
 SshResult Runner::installSshKeys() {
@@ -92,32 +92,36 @@ SshResult Runner::installSshKeys() {
     return SshResult::WaitForCopy;
 }
 
-bool Runner::installDotFiles() {
+void Runner::installDotFiles() {
     appendLog("Installing dot files...");
     auto path = pathDotFiles();
-    QProcess process;
+    _procDotFiles = new QProcess(this);
+    connect(_procDotFiles, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(onDotFileExit(int, QProcess::ExitStatus)));
     QStringList params;
     if (QDir(path).exists()) {
-        process.setWorkingDirectory(path);
+        _procDotFiles->setWorkingDirectory(path);
         appendLog("[...] dot files already present, updating");
         params << "pull" << "origin" << "master";
     }
     else {
-        process.setWorkingDirectory(QStandardPaths::writableLocation(QStandardPaths::HomeLocation));
+        _procDotFiles->setWorkingDirectory(QStandardPaths::writableLocation(QStandardPaths::HomeLocation));
         appendLog("[...] cloning from server");
         params << "clone" << "git@github.com:slesa/DotFiles" << strPathDotFiles;
     }
-    process.start("git", params);
-    process.waitForFinished(-1);
-    appendLog( QString(process.readAllStandardOutput()).split("\n") );
+    _procDotFiles->start("git", params);
+    emit waitForDot();
+}
 
-    if( process.exitCode()!=0 ) {
-        appendLog( QString(process.readAllStandardError()).split("\n") );
+void Runner::onDotFileExit(int exitCode, QProcess::ExitStatus exitStatus) {
+    appendLog( QString(_procDotFiles->readAllStandardOutput()).split("\n") );
+
+    if( exitStatus==QProcess::ExitStatus::CrashExit || exitCode!=0 ) {
+        appendLog( QString(_procDotFiles->readAllStandardError()).split("\n") );
         appendLog("[Failed] Could not get latest dot files");
-        return false;
+        emit runFailed(); // This run failed...
+        return;
     }
     appendLog("[Ok] dot files created");
-    return true;
 }
 
 QString Runner::fileSshKey() {
