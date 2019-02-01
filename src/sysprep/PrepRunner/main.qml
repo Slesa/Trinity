@@ -10,24 +10,24 @@ ApplicationWindow {
     title: qsTr("Preparation Runner")
 
     StartView {
-        anchors.fill: parent
         id: startPage
-        Rectangle {
-            color: "orange"
+        anchors.fill: parent
+        /* Rectangle {
+            color: "white"
             opacity: 0.3
             anchors.fill: parent
-        }
+        } */
     }
 
     RunningView {
-        anchors.fill: parent
         id: runningPage
+        anchors.fill: parent
         visible: false
-        Rectangle {
+        /* Rectangle {
             color: "yellow"
             opacity: 0.3
             anchors.fill: parent
-        }
+        } */
     }
 
     DSM.StateMachine {
@@ -39,7 +39,10 @@ ApplicationWindow {
                 targetState: runningState
                 signal: runner.running
             }
-            onEntered: console.log("startState entered")
+            onEntered: {
+                startPage.visible = true
+                console.log("startState entered")
+            }
             onExited: {
                 startPage.visible = false
                 console.log("startState exited")
@@ -49,24 +52,25 @@ ApplicationWindow {
         DSM.State {
             id: runningState
             DSM.SignalTransition {
-                targetState: waitSshState
-                signal: runner.waitForSsh
+                targetState: startState
+                signal: runner.runStopped
             }
             onEntered: {
                 runningPage.visible = true
                 console.log("runningState entered")
             }
             onExited: {
+                runningPage.visible = false
                 console.log("runningState exited")
             }
         }
-
+/*
         DSM.State {
             id: waitSshState
             /* DSM.SignalTransition {
                 targetState: s2
                 signal: runner.waitForOk
-            } */
+            } * /
             onEntered: {
                 waitSshPage.visible = true
                 // runner.continueRunner()
@@ -77,6 +81,6 @@ ApplicationWindow {
                 console.log("waitSshState exited")
             }
         }
+*/
     }
-
 }

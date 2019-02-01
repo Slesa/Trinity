@@ -17,7 +17,11 @@ SOURCES += \
     systeminfo.cpp \
     runner.cpp \
     commandlineparser.cpp \
-    settings.cpp
+    settings.cpp \
+    runtask.cpp \
+    logger.cpp \
+    installsshkeytask.cpp \
+    getdotfilestask.cpp
 
 RESOURCES += qml.qrc
 
@@ -36,4 +40,8 @@ HEADERS += \
     systeminfo.h \
     runner.h \
     commandlineparser.h \
-    settings.h
+    settings.h \
+    runtask.h \
+    logger.h \
+    installsshkeytask.h \
+    getdotfilestask.h

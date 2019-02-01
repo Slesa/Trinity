@@ -13,21 +13,26 @@ Control {
     }
 */
 
-    WaitForSshView {
-        anchors.fill: parent
-        id: waitSshPage
-        //visible: false
-        //height: 100
-        //width: 300
-        //anchors { left: parent.left; leftMargin: 5; right: parent.right; rightMargin: 5; top: parent.top }
+    GroupBox {
+        id: runContent
+        anchors { margins: 5; left: parent.left; right: parent.right; top: parent.top; bottom: logView.top }
+        WaitForSshView {
+            anchors.fill: parent
+            id: waitSshPage
+            //visible: false
+            //height: 100
+            //width: 300
+        }
     }
 
-    Rectangle {
+    GroupBox {
         id: logView
-        anchors { top: waitSshPage.bottom; left: parent.left; leftMargin: 5; right: parent.right; rightMargin: 5; bottom: buttonRow.top }
-        color: "white"
+        title: qsTr("Output")
+        height: 200
+        anchors { left: parent.left; leftMargin: 5; right: parent.right; rightMargin: 5; bottom: buttonRow.top }
+        // color: "white"
         ListView {
-            model: runner.logfile
+            model: logger.logfile
             anchors.fill: parent
             //height: 200
             delegate: Rectangle {
@@ -56,7 +61,14 @@ Control {
         Button {
             text: qsTr("&Back")
             height: parent.height
-            onClicked: runner.startRunner()
+            visible: runner.canBack
+            onClicked: runner.stopRunner()
+        }
+        Button {
+            text: qsTr("Co&ntinue")
+            height: parent.height
+            visible: runner.canContinue
+            onClicked: runner.continueRunner()
         }
     }
 }

@@ -15,16 +15,4 @@ Rectangle {
             text: qsTr("Please add SSH keys to GitHub and GitLab and press then Continue")
         }
     }
-    Row {
-        id: buttonRow
-        height: 35
-        spacing: 5
-        padding: 5
-        anchors { bottom: parent.bottom; bottomMargin: 5; left: parent.left; right: parent.right }
-        Button {
-            text: qsTr("Continue")
-            height: parent.height
-            onClicked: Qt.quit()
-        }
-    }
 }

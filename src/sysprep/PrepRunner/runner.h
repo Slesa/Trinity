@@ -2,58 +2,46 @@
 #define RUNNER_H
 
 #include "settings.h"
+#include "logger.h"
 #include <QStringList>
-#include <QProcess>
 #include <QObject>
 #include <QDebug>
-
-
-enum SshResult {
-    Ok, WaitForCopy, Failure
-};
 
 class Runner : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QStringList logfile MEMBER _logfile NOTIFY logfileChanged)
+    Q_PROPERTY(bool canQuit MEMBER _canQuit NOTIFY canQuitChanged)
+    Q_PROPERTY(bool canBack MEMBER _canBack NOTIFY canBackChanged)
+    Q_PROPERTY(bool canContinue MEMBER _canContinue NOTIFY canContinueChanged)
 
-    static const char strPathDotFiles[];
 public:
-    explicit Runner(Settings& settings, QObject *parent = nullptr);
+    explicit Runner(Settings& settings, Logger& logger, QObject *parent = nullptr);
     Q_INVOKABLE void startRunner();
+    Q_INVOKABLE void stopRunner();
     Q_INVOKABLE void continueRunner();
 
     bool hasRootRights();
+    static QString readFile(const QString& fileName);
 
 signals:
-    void logfileChanged();
+    void canQuitChanged();
+    void canBackChanged();
+    void canContinueChanged();
+
     // In start page was run started
     void running();
-    // Run failed
+    void runStopped();
     void runFailed();
     // Copy ssh key in cliboard where needed
     void waitForSsh();
     void waitForDot();
 
-private slots:
-    void onDotFileExit(int exitCode, QProcess::ExitStatus exitStatus);
-
 private:
     Settings& _settings;
-    QStringList _logfile;
-
-    QProcess* _procDotFiles;
-
-    static QString fileSshKey();
-    static QString pathDotFiles();
-
-    SshResult installSshKeys();
-    // Returns true if no error occured
-    void installDotFiles();
-
-    QString readFile(const QString& fileName);
-    void appendLog(const QString& line);
-    void appendLog(const QStringList& lines);
+    Logger& _logger;
+    bool _canQuit;
+    bool _canBack;
+    bool _canContinue;
 };
 
 #endif // RUNNER_H

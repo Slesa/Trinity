@@ -4,6 +4,7 @@
 
 #include "systeminfo.h"
 #include "runner.h"
+#include "logger.h"
 #include "commandlineparser.h"
 
 int main(int argc, char *argv[])
@@ -15,8 +16,9 @@ int main(int argc, char *argv[])
 
     Settings settings;
     CommandLineParser::readArguments(app, settings);
+    Logger logger;
 
-    Runner runner(settings);
+    Runner runner(settings, logger);
     SystemInfo systemInfo;
     auto validStart = runner.hasRootRights();
 #ifdef QT_DEBUG
@@ -25,6 +27,7 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("systeminfo", &systemInfo);
     engine.rootContext()->setContextProperty("runner", &runner);
+    engine.rootContext()->setContextProperty("logger", &logger);
     engine.rootContext()->setContextProperty("settings", &settings);
     QString entryPoint = validStart ? QStringLiteral("qrc:/main.qml") : QStringLiteral("qrc:/norootmsg.qml");
     engine.load(QUrl(entryPoint));
