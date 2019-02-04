@@ -8,10 +8,10 @@ class GetDotFilesTask : public RunTask
 {
     static const char strPathDotFiles[];
 public:
-    explicit GetDotFilesTask(Settings& settings, Logger& logger, QObject* parent=nullptr);
+    explicit GetDotFilesTask(Runner& runner, Settings& settings, Logger& logger, QObject* parent=nullptr);
 
-    virtual bool shouldExecute();
-    virtual void execute();
+    virtual bool shouldExecute() override;
+    virtual void execute() override;
 
 private slots:
     void onDotFileExit(int exitCode, QProcess::ExitStatus exitStatus);

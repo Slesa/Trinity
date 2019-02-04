@@ -8,7 +8,7 @@
 #include <QFile>
 #include <QDebug>
 
-InstallSshKeyTask::InstallSshKeyTask(Settings& settings, Logger& logger, QObject* parent) : RunTask(settings, logger, parent)
+InstallSshKeyTask::InstallSshKeyTask(Runner& runner, Settings& settings, Logger& logger, QObject* parent) : RunTask(runner, settings, logger, parent)
 {
 }
 
@@ -21,7 +21,7 @@ void InstallSshKeyTask::execute() {
     _logger.appendLog(QString("Installing SSH keys in %1...").arg(filename));
     if (QFile::exists(filename)) {
         _logger.appendLog("[Skip] SSH file already present");
-        emit failed();
+        _runner.doFail();
         return;
     }
 
@@ -35,7 +35,7 @@ void InstallSshKeyTask::execute() {
     if( process.exitCode()!=0 ) {
         _logger.appendLog( QString(process.readAllStandardError()).split("\n") );
         _logger.appendLog("[Failed] Could not generate SSH file");
-        emit failed();
+        _runner.doFail();
         return;
     }
 
@@ -43,7 +43,7 @@ void InstallSshKeyTask::execute() {
     _logger.appendLog("SSH key is "+sshKey);
     if( sshKey.isEmpty() ) {
         _logger.appendLog("[Error] SSH is empty");
-        emit failed();
+        _runner.doFail();
         return;
     }
     QClipboard* clipboard = QGuiApplication::clipboard();
@@ -52,7 +52,7 @@ void InstallSshKeyTask::execute() {
     QDesktopServices::openUrl(QUrl("https://github.com/settings/keys"));
     QDesktopServices::openUrl(QUrl("https://gitlab.com/profile/keys"));
     _logger.appendLog("[Ok] SSH keys created");
-    emit finished();
+    _runner.doWaitForSsh();
 
 }
 

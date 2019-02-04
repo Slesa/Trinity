@@ -1,11 +1,12 @@
 #include "getdotfilestask.h"
+#include "runner.h"
 #include <QDesktopServices>
 #include <QDir>
 #include <QDebug>
 
 const char GetDotFilesTask::strPathDotFiles[] = ".dotfiles";
 
-GetDotFilesTask::GetDotFilesTask(Settings& settings, Logger& logger, QObject* parent) : RunTask(settings, logger, parent)
+GetDotFilesTask::GetDotFilesTask(Runner& runner, Settings& settings, Logger& logger, QObject* parent) : RunTask(runner, settings, logger, parent)
   , _procDotFiles(nullptr)
 {
 }
@@ -31,7 +32,7 @@ void GetDotFilesTask::execute() {
         params << "clone" << "git@github.com:slesa/DotFiles" << strPathDotFiles;
     }
     _procDotFiles->start("git", params);
-    emit waitForDot();
+    _runner.doWaitForDot();
 }
 
 void GetDotFilesTask::onDotFileExit(int exitCode, QProcess::ExitStatus exitStatus) {

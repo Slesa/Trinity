@@ -1,7 +1,20 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
+import QtQml.StateMachine 1.12 as DSM
 
 Control {
+
+    GroupBox {
+        id: progressView
+        title: qsTr("Progress")
+        height: 40
+        anchors { margins: 5; left: parent.left; right: parent.right; top: parent.top }
+
+        ProgressBar {
+            value: 0.5
+        }
+    }
+
 /*
     Rectangle {
         id: waitSshPage
@@ -15,11 +28,11 @@ Control {
 
     GroupBox {
         id: runContent
-        anchors { margins: 5; left: parent.left; right: parent.right; top: parent.top; bottom: logView.top }
+        anchors { margins: 5; left: parent.left; right: parent.right; top: progressView.bottom; bottom: logView.top }
         WaitForSshView {
-            anchors.fill: parent
             id: waitSshPage
-            //visible: false
+            anchors.fill: parent
+            visible: false
             //height: 100
             //width: 300
         }
@@ -29,7 +42,7 @@ Control {
         id: logView
         title: qsTr("Output")
         height: 200
-        anchors { left: parent.left; leftMargin: 5; right: parent.right; rightMargin: 5; bottom: buttonRow.top }
+        anchors { margins: 5; left: parent.left; right: parent.right; bottom: buttonRow.top }
         // color: "white"
         ListView {
             model: logger.logfile
@@ -69,6 +82,39 @@ Control {
             height: parent.height
             visible: runner.canContinue
             onClicked: runner.continueRunner()
+        }
+    }
+
+    DSM.StateMachine {
+        initialState: runningState
+        running: true
+        DSM.State {
+            id: runningState
+            DSM.SignalTransition {
+                targetState: waitSshState
+                signal: runner.waitForSsh
+            }
+            onEntered: {
+                console.log("runningState entered")
+            }
+            onExited: {
+                console.log("runningState exited")
+            }
+        }
+        DSM.State {
+            id: waitSshState
+            DSM.SignalTransition {
+                targetState: runningState
+                signal: runner.continueRun
+            }
+            onEntered: {
+                waitSshPage.Visible = true
+                console.log("waitSshState entered")
+            }
+            onExited: {
+                waitSshPage.Visible = false
+                console.log("waitSshState exited")
+            }
         }
     }
 }

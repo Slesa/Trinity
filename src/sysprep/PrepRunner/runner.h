@@ -3,9 +3,12 @@
 
 #include "settings.h"
 #include "logger.h"
+#include <QList>
 #include <QStringList>
 #include <QObject>
 #include <QDebug>
+
+class RunTask;
 
 class Runner : public QObject
 {
@@ -23,6 +26,11 @@ public:
     bool hasRootRights();
     static QString readFile(const QString& fileName);
 
+    void doFinish() { emit runFinished(); }
+    void doFail() { emit runFailed(); }
+    void doContinue() { emit continueRun(); }
+    void doWaitForSsh() { emit waitForSsh(); }
+    void doWaitForDot() { emit waitForDot(); }
 signals:
     void canQuitChanged();
     void canBackChanged();
@@ -30,8 +38,9 @@ signals:
 
     // In start page was run started
     void running();
-    void runStopped();
+    void runFinished();
     void runFailed();
+    void continueRun();
     // Copy ssh key in cliboard where needed
     void waitForSsh();
     void waitForDot();
@@ -42,6 +51,9 @@ private:
     bool _canQuit;
     bool _canBack;
     bool _canContinue;
+
+    QList<RunTask*>* _runTasks;
+    RunTask* _currentTask;
 };
 
 #endif // RUNNER_H

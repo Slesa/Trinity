@@ -6,10 +6,10 @@
 class InstallSshKeyTask : public RunTask
 {
 public:
-    explicit InstallSshKeyTask(Settings& settings, Logger& logger, QObject* parent=nullptr);
+    explicit InstallSshKeyTask(Runner& runner, Settings& settings, Logger& logger, QObject* parent=nullptr);
 
-    virtual bool shouldExecute();
-    virtual void execute();
+    virtual bool shouldExecute() override;
+    virtual void execute() override;
 
 private:
     static QString fileSshKey();

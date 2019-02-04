@@ -1,4 +1,7 @@
 #include "runner.h"
+#include "runtask.h"
+#include <QCoreApplication>
+#include <QProcess>
 #include <QClipboard>
 #include <QFile>
 #include <QDebug>
@@ -10,6 +13,7 @@ Runner::Runner(Settings& settings, Logger& logger, QObject *parent) : QObject(pa
   , _canQuit(true)
   , _canBack(true)
   , _canContinue(true)
+  , _currentTask(nullptr)
 {
 }
 
@@ -33,29 +37,24 @@ bool Runner::hasRootRights() {
 
 void Runner::startRunner() {
     _logger.clearLog();
+    _runTasks = RunTask::createTasks(*this, _settings, _logger);
     emit running();
-    _logger.appendLog("Started...");
-    //auto sshstate = installSshKeys();
-    /* switch(sshstate)
-    {
-    // ssh key already present
-    case SshResult::Ok:
-        continueRunner();
-        break;
-    case SshResult::WaitForCopy:
-        emit waitForSsh(); // Wait for input ssh keys where needed
-        break;
-    // default:
-    //    emit runFailed(); // This run failed...
-    } */
+    _logger.appendLog(tr("Started, got %1 tasks...").arg(_runTasks->count()));
+
+    continueRunner();
 }
 
 void Runner::stopRunner() {
-    emit runStopped();
+    emit runFinished();
 }
 
 void Runner::continueRunner() {
-    installDotFiles();
+    QCoreApplication::processEvents();
+    if( _currentTask!=nullptr) delete _currentTask;
+
+    emit continueRun();
+    _currentTask = _runTasks->takeFirst();
+    _currentTask->execute();
 }
 
 
