@@ -13,9 +13,9 @@ class RunTask;
 class Runner : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(bool canQuit MEMBER _canQuit NOTIFY canQuitChanged)
-    Q_PROPERTY(bool canBack MEMBER _canBack NOTIFY canBackChanged)
-    Q_PROPERTY(bool canContinue MEMBER _canContinue NOTIFY canContinueChanged)
+    Q_PROPERTY(bool canQuit MEMBER _canQuit NOTIFY canQuitChanged READ canQuit WRITE setCanQuit)
+    Q_PROPERTY(bool canBack MEMBER _canBack NOTIFY canBackChanged READ canBack WRITE setCanBack)
+    Q_PROPERTY(bool canContinue MEMBER _canContinue NOTIFY canContinueChanged READ canContinue WRITE setCanContinue)
 
 public:
     explicit Runner(Settings& settings, Logger& logger, QObject *parent = nullptr);
@@ -26,11 +26,17 @@ public:
     bool hasRootRights();
     static QString readFile(const QString& fileName);
 
-    void doFinish() { emit runFinished(); }
-    void doFail() { emit runFailed(); }
-    void doContinue() { emit continueRun(); }
-    void doWaitForSsh() { emit waitForSsh(); }
-    void doWaitForDot() { emit waitForDot(); }
+    bool canQuit() const { return _canQuit; }
+    void setCanQuit(bool value) { _canQuit = value; emit canQuitChanged(); }
+    bool canBack() const { return _canBack; }
+    void setCanBack(bool value) { _canBack = value; emit canBackChanged(); }
+    bool canContinue() const { return _canContinue; }
+    void setCanContinue(bool value) { _canContinue = value; emit canContinueChanged(); }
+
+    void doFinish() { setCanBack(true); emit runFinished(); }
+    void doFail() { setCanBack(true); emit runFailed(); }
+    void doWaitForSsh() { setCanContinue(true); emit waitForSsh(); }
+    void doWaitForDot() { setCanContinue(true); emit waitForDot(); }
 signals:
     void canQuitChanged();
     void canBackChanged();

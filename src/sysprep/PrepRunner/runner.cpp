@@ -45,10 +45,15 @@ void Runner::startRunner() {
 }
 
 void Runner::stopRunner() {
+    setCanBack(true);
+    setCanContinue(false);
     emit runFinished();
 }
 
 void Runner::continueRunner() {
+    setCanBack(false);
+    setCanContinue(false);
+
     QCoreApplication::processEvents();
     if( _currentTask!=nullptr) delete _currentTask;
 

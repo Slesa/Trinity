@@ -28,7 +28,7 @@ protected:
     Logger& _logger;
 
 private:
-    static void appendTask(QList<RunTask*>* list, RunTask* task);
+    static void appendTask(QList<RunTask*>* list, Runner& runner, RunTask* task);
 };
 
 #endif // RUNTASK_H

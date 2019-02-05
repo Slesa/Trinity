@@ -69,18 +69,19 @@ Control {
         Button {
             text: qsTr("&Close")
             height: parent.height
+            enabled: runner.canQuit
             onClicked: Qt.quit()
         }
         Button {
             text: qsTr("&Back")
             height: parent.height
-            visible: runner.canBack
+            enabled: runner.canBack
             onClicked: runner.stopRunner()
         }
         Button {
             text: qsTr("Co&ntinue")
             height: parent.height
-            visible: runner.canContinue
+            enabled: runner.canContinue
             onClicked: runner.continueRunner()
         }
     }

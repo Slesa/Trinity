@@ -14,17 +14,19 @@ QList<RunTask*>* RunTask::createTasks(Runner& runner, Settings& settings, Logger
     auto result = new QList<RunTask*>();
 
     auto installSshKeyTask = new InstallSshKeyTask(runner, settings, logger);
-    appendTask(result, installSshKeyTask);
+    appendTask(result, runner, installSshKeyTask);
 
     auto getDotFilesTask = new GetDotFilesTask(runner, settings, logger);
-    appendTask(result, getDotFilesTask);
+    appendTask(result, runner, getDotFilesTask);
 
     return result;
 }
 
-void RunTask::appendTask(QList<RunTask*>* list, RunTask* task) {
-    if( task->shouldExecute() )
+void RunTask::appendTask(QList<RunTask*>* list, Runner& runner, RunTask* task) {
+    if( task->shouldExecute() ) {
+        connect(task, SIGNAL(finished()), &runner, SLOT(cont));
         list->append(task);
+    }
     else
         delete task;
 }
