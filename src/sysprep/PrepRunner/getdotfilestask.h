@@ -15,6 +15,8 @@ public:
 
 private slots:
     void onDotFileExit(int exitCode, QProcess::ExitStatus exitStatus);
+    void readStdOut();
+    void readStdErr();
 
 private:
     QProcess* _procDotFiles;

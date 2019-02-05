@@ -36,7 +36,7 @@ public:
     void doFinish() { setCanBack(true); emit runFinished(); }
     void doFail() { setCanBack(true); emit runFailed(); }
     void doWaitForSsh() { setCanContinue(true); emit waitForSsh(); }
-    void doWaitForDot() { setCanContinue(true); emit waitForDot(); }
+    void doWaitForDot() { emit waitForDot(); }
 signals:
     void canQuitChanged();
     void canBackChanged();

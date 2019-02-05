@@ -20,6 +20,8 @@ void GetDotFilesTask::execute() {
     auto path = pathDotFiles();
     _procDotFiles = new QProcess(this);
     connect(_procDotFiles, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(onDotFileExit(int, QProcess::ExitStatus)));
+    connect(_procDotFiles, SIGNAL(readyReadStandardOutput()), this, SLOT(readStdOut()));
+    connect(_procDotFiles, SIGNAL(readyReadStandardError()), this, SLOT(readStdErr()));
     QStringList params;
     if (QDir(path).exists()) {
         _procDotFiles->setWorkingDirectory(path);
@@ -31,8 +33,20 @@ void GetDotFilesTask::execute() {
         _logger.appendLog("[...] cloning from server");
         params << "clone" << "git@github.com:slesa/DotFiles" << strPathDotFiles;
     }
-    _procDotFiles->start("git", params);
+    _procDotFiles->startDetached("git", params);
+    _procDotFiles->waitForStarted();
     _runner.doWaitForDot();
+}
+
+void GetDotFilesTask::readStdOut() {
+    auto output = QString(_procDotFiles->readAllStandardOutput()).split("\n");
+    foreach( auto line, output )
+        _logger.appendLog(line);
+}
+void GetDotFilesTask::readStdErr() {
+    auto output = QString(_procDotFiles->readAllStandardError()).split("\n");
+    foreach( auto line, output )
+        _logger.appendLog("Error: "+line);
 }
 
 void GetDotFilesTask::onDotFileExit(int exitCode, QProcess::ExitStatus exitStatus) {

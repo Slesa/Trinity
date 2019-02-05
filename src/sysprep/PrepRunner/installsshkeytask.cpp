@@ -21,7 +21,7 @@ void InstallSshKeyTask::execute() {
     _logger.appendLog(QString("Installing SSH keys in %1...").arg(filename));
     if (QFile::exists(filename)) {
         _logger.appendLog("[Skip] SSH file already present");
-        _runner.doFail();
+        _runner.continueRunner();
         return;
     }
 
