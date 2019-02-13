@@ -10,6 +10,17 @@ using server.asp.Services;
 
 namespace server.asp
 {
+    /* 
+    "@angular/animations": "~7.2.0",
+    "@angular/common": "~7.2.0",
+    "@angular/compiler": "~7.2.0",
+    "@angular/core": "~7.2.0",
+    "@angular/forms": "~7.2.0",
+    "@angular/http": "~7.2.0",
+    "@angular/platform-browser": "~7.2.0",
+    "@angular/platform-browser-dynamic": "~7.2.0",
+    "@angular/router": "~7.2.0",
+     */
     // https://github.com/JuergenGutsch/dotnetpro-ecollector.git
     public class Startup
     {
