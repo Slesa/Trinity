@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="f65253954b66e929a8b4d5ecaf61f9129f8cec64" datatype="html" approved="yes">
+        <source>Dashboard</source> <target state="translated">Tableau de bord</target><context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <note priority="1" from="description">Navigation link to the dashboard</note>
+      </trans-unit>
+      <trans-unit id="33a29e29d6c1ae044e8e3350733a49c8dbeb18af" datatype="html" approved="yes">
+        <source>Heroes</source> <target state="translated">Héros</target><context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <note priority="1" from="description">Navigation link to the list of heroes</note>
+      </trans-unit>
+      <trans-unit id="93c5bd00de01e27e9d36a79a31c5b2217a9b1503" datatype="html" approved="yes">
+        <source>Hero name: <x id="TAG_INPUT" ctype="x-input" equiv-text="&lt;input/&gt;"/> </source> <target state="translated">Nom d'héro</target><context-group purpose="location">
+          <context context-type="sourcefile">app/heroes/heroes.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <note priority="1" from="description"> Input label</note>
+        <note priority="1" from="meaning">Hero component </note>
+      </trans-unit>
+      <trans-unit id="b8c45d39397df7aecb52009e3611e16d4d558e95" datatype="html" approved="yes">
+        <source>save</source> <target state="translated">saufgarder</target><context-group purpose="location">
+          <context context-type="sourcefile">app/hero-detail/hero-detail.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <note priority="1" from="description"> save button</note>
+        <note priority="1" from="meaning">Hero detail </note>
+      </trans-unit>
+      <trans-unit id="bc653b36fda1d38b8e4badbc87dd384909c35bcf" datatype="html" approved="yes">
+        <source>back</source> <target state="translated">revenir</target><context-group purpose="location">
+          <context context-type="sourcefile">app/hero-detail/hero-detail.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <note priority="1" from="description"> back button</note>
+        <note priority="1" from="meaning">Hero detail </note>
+      </trans-unit>
+      <trans-unit id="71cfe127262761a9110b6b8c59478c79e97e2865" datatype="html" approved="yes">
+        <source>clear</source> <target state="translated">frayer</target><context-group purpose="location">
+          <context context-type="sourcefile">app/messages/messages.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <note priority="1" from="description"> Clear button</note>
+        <note priority="1" from="meaning">Messages </note>
+      </trans-unit>
+      <trans-unit id="d6be206f1d429c75c6bde189702a3a7dc632ac07" datatype="html" approved="yes">
+        <source>Top Heroes</source> <target state="translated">Haut d'héros</target><context-group purpose="location">
+          <context context-type="sourcefile">app/dashboard/dashboard.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description"> title</note>
+        <note priority="1" from="meaning">Dashboard </note>
+      </trans-unit>
+      <trans-unit id="cdc1984baf4837aa9363b0236ccb20f5d76d28fa" datatype="html" approved="yes">
+        <source>Hero Search</source> <target state="translated">Cherche héros</target><context-group purpose="location">
+          <context context-type="sourcefile">app/hero-search/hero-search.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <note priority="1" from="description"> Title</note>
+        <note priority="1" from="meaning">Hero search </note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

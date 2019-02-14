@@ -3,9 +3,9 @@
   <h2>{{hero.name | uppercase}} Details</h2>
   <div><span>id: </span>{{hero.id}}</div>
   <div><label>name:
-      <input [(ngModel)]="hero.name" placeholder="enter name">
+      <input [(ngModel)]="hero.name" placeholder="enter name" i18n="Hero detail | input placeholder">
     </label>
   </div>
-  <button (click)="save()">save</button>
-  <button (click)="goBack()">back</button>
+  <button (click)="save()" i18n="Hero detail | save button">save</button>
+  <button (click)="goBack()" i18n="Hero detail | back button">back</button>
 </div>
