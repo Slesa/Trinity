@@ -8,7 +8,7 @@ import { Observable, of } from 'rxjs';
 import { ICollectModel } from './icollect-model';
 import { ITimelineModel } from '../../shared/itimeline-model';
 import { ITimelineRequestModel } from '../../shared/itimeline-request-model';
-import { UploadService } from './upload.service';
+//import { UploadService } from './upload.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,10 +20,10 @@ export class CollectService {
 
   constructor(
     private _http: HttpClient, 
-    private _uploadService: UploadService
+    //private _uploadService: UploadService
   ) { }
 
-  Collect(collectModel: ICollectModel): Promise<boolean> {
+  /* Collect(collectModel: ICollectModel): Promise<boolean> {
     console.log(collectModel.text);
 
     let files: File[] = collectModel.files;
@@ -31,7 +31,7 @@ export class CollectService {
     return this._uploadService.upload(`${this._service}api/collect`, collectModel.text, files)
 //        .then(result => this.ForceReloadTimeline(this))
 //        .catch(this.handleError);
-  }
+  } */
   /*
   private ForceReloadTimeline(that: CollectService) {
     that.TimelineUpdated.next(true);

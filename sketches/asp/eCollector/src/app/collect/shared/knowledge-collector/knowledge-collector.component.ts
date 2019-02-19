@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CollectService } from '../collect/shared/collect.service';
-import { ICollectModel } from '../collect/shared/icollect-model';
+import { CollectService } from '../../shared/collect.service';
+import { ICollectModel } from '../../shared/icollect-model';
 
 @Component({
   selector: 'app-knowledge-collector',
@@ -17,7 +17,7 @@ export class KnowledgeCollectorComponent implements OnInit {
   public text: string = "";
   public files: File[];
   public fileSelector: any;
-
+/*
   public save() {
     let model: ICollectModel = {
       text: this.text,
@@ -32,7 +32,7 @@ export class KnowledgeCollectorComponent implements OnInit {
         }
       });
   }
-
+*/
   public onChange(event) {
     this.fileSelector = event.srcElement;
     this.files = this.fileSelector.files;

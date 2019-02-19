@@ -1,0 +1,5 @@
+<div class="panel panel-default timeline"
+  *ngFor="let item of timeline.items"
+  (windows:scroll)="nScroll($event)">
+    <app-timelime-item [item]="item"></app-timelime-item>
+</div>
